@@ -1,0 +1,6 @@
+{
+  "name": "RdCloth — Modern Apparel & Streetwear",
+  "description": "Modern apparel & custom clothing brand e-commerce platform with editorial lookbooks, interactive custom apparel builder, order tracking, and store management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
