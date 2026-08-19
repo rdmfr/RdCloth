@@ -155,40 +155,24 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
       </div>
 
-      {/* Info Block */}
-      <div className="pt-3.5 pb-1 space-y-1">
-        <div className="flex items-center justify-between text-[11px] font-mono-code text-[#706E6B]">
-          <span className="uppercase">{product.sku}</span>
-          <span className="uppercase text-[10px]">{product.category}</span>
+      {/* Info Block - Museum Label Concept */}
+      <div className="pt-3.5 pb-1 space-y-1.5 border-t border-[#E0DFD8] mt-2">
+        <div className="flex items-center justify-between text-[10px] font-mono-code text-[#706E6B] tracking-wider">
+          <span>{product.artifactCode || `RDC / 00${product.id.replace('prod-', '')}`}</span>
+          <span>{product.chapter || 'CHAPTER I'}</span>
         </div>
 
-        <h3 className="font-heading text-sm font-bold uppercase tracking-tight text-[#141414] group-hover:text-[#F27D26] transition-colors leading-snug">
+        <h3 className="font-cinzel text-xs font-bold uppercase tracking-widest text-[#141414] group-hover:text-[#C5A059] transition-colors leading-snug">
           {product.name}
         </h3>
 
-        <div className="flex items-center justify-between pt-1">
-          <div className="flex items-baseline space-x-2">
-            <span className="text-xs font-mono-code font-bold text-[#141414]">
-              {formatIDR(product.price)}
-            </span>
-            {product.originalPrice && (
-              <span className="text-[10px] font-mono-code text-[#8C8984] line-through">
-                {formatIDR(product.originalPrice)}
-              </span>
-            )}
-          </div>
-
-          {/* Color Swatch Dots */}
-          <div className="flex items-center space-x-1">
-            {product.colors.slice(0, 3).map((c) => (
-              <span
-                key={c.name}
-                title={c.name}
-                className="w-2.5 h-2.5 rounded-full border border-[#E0DFD8] shadow-xs inline-block"
-                style={{ backgroundColor: c.hex }}
-              />
-            ))}
-          </div>
+        <div className="flex items-center justify-between pt-1 border-t border-[#E0DFD8]/40">
+          <span className="text-xs font-mono-code font-bold text-[#141414]">
+            {formatIDR(product.price)}
+          </span>
+          <span className="text-[10px] font-cinzel text-[#C5A059] font-bold tracking-wider group-hover:translate-x-0.5 transition-transform">
+            VIEW ARTIFACT →
+          </span>
         </div>
       </div>
     </div>

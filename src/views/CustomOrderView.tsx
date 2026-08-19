@@ -215,14 +215,14 @@ export const CustomOrderView: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Title */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
-          <span className="text-xs font-mono-code uppercase tracking-[0.3em] text-[#706E6B]">
+          <span className="text-xs font-cinzel text-[#C5A059] font-bold uppercase tracking-[0.3em]">
             CUSTOM STUDIO
           </span>
-          <h1 className="font-heading text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight text-[#141414] leading-none">
-            MAKE IT YOURS.
+          <h1 className="font-cinzel text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight text-[#141414] leading-none">
+            WRITE YOUR OWN STORY.
           </h1>
           <p className="text-sm sm:text-base font-mono-code text-[#706E6B] max-w-xl mx-auto">
-            YOUR IDEA. YOUR SHIRT. Turn your idea into something you can actually wear.
+            Not every story has been written yet. Turn your personal idea into architectural heavyweight apparel.
           </p>
         </div>
 

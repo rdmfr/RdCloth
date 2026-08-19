@@ -32,9 +32,9 @@ export const Header: React.FC = () => {
 
   const navLinks = [
     { label: 'SHOP', view: 'shop' },
+    { label: 'ARCHIVE', view: 'collection' },
     { label: 'CUSTOM', view: 'custom' },
-    { label: 'COLLECTION', view: 'collection' },
-    { label: 'ABOUT', view: 'about' },
+    { label: 'STORY', view: 'about' },
   ];
 
   return (
@@ -52,7 +52,7 @@ export const Header: React.FC = () => {
             <button
               id="mobile-menu-btn"
               onClick={() => setIsMobileMenuOpen(true)}
-              className="p-1.5 text-[#141414] hover:text-[#F27D26] transition-colors"
+              className="p-1.5 text-[#141414] hover:text-[#C5A059] transition-colors"
               aria-label="Open menu"
             >
               <Menu className="w-5 h-5" />
@@ -98,16 +98,16 @@ export const Header: React.FC = () => {
               onClick={() => setCurrentView('home')}
               className="group inline-flex flex-col items-center md:items-start"
             >
-              <div className="flex items-center space-x-1.5">
-                <span className="font-heading text-xl sm:text-2xl font-black tracking-tighter uppercase text-[#141414] transition-transform group-hover:scale-[1.02]">
-                  RdCloth
+              <div className="flex items-center space-x-2">
+                <span className="font-cinzel text-xl sm:text-2xl font-black tracking-widest uppercase text-[#141414] transition-transform group-hover:scale-[1.01]">
+                  RDCLOTH
                 </span>
                 <span className="text-[10px] font-cinzel text-[#C5A059] font-bold tracking-widest hidden sm:inline-block">
-                  · 🏛️ MMXXIV
+                  · MMXXVI
                 </span>
               </div>
-              <span className="text-[9px] tracking-[0.28em] uppercase text-[#706E6B] font-mono-code -mt-1 hidden sm:block">
-                WEAR YOUR IDEA <span className="text-[#C5A059] font-serif-greek font-bold italic">// Γνῶθι σεαυτόν</span>
+              <span className="text-[9px] tracking-[0.24em] uppercase text-[#706E6B] font-mono-code -mt-0.5 hidden sm:block">
+                ANCIENT STORIES. MODERN MEANINGS.
               </span>
             </button>
           </div>
@@ -260,7 +260,7 @@ export const Header: React.FC = () => {
                 }}
                 className="text-left text-sm font-mono-code tracking-widest uppercase text-[#F27D26] hover:underline pt-2"
               >
-                ADMIN DASHBOARD & CMS ⚙
+                ADMIN DASHBOARD & CMS
               </button>
             </nav>
           </div>

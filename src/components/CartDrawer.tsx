@@ -68,7 +68,7 @@ export const CartDrawer: React.FC = () => {
                   <span>
                     {remainingForFreeShipping > 0
                       ? `Add ${formatIDR(remainingForFreeShipping)} for FREE Shipping`
-                      : 'FREE SHIPPING UNLOCKED! 🎉'}
+                      : 'FREE SHIPPING UNLOCKED'}
                   </span>
                 </span>
                 <span className="text-[#141414] font-bold">{progressPercent}%</span>

@@ -191,15 +191,11 @@ export const ProductDetailView: React.FC = () => {
           <div className="lg:col-span-5 space-y-6">
             <div className="space-y-2 border-b border-[#E0DFD8] pb-6">
               <div className="flex items-center justify-between text-xs font-mono-code text-[#706E6B]">
-                <span className="uppercase">{product.sku}</span>
-                <div className="flex items-center space-x-1 text-[#F27D26]">
-                  <Star className="w-3.5 h-3.5 fill-[#F27D26]" />
-                  <span className="font-bold text-[#141414]">{product.rating}</span>
-                  <span className="text-[#706E6B]">({product.reviewCount || productReviews.length})</span>
-                </div>
+                <span className="font-cinzel text-[#C5A059] font-bold">{product.artifactCode || `RDC / 00${product.id.replace('prod-', '')}`}</span>
+                <span className="font-cinzel text-[#141414] font-bold">{product.chapter || 'CHAPTER I'}</span>
               </div>
 
-              <h1 className="font-heading text-3xl sm:text-4xl font-black uppercase tracking-tight text-[#141414] leading-tight">
+              <h1 className="font-cinzel text-2xl sm:text-3xl font-black uppercase tracking-widest text-[#141414] leading-tight pt-1">
                 {product.name}
               </h1>
 
@@ -223,6 +219,33 @@ export const ProductDetailView: React.FC = () => {
                 </span>
               </div>
             </div>
+
+            {/* THE STORY NARRATIVE SECTION */}
+            <div className="p-4 bg-[#FFFFFF] border border-[#E0DFD8] space-y-2.5">
+              <span className="text-xs font-cinzel text-[#C5A059] font-bold tracking-widest uppercase block">
+                THE STORY
+              </span>
+              <p className="text-xs font-mono-code text-[#54524F] leading-relaxed italic">
+                {product.storyDescription || 'Odysseus spent years trying to return home. But sometimes, moving forward means accepting that the place you once called home no longer exists. This piece represents the moment you stop looking back.'}
+              </p>
+            </div>
+
+            {/* SYMBOLISM BREAKDOWN SECTION */}
+            {product.symbolism && product.symbolism.length > 0 && (
+              <div className="p-4 bg-[#FFFFFF] border border-[#E0DFD8] space-y-2">
+                <span className="text-xs font-cinzel text-[#141414] font-bold tracking-widest uppercase block border-b border-[#E0DFD8] pb-1.5">
+                  SYMBOLISM
+                </span>
+                <div className="grid grid-cols-2 gap-2 text-xs font-mono-code pt-1">
+                  {product.symbolism.map((item, idx) => (
+                    <div key={idx} className="space-y-0.5">
+                      <span className="text-[#C5A059] font-bold block">{item.label}</span>
+                      <span className="text-[#706E6B] block text-[11px] leading-tight">{item.meaning}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Description */}
             <p className="text-xs sm:text-sm font-mono-code text-[#54524F] leading-relaxed">

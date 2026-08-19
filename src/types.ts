@@ -50,6 +50,8 @@ export interface Product {
   id: string;
   slug: string;
   sku: string;
+  artifactCode?: string; // e.g. "RDC / 001"
+  chapter?: string; // e.g. "CHAPTER I"
   name: string;
   tagline?: string;
   price: number;
@@ -58,6 +60,8 @@ export interface Product {
   collectionId?: string;
   badge?: ProductBadge;
   description: string;
+  storyDescription?: string; // Mythological / human story narrative
+  symbolism?: { label: string; meaning: string }[];
   details: string[];
   material: string;
   fit: string; // 'Boxy Streetwear Fit' | 'Relaxed Fit' | 'Standard Fit'
