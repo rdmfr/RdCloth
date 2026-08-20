@@ -12,6 +12,7 @@ The visual direction uses classical references without making them the product: 
 - Custom order form for garment type, placement, print method, quantity, and artwork details.
 - Order tracking by invoice code.
 - Admin view for editing products, homepage content, settings, and order state.
+- Admin login with protected server-side admin endpoints.
 - Responsive layouts for desktop and mobile.
 
 ## Stack
@@ -58,11 +59,13 @@ public/         Static images and other public assets
 server.ts       Local Express server and Vite integration
 ```
 
-## Notes
+## Production Readiness
 
-The project currently uses seeded data from `src/data/initialData.ts`. It is suitable for prototyping the storefront experience; payment processing, production authentication, and a persistent database still need to be connected before launch.
+The project currently uses seeded in-memory data from `src/data/initialData.ts`. The admin login is suitable for local development, but payment processing, persistent storage, production-grade authentication, upload storage, and operational monitoring still need to be connected before launch.
 
 Product and homepage content can be edited through the admin view during local development. Keep real customer data and credentials out of the seed files and repository.
+
+See [docs/PRODUCTION_ROADMAP.md](docs/PRODUCTION_ROADMAP.md) for the security, database, payment, dashboard, deployment, and testing work required before public launch.
 
 ## License
 

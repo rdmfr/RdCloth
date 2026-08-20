@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import crypto from 'crypto';
 import { createServer as createViteServer } from 'vite';
 import { 
   INITIAL_PRODUCTS, 
@@ -21,6 +22,34 @@ let settingsData: StoreSettings = { ...INITIAL_SETTINGS };
 let orders: Order[] = [...INITIAL_ORDERS];
 let customOrders: CustomOrder[] = [...INITIAL_CUSTOM_ORDERS];
 let subscribers: { email: string; date: string }[] = [];
+const adminSessions = new Map<string, { email: string; expiresAt: number }>();
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@rdcloth.id';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'rdcloth-admin-2026';
+const SESSION_TTL_MS = 8 * 60 * 60 * 1000;
+
+const getSession = (req: express.Request) => {
+  const cookieHeader = req.headers.cookie || '';
+  const sessionToken = cookieHeader
+    .split(';')
+    .map(cookie => cookie.trim())
+    .find(cookie => cookie.startsWith('rdcloth_admin_session='))
+    ?.split('=')[1];
+  const session = sessionToken ? adminSessions.get(sessionToken) : undefined;
+
+  if (!session || session.expiresAt < Date.now()) {
+    if (sessionToken) adminSessions.delete(sessionToken);
+    return null;
+  }
+
+  return session;
+};
+
+const requireAdmin = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  if (!getSession(req)) {
+    return res.status(401).json({ success: false, error: 'Admin authentication required' });
+  }
+  next();
+};
 
 async function startServer() {
   const app = express();
@@ -38,12 +67,46 @@ async function startServer() {
     res.json({ status: 'ok', store: 'RdCloth Apparel Studio' });
   });
 
+  // ==========================================
+  // ADMIN AUTHENTICATION
+  // ==========================================
+
+  app.post('/api/auth/login', (req, res) => {
+    const { email, password } = req.body;
+    if (typeof email !== 'string' || typeof password !== 'string' || email !== ADMIN_EMAIL || password !== ADMIN_PASSWORD) {
+      return res.status(401).json({ success: false, error: 'Email atau password admin salah' });
+    }
+
+    const token = crypto.randomBytes(32).toString('hex');
+    adminSessions.set(token, { email, expiresAt: Date.now() + SESSION_TTL_MS });
+    res.setHeader('Set-Cookie', `rdcloth_admin_session=${token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${SESSION_TTL_MS / 1000}${process.env.NODE_ENV === 'production' ? '; Secure' : ''}`);
+    res.json({ success: true, data: { email, role: 'ADMIN' } });
+  });
+
+  app.get('/api/auth/me', (req, res) => {
+    const session = getSession(req);
+    if (!session) return res.status(401).json({ success: false, error: 'Not authenticated' });
+    res.json({ success: true, data: { email: session.email, role: 'ADMIN' } });
+  });
+
+  app.post('/api/auth/logout', (req, res) => {
+    const cookieHeader = req.headers.cookie || '';
+    const sessionToken = cookieHeader
+      .split(';')
+      .map(cookie => cookie.trim())
+      .find(cookie => cookie.startsWith('rdcloth_admin_session='))
+      ?.split('=')[1];
+    if (sessionToken) adminSessions.delete(sessionToken);
+    res.setHeader('Set-Cookie', 'rdcloth_admin_session=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0');
+    res.json({ success: true });
+  });
+
   // 1. PRODUCTS API
   app.get('/api/products', (req, res) => {
     const { category, collection, search, sort, includeUnpublished } = req.query;
     let list = [...products];
 
-    if (includeUnpublished !== 'true') {
+    if (includeUnpublished !== 'true' || !getSession(req)) {
       list = list.filter(p => p.isPublished);
     }
 
@@ -87,7 +150,7 @@ async function startServer() {
     res.json({ success: true, data: product });
   });
 
-  app.post('/api/products', (req, res) => {
+  app.post('/api/products', requireAdmin, (req, res) => {
     try {
       const newProduct: Product = {
         ...req.body,
@@ -104,7 +167,7 @@ async function startServer() {
     }
   });
 
-  app.put('/api/products/:id', (req, res) => {
+  app.put('/api/products/:id', requireAdmin, (req, res) => {
     const { id } = req.params;
     const index = products.findIndex(p => p.id === id);
     if (index === -1) {
@@ -114,7 +177,7 @@ async function startServer() {
     res.json({ success: true, data: products[index] });
   });
 
-  app.delete('/api/products/:id', (req, res) => {
+  app.delete('/api/products/:id', requireAdmin, (req, res) => {
     const { id } = req.params;
     const initialLen = products.length;
     products = products.filter(p => p.id !== id);
@@ -129,7 +192,7 @@ async function startServer() {
     res.json({ success: true, data: collections });
   });
 
-  app.post('/api/collections', (req, res) => {
+  app.post('/api/collections', requireAdmin, (req, res) => {
     const newCol: Collection = {
       ...req.body,
       id: `col-${Date.now()}`,
@@ -139,7 +202,7 @@ async function startServer() {
     res.status(201).json({ success: true, data: newCol });
   });
 
-  app.put('/api/collections/:id', (req, res) => {
+  app.put('/api/collections/:id', requireAdmin, (req, res) => {
     const { id } = req.params;
     const index = collections.findIndex(c => c.id === id);
     if (index === -1) {
@@ -150,7 +213,7 @@ async function startServer() {
   });
 
   // 3. ORDERS API
-  app.get('/api/orders', (req, res) => {
+  app.get('/api/orders', requireAdmin, (req, res) => {
     res.json({ success: true, count: orders.length, data: orders });
   });
 
@@ -197,7 +260,7 @@ async function startServer() {
     }
   });
 
-  app.patch('/api/orders/:id/status', (req, res) => {
+  app.patch('/api/orders/:id/status', requireAdmin, (req, res) => {
     const { id } = req.params;
     const { status, note, trackingNumber, courier } = req.body;
     const order = orders.find(o => o.id.toLowerCase() === id.toLowerCase());
@@ -224,7 +287,7 @@ async function startServer() {
   });
 
   // 4. CUSTOM ORDERS API
-  app.get('/api/custom-orders', (req, res) => {
+  app.get('/api/custom-orders', requireAdmin, (req, res) => {
     res.json({ success: true, count: customOrders.length, data: customOrders });
   });
 
@@ -245,7 +308,7 @@ async function startServer() {
     }
   });
 
-  app.patch('/api/custom-orders/:id/status', (req, res) => {
+  app.patch('/api/custom-orders/:id/status', requireAdmin, (req, res) => {
     const { id } = req.params;
     const { status, adminNotes } = req.body;
     const item = customOrders.find(c => c.id === id);
@@ -292,7 +355,7 @@ async function startServer() {
     res.status(201).json({ success: true, data: newRev });
   });
 
-  app.patch('/api/reviews/:id/approve', (req, res) => {
+  app.patch('/api/reviews/:id/approve', requireAdmin, (req, res) => {
     const { id } = req.params;
     const { isApproved } = req.body;
     const rev = reviews.find(r => r.id === id);
@@ -301,7 +364,7 @@ async function startServer() {
     res.json({ success: true, data: rev });
   });
 
-  app.delete('/api/reviews/:id', (req, res) => {
+  app.delete('/api/reviews/:id', requireAdmin, (req, res) => {
     const { id } = req.params;
     reviews = reviews.filter(r => r.id !== id);
     res.json({ success: true, message: 'Review deleted' });
@@ -312,7 +375,7 @@ async function startServer() {
     res.json({ success: true, data: cmsData });
   });
 
-  app.put('/api/cms', (req, res) => {
+  app.put('/api/cms', requireAdmin, (req, res) => {
     cmsData = { ...cmsData, ...req.body };
     res.json({ success: true, data: cmsData });
   });
@@ -322,7 +385,7 @@ async function startServer() {
     res.json({ success: true, data: settingsData });
   });
 
-  app.put('/api/settings', (req, res) => {
+  app.put('/api/settings', requireAdmin, (req, res) => {
     settingsData = { ...settingsData, ...req.body };
     res.json({ success: true, data: settingsData });
   });

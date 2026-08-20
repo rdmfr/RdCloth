@@ -11,7 +11,6 @@ export const Header: React.FC = () => {
     setIsSearchOpen, 
     wishlist, 
     isAdmin, 
-    setIsAdmin,
     cms
   } = useStore();
 
@@ -179,8 +178,7 @@ export const Header: React.FC = () => {
             <button
               id="header-admin-btn"
               onClick={() => {
-                setIsAdmin(!isAdmin);
-                if (!isAdmin) setCurrentView('admin');
+                setCurrentView('admin');
               }}
               title="Store Management & CMS"
               className={`p-1.5 rounded transition-all text-xs flex items-center space-x-1 border ${

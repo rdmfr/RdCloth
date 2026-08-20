@@ -41,6 +41,7 @@ export const AdminView: React.FC = () => {
     updateCms,
     settings,
     updateSettings,
+    logoutAdmin,
     showToast,
     setCurrentView
   } = useStore();
@@ -144,6 +145,12 @@ export const AdminView: React.FC = () => {
           </div>
 
           <div className="flex items-center space-x-3">
+            <button
+              onClick={logoutAdmin}
+              className="px-4 py-2 bg-[#141414] text-[#F5F5F0] hover:bg-[#F27D26] text-xs font-mono-code uppercase transition-colors shadow-xs"
+            >
+              SIGN OUT
+            </button>
             <button
               onClick={() => setCurrentView('home')}
               className="px-4 py-2 bg-[#FFFFFF] border border-[#E0DFD8] hover:border-[#141414] text-xs font-mono-code uppercase text-[#706E6B] hover:text-[#141414] transition-colors shadow-xs"

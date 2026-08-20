@@ -18,9 +18,10 @@ import { TrackOrderView } from './views/TrackOrderView';
 import { AboutView } from './views/AboutView';
 import { AccountView } from './views/AccountView';
 import { AdminView } from './views/AdminView';
+import { AdminLoginView } from './views/AdminLoginView';
 
 const MainContent: React.FC = () => {
-  const { currentView } = useStore();
+  const { currentView, isAdmin } = useStore();
 
   // Scroll to top on view changes
   useEffect(() => {
@@ -46,7 +47,7 @@ const MainContent: React.FC = () => {
         {currentView === 'track-order' && <TrackOrderView />}
         {currentView === 'about' && <AboutView />}
         {currentView === 'account' && <AccountView />}
-        {currentView === 'admin' && <AdminView />}
+        {currentView === 'admin' && (isAdmin ? <AdminView /> : <AdminLoginView />)}
       </main>
 
       {/* Global Interactive Overlays */}

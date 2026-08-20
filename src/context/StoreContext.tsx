@@ -73,6 +73,8 @@ interface StoreContextType {
   setCurrentUser: (user: User | null) => void;
   isAdmin: boolean;
   setIsAdmin: (isAdmin: boolean) => void;
+  loginAdmin: (email: string, password: string) => Promise<void>;
+  logoutAdmin: () => Promise<void>;
   
   // Toasts
   toasts: Toast[];
@@ -153,6 +155,36 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
   // Toasts
   const [toasts, setToasts] = useState<Toast[]>([]);
+
+  const loginAdmin = async (email: string, password: string) => {
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const json = await res.json();
+    if (!res.ok || !json.success) {
+      throw new Error(json.error || 'Admin login failed');
+    }
+    setIsAdmin(true);
+    setCurrentUser({
+      id: 'admin-session',
+      name: 'RdCloth Admin',
+      email,
+      role: 'ADMIN',
+      addresses: [],
+      createdAt: new Date().toISOString()
+    });
+    await refreshData();
+    setCurrentView('admin');
+  };
+
+  const logoutAdmin = async () => {
+    await fetch('/api/auth/logout', { method: 'POST' }).catch(() => undefined);
+    setIsAdmin(false);
+    setCurrentView('home');
+    showToast('Admin session ended.', 'info');
+  };
 
   // Sync Cart to LocalStorage
   useEffect(() => {
@@ -235,7 +267,22 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   };
 
   useEffect(() => {
-    refreshData();
+    fetch('/api/auth/me')
+      .then(async res => (res.ok ? res.json() : null))
+      .then(async json => {
+        if (json?.success) {
+          setIsAdmin(true);
+          setCurrentUser({
+            id: 'admin-session',
+            name: 'RdCloth Admin',
+            email: json.data.email,
+            role: 'ADMIN',
+            addresses: []
+          });
+        }
+        await refreshData();
+      })
+      .catch(() => refreshData());
   }, []);
 
   // Cart operations
@@ -593,6 +640,8 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         setCurrentUser,
         isAdmin,
         setIsAdmin,
+        loginAdmin,
+        logoutAdmin,
         toasts,
         showToast,
         removeToast,
