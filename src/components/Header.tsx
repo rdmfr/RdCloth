@@ -9,6 +9,7 @@ export const Header: React.FC = () => {
     cartCount, 
     setIsCartOpen, 
     setIsSearchOpen, 
+    setIsSizeGuideOpen,
     wishlist, 
     cms
   } = useStore();
@@ -226,7 +227,7 @@ export const Header: React.FC = () => {
               </button>
               <button
                 onClick={() => {
-                  setCurrentView('size-guide');
+                  setIsSizeGuideOpen(true);
                   setIsMobileMenuOpen(false);
                 }}
                 className="text-left text-sm font-mono-code tracking-widest uppercase text-[#706E6B] hover:text-[#141414]"
