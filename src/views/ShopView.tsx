@@ -18,10 +18,10 @@ export const ShopView: React.FC = () => {
   const [showFiltersMobile, setShowFiltersMobile] = useState<boolean>(false);
 
   const categories: { id: string; label: string }[] = [
-    { id: 'all', label: 'ALL APPAREL' },
-    { id: 'tees', label: 'GRAPHIC & BLANK TEES' },
-    { id: 'hoodies', label: 'HOODIES & FLEECE' },
-    { id: 'accessories', label: 'TOTES & CAPS' },
+    { id: 'all', label: 'SEMUA PRODUK' },
+    { id: 'tees', label: 'KAUS GRAFIS & POLOS' },
+    { id: 'hoodies', label: 'HOODIE & FLEECE' },
+    { id: 'accessories', label: 'TAS & TOPI' },
   ];
 
   const availableSizes = ['S', 'M', 'L', 'XL', 'XXL', 'One Size'];
@@ -93,16 +93,16 @@ export const ShopView: React.FC = () => {
         {/* Header Title Block */}
         <div className="pb-8 border-b border-[#E0DFD8]">
           <div className="flex items-center space-x-2 text-xs font-mono-code text-[#706E6B] uppercase mb-1">
-            <span>CATALOG // 2026</span>
-            {showOnlyWishlist && <span className="text-[#F27D26] font-bold">• SAVED WISHLIST</span>}
+            <span>KATALOG // 2026</span>
+            {showOnlyWishlist && <span className="text-[#F27D26] font-bold">• PRODUK TERSIMPAN</span>}
           </div>
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
               <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#141414]">
-                {showOnlyWishlist ? 'YOUR WISHLIST' : 'CATALOG'}
+                {showOnlyWishlist ? 'PRODUK TERSIMPAN' : 'KATALOG'}
               </h1>
               <p className="text-xs font-mono-code text-[#706E6B] mt-1">
-                Showing {filteredProducts.length} items • Small batch engineered garments
+                Menampilkan {filteredProducts.length} produk • Pakaian produksi terbatas
               </p>
             </div>
 
@@ -112,7 +112,7 @@ export const ShopView: React.FC = () => {
               className="sm:hidden flex items-center justify-center space-x-2 py-2 px-4 bg-[#FFFFFF] border border-[#E0DFD8] text-xs font-mono-code uppercase font-bold text-[#141414]"
             >
               <SlidersHorizontal className="w-4 h-4" />
-              <span>{showFiltersMobile ? 'HIDE FILTERS' : 'FILTER & SORT'}</span>
+              <span>{showFiltersMobile ? 'SEMBUNYIKAN FILTER' : 'FILTER & URUTKAN'}</span>
             </button>
           </div>
         </div>
@@ -148,7 +148,7 @@ export const ShopView: React.FC = () => {
                     : 'bg-[#FFFFFF] text-[#706E6B] border-[#E0DFD8] hover:text-[#141414]'
                 }`}
               >
-                WISHLIST ({wishlist.length})
+                TERSIMPAN ({wishlist.length})
               </button>
             )}
           </div>
@@ -158,14 +158,14 @@ export const ShopView: React.FC = () => {
             {/* Collection Filter */}
             <div className="space-y-1.5">
               <label className="text-[10px] text-[#706E6B] uppercase font-bold tracking-wider">
-                COLLECTION
+                KOLEKSI
               </label>
               <select
                 value={selectedCollection}
                 onChange={e => setSelectedCollection(e.target.value)}
                 className="w-full bg-[#FFFFFF] border border-[#E0DFD8] text-[#141414] px-3 py-2 text-xs font-mono-code focus:outline-none focus:border-[#141414]"
               >
-                <option value="all">ALL COLLECTIONS</option>
+                <option value="all">SEMUA KOLEKSI</option>
                 {collections.map(col => (
                   <option key={col.id} value={col.id}>
                     {col.name} ({col.subtitle})
@@ -177,14 +177,14 @@ export const ShopView: React.FC = () => {
             {/* Size Filter */}
             <div className="space-y-1.5">
               <label className="text-[10px] text-[#706E6B] uppercase font-bold tracking-wider">
-                SIZE
+                UKURAN
               </label>
               <select
                 value={selectedSize}
                 onChange={e => setSelectedSize(e.target.value)}
                 className="w-full bg-[#FFFFFF] border border-[#E0DFD8] text-[#141414] px-3 py-2 text-xs font-mono-code focus:outline-none focus:border-[#141414]"
               >
-                <option value="all">ALL SIZES</option>
+                <option value="all">SEMUA UKURAN</option>
                 {availableSizes.map(s => (
                   <option key={s} value={s}>
                     {s}
@@ -196,14 +196,14 @@ export const ShopView: React.FC = () => {
             {/* Color Filter */}
             <div className="space-y-1.5">
               <label className="text-[10px] text-[#706E6B] uppercase font-bold tracking-wider">
-                COLORWAY
+                WARNA
               </label>
               <select
                 value={selectedColor}
                 onChange={e => setSelectedColor(e.target.value)}
                 className="w-full bg-[#FFFFFF] border border-[#E0DFD8] text-[#141414] px-3 py-2 text-xs font-mono-code focus:outline-none focus:border-[#141414]"
               >
-                <option value="all">ALL COLORS</option>
+                <option value="all">SEMUA WARNA</option>
                 {availableColors.map(c => (
                   <option key={c.name} value={c.name}>
                     {c.name}
@@ -215,17 +215,17 @@ export const ShopView: React.FC = () => {
             {/* Sort Filter */}
             <div className="space-y-1.5">
               <label className="text-[10px] text-[#706E6B] uppercase font-bold tracking-wider">
-                SORT BY
+                URUTKAN
               </label>
               <select
                 value={sortBy}
                 onChange={e => setSortBy(e.target.value)}
                 className="w-full bg-[#FFFFFF] border border-[#E0DFD8] text-[#141414] px-3 py-2 text-xs font-mono-code focus:outline-none focus:border-[#141414]"
               >
-                <option value="newest">NEWEST DROPS</option>
-                <option value="best-selling">BEST SELLING</option>
-                <option value="price-low">PRICE: LOW → HIGH</option>
-                <option value="price-high">PRICE: HIGH → LOW</option>
+                <option value="newest">TERBARU</option>
+                <option value="best-selling">PALING LARIS</option>
+                <option value="price-low">HARGA: TERMURAH</option>
+                <option value="price-high">HARGA: TERMAHAL</option>
               </select>
             </div>
           </div>
@@ -234,7 +234,7 @@ export const ShopView: React.FC = () => {
           {hasActiveFilters && (
             <div className="flex items-center justify-between pt-2">
               <div className="flex items-center space-x-2 text-[11px] font-mono-code text-[#706E6B]">
-                <span>Active filters applied.</span>
+                <span>Filter aktif diterapkan.</span>
               </div>
               <button
                 onClick={resetFilters}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '../context/StoreContext';
-import { Search, ShoppingBag, Heart, Menu, X, Shield, PackageCheck, User as UserIcon } from 'lucide-react';
+import { Search, ShoppingBag, Heart, Menu, X, PackageCheck, User as UserIcon } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const { 
@@ -10,7 +10,6 @@ export const Header: React.FC = () => {
     setIsCartOpen, 
     setIsSearchOpen, 
     wishlist, 
-    isAdmin, 
     cms
   } = useStore();
 
@@ -30,10 +29,11 @@ export const Header: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { label: 'SHOP', view: 'shop' },
-    { label: 'ARCHIVE', view: 'collection' },
-    { label: 'CUSTOM', view: 'custom' },
-    { label: 'STORY', view: 'about' },
+    { label: 'BERANDA', view: 'home' },
+    { label: 'BELANJA', view: 'shop' },
+    { label: 'KOLEKSI', view: 'collection' },
+    { label: 'PESANAN CUSTOM', view: 'custom' },
+    { label: 'CERITA KAMI', view: 'about' },
   ];
 
   return (
@@ -52,7 +52,7 @@ export const Header: React.FC = () => {
               id="mobile-menu-btn"
               onClick={() => setIsMobileMenuOpen(true)}
               className="p-1.5 text-[#141414] hover:text-[#C5A059] transition-colors"
-              aria-label="Open menu"
+              aria-label="Buka menu"
             >
               <Menu className="w-5 h-5" />
             </button>
@@ -60,7 +60,7 @@ export const Header: React.FC = () => {
               id="mobile-search-btn"
               onClick={() => setIsSearchOpen(true)}
               className="p-1.5 text-[#706E6B] hover:text-[#141414] transition-colors"
-              aria-label="Search"
+              aria-label="Cari produk"
             >
               <Search className="w-4 h-4" />
             </button>
@@ -120,7 +120,7 @@ export const Header: React.FC = () => {
               className="hidden md:flex items-center space-x-2 text-xs tracking-wider uppercase text-[#706E6B] hover:text-[#141414] transition-colors py-1.5 px-3 rounded border border-[#E0DFD8] bg-[#FFFFFF] shadow-sm hover:border-[#141414]"
             >
               <Search className="w-3.5 h-3.5" />
-              <span className="text-[11px] font-mono-code text-[#706E6B]">SEARCH</span>
+              <span className="text-[11px] font-mono-code text-[#706E6B]">CARI</span>
               <kbd className="text-[9px] bg-[#ECECE7] px-1.5 py-0.5 rounded text-[#706E6B] font-mono-code border border-[#E0DFD8]">⌘K</kbd>
             </button>
 
@@ -128,20 +128,20 @@ export const Header: React.FC = () => {
             <button
               id="header-track-btn"
               onClick={() => setCurrentView('track-order')}
-              title="Track Order"
+              title="Lacak pesanan"
               className={`text-xs uppercase tracking-wider font-semibold transition-colors hidden sm:flex items-center space-x-1.5 ${
                 currentView === 'track-order' ? 'text-[#141414]' : 'text-[#706E6B] hover:text-[#141414]'
               }`}
             >
               <PackageCheck className="w-4 h-4" />
-              <span className="hidden lg:inline text-[11px]">TRACK</span>
+              <span className="hidden lg:inline text-[11px]">LACAK</span>
             </button>
 
             {/* Wishlist */}
             <button
               id="header-wishlist-btn"
               onClick={() => setCurrentView('shop', 'wishlist')}
-              title="Wishlist"
+              title="Produk tersimpan"
               className="relative p-1.5 text-[#706E6B] hover:text-[#141414] transition-colors"
             >
               <Heart className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -154,7 +154,7 @@ export const Header: React.FC = () => {
             <button
               id="header-account-btn"
               onClick={() => setCurrentView('account')}
-              title="Customer Account"
+              title="Akun saya"
               className={`p-1.5 transition-colors ${
                 currentView === 'account' ? 'text-[#141414]' : 'text-[#706E6B] hover:text-[#141414]'
               }`}
@@ -174,24 +174,6 @@ export const Header: React.FC = () => {
               </span>
             </button>
 
-            {/* Admin shortcut button */}
-            <button
-              id="header-admin-btn"
-              onClick={() => {
-                setCurrentView('admin');
-              }}
-              title="Store Management & CMS"
-              className={`p-1.5 rounded transition-all text-xs flex items-center space-x-1 border ${
-                isAdmin 
-                  ? 'bg-[#F27D26]/10 text-[#F27D26] border-[#F27D26]/40' 
-                  : 'bg-transparent text-[#706E6B] hover:text-[#141414] border-transparent hover:border-[#E0DFD8]'
-              }`}
-            >
-              <Shield className="w-3.5 h-3.5" />
-              <span className="hidden xl:inline text-[10px] uppercase font-mono-code font-medium">
-                {isAdmin ? 'ADMIN ACTIVE' : 'ADMIN'}
-              </span>
-            </button>
           </div>
         </div>
       </header>
@@ -240,7 +222,7 @@ export const Header: React.FC = () => {
                 }}
                 className="text-left text-sm font-mono-code tracking-widest uppercase text-[#706E6B] hover:text-[#141414] pt-4 border-t border-[#E0DFD8]"
               >
-                TRACK YOUR ORDER →
+                LACAK PESANAN →
               </button>
               <button
                 onClick={() => {
@@ -249,16 +231,7 @@ export const Header: React.FC = () => {
                 }}
                 className="text-left text-sm font-mono-code tracking-widest uppercase text-[#706E6B] hover:text-[#141414]"
               >
-                SIZE GUIDE & SPECS →
-              </button>
-              <button
-                onClick={() => {
-                  setCurrentView('admin');
-                  setIsMobileMenuOpen(false);
-                }}
-                className="text-left text-sm font-mono-code tracking-widest uppercase text-[#F27D26] hover:underline pt-2"
-              >
-                ADMIN DASHBOARD & CMS
+                PANDUAN UKURAN & SPESIFIKASI →
               </button>
             </nav>
           </div>

@@ -56,23 +56,23 @@ export const Footer: React.FC = () => {
           {/* Core Navigation Links */}
           <div className="flex flex-wrap items-center gap-6 sm:gap-8 text-xs font-mono-code text-[#F4F4F5] font-semibold tracking-widest">
             <button onClick={() => setCurrentView('shop')} className="hover:text-[#C5A059] transition-colors">
-              SHOP
+              BELANJA
             </button>
             <span>·</span>
             <button onClick={() => setCurrentView('collection')} className="hover:text-[#C5A059] transition-colors">
-              ARCHIVE
+              KOLEKSI
             </button>
             <span>·</span>
             <button onClick={() => setCurrentView('custom')} className="hover:text-[#C5A059] transition-colors">
-              CUSTOM
+              PESANAN CUSTOM
             </button>
             <span>·</span>
             <button onClick={() => setCurrentView('about')} className="hover:text-[#C5A059] transition-colors">
-              STORY
+              CERITA KAMI
             </button>
             <span>·</span>
             <button onClick={() => setCurrentView('track-order')} className="hover:text-[#C5A059] transition-colors">
-              TRACK
+              LACAK PESANAN
             </button>
           </div>
 
@@ -110,7 +110,7 @@ export const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono-code text-[#71717A] space-y-3 sm:space-y-0">
           <div>
-            Reinterpreting classical mythology into architectural streetwear.
+            Menafsirkan kembali mitologi klasik menjadi streetwear arsitektural.
           </div>
           <div className="flex items-center space-x-4 text-[#C5A059] font-cinzel text-xs font-bold">
             <span>© MMXXVI RDCLOTH</span>

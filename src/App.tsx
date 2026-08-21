@@ -40,7 +40,7 @@ const MainContent: React.FC = () => {
       <main className="flex-1">
         {currentView === 'home' && <HomeView />}
         {currentView === 'shop' && <ShopView />}
-        {currentView === 'product' && <ProductDetailView />}
+        {(currentView === 'product' || currentView === 'product-detail') && <ProductDetailView />}
         {currentView === 'custom' && <CustomOrderView />}
         {currentView === 'collection' && <CollectionView />}
         {currentView === 'checkout' && <CheckoutView />}

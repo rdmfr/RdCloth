@@ -100,7 +100,7 @@ export const HomeView: React.FC = () => {
                 onClick={() => setCurrentView('shop')}
                 className="px-8 py-4 bg-[#C5A059] text-[#121214] hover:bg-[#D4AF37] transition-all font-cinzel font-bold text-xs uppercase tracking-widest flex items-center justify-center space-x-2 group shadow-lg"
               >
-                <span>ENTER CHAPTER I</span>
+                <span>LIHAT KOLEKSI</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
 
@@ -109,7 +109,7 @@ export const HomeView: React.FC = () => {
                 onClick={() => setCurrentView('custom')}
                 className="px-8 py-4 bg-[#18181B]/80 hover:bg-[#27272A] text-[#F5F5F0] border border-[#C5A059]/40 hover:border-[#C5A059] transition-all font-cinzel font-bold text-xs uppercase tracking-widest flex items-center justify-center space-x-2 shadow-sm backdrop-blur-md"
               >
-                <span>WRITE YOUR OWN STORY</span>
+                <span>BUAT PESANAN CUSTOM</span>
               </button>
             </motion.div>
           </div>
@@ -210,7 +210,7 @@ export const HomeView: React.FC = () => {
               onClick={() => setCurrentView('shop')}
               className="text-xs font-cinzel font-bold uppercase tracking-wider text-[#141414] hover:text-[#C5A059] flex items-center space-x-1 transition-colors"
             >
-              <span>VIEW ALL ARTIFACTS</span>
+              <span>LIHAT SEMUA PRODUK</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>

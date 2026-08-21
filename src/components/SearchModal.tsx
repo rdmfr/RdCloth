@@ -48,7 +48,7 @@ export const SearchModal: React.FC = () => {
           <Search className="w-5 h-5 text-[#706E6B] mr-3" />
           <input
             type="text"
-            placeholder="Search products, SKU, materials, drops..."
+            placeholder="Cari produk, SKU, bahan, koleksi..."
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
             autoFocus
@@ -72,8 +72,8 @@ export const SearchModal: React.FC = () => {
 
         {/* Quick Tags */}
         <div className="flex items-center space-x-2 pt-3 pb-4 overflow-x-auto text-[11px] font-mono-code text-[#706E6B]">
-          <span className="flex items-center text-[#8C8984]">
-            <Tag className="w-3 h-3 mr-1" /> QUICK:
+            <span className="flex items-center text-[#8C8984]">
+            <Tag className="w-3 h-3 mr-1" /> CEPAT:
           </span>
           {quickTags.map(tag => (
             <button
@@ -90,7 +90,7 @@ export const SearchModal: React.FC = () => {
         <div className="space-y-3 max-h-[60vh] overflow-y-auto divide-y divide-[#E0DFD8] pt-2">
           {filteredProducts.length === 0 ? (
             <div className="py-12 text-center text-xs font-mono-code text-[#706E6B]">
-              No apparel matched "{searchTerm}".
+              Tidak ada produk yang cocok dengan "{searchTerm}".
             </div>
           ) : (
             filteredProducts.map(product => (

@@ -44,7 +44,7 @@ export const CartDrawer: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-sm font-heading font-extrabold uppercase tracking-widest text-[#141414]">
-                  BAG ({cart.reduce((a, b) => a + b.quantity, 0)})
+                  TAS ({cart.reduce((a, b) => a + b.quantity, 0)})
                 </h2>
                 <p className="text-[11px] font-mono-code text-[#706E6B] uppercase mt-0.5">
                   RdCloth Small Batch Apparel
@@ -54,7 +54,7 @@ export const CartDrawer: React.FC = () => {
                 id="close-cart-drawer-btn"
                 onClick={() => setIsCartOpen(false)}
                 className="p-2 text-[#706E6B] hover:text-[#141414] transition-colors"
-                aria-label="Close cart"
+                  aria-label="Tutup keranjang"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -67,8 +67,8 @@ export const CartDrawer: React.FC = () => {
                   <Truck className="w-3.5 h-3.5 text-[#F27D26]" />
                   <span>
                     {remainingForFreeShipping > 0
-                      ? `Add ${formatIDR(remainingForFreeShipping)} for FREE Shipping`
-                      : 'FREE SHIPPING UNLOCKED'}
+                      ? `Tambah ${formatIDR(remainingForFreeShipping)} untuk GRATIS ONGKIR`
+                      : 'GRATIS ONGKIR AKTIF'}
                   </span>
                 </span>
                 <span className="text-[#141414] font-bold">{progressPercent}%</span>
@@ -90,10 +90,10 @@ export const CartDrawer: React.FC = () => {
                   <Truck className="w-6 h-6" />
                 </div>
                 <p className="font-heading text-lg font-bold uppercase text-[#141414] tracking-wide">
-                  Your bag is empty
+                  Tas Anda masih kosong
                 </p>
                 <p className="text-xs font-mono-code text-[#706E6B] mt-1 max-w-[200px]">
-                  Explore our latest streetwear drop and blanks.
+                  Jelajahi koleksi streetwear terbaru kami.
                 </p>
                 <button
                   id="cart-empty-shop-btn"
@@ -103,7 +103,7 @@ export const CartDrawer: React.FC = () => {
                   }}
                   className="mt-6 px-5 py-2.5 bg-[#141414] text-[#F5F5F0] font-semibold text-xs uppercase tracking-wider hover:bg-[#F27D26] transition-all"
                 >
-                  START BROWSING
+                  MULAI BELANJA
                 </button>
               </div>
             ) : (
@@ -200,9 +200,9 @@ export const CartDrawer: React.FC = () => {
                   <span className="text-[#141414] font-bold">{formatIDR(cartSubtotal)}</span>
                 </div>
                 <div className="flex justify-between text-[#706E6B] text-[11px]">
-                  <span>SHIPPING</span>
+                  <span>PENGIRIMAN</span>
                   <span className="text-[#141414] font-bold">
-                    {cartSubtotal >= freeShippingThreshold ? 'FREE' : 'Calculated at checkout'}
+                    {cartSubtotal >= freeShippingThreshold ? 'GRATIS' : 'Dihitung saat pembayaran'}
                   </span>
                 </div>
               </div>
@@ -215,13 +215,13 @@ export const CartDrawer: React.FC = () => {
                 }}
                 className="w-full py-3.5 bg-[#141414] text-[#F5F5F0] hover:bg-[#F27D26] transition-all font-heading font-black text-xs uppercase tracking-widest flex items-center justify-center space-x-2 shadow-sm"
               >
-                <span>PROCEED TO CHECKOUT</span>
+                <span>LANJUT KE PEMBAYARAN</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
               <div className="flex items-center justify-center space-x-2 text-[10px] font-mono-code text-[#706E6B] pt-1">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                <span>100% SECURE CHECKOUT • SATISFACTION GUARANTEED</span>
+                <span>PEMBAYARAN AMAN • KEPUASAN TERJAMIN</span>
               </div>
             </div>
           )}
