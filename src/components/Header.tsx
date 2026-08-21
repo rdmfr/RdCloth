@@ -42,11 +42,11 @@ export const Header: React.FC = () => {
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled || currentView !== 'home'
-            ? 'bg-[#F5F5F0]/90 backdrop-blur-md border-b border-[#E0DFD8] py-3.5 shadow-sm'
-            : 'bg-transparent py-5 border-b border-[#141414]/10'
+            ? 'bg-[#F5F5F0]/95 backdrop-blur-md border-b border-[#D8D6CE] py-3.5 shadow-sm'
+            : 'bg-[#F5F5F0]/95 backdrop-blur-md border-b border-[#D8D6CE] py-4 shadow-sm'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-[auto_1fr_auto] md:grid-cols-[1fr_auto_1fr] items-center gap-4 md:gap-8">
           {/* Mobile menu trigger */}
           <div className="flex items-center space-x-3 md:hidden">
             <button
@@ -68,7 +68,7 @@ export const Header: React.FC = () => {
           </div>
 
           {/* Left / Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center justify-self-start gap-5 lg:gap-7">
             {navLinks.map(link => {
               const isActive = currentView === link.view;
               return (
@@ -79,12 +79,12 @@ export const Header: React.FC = () => {
                   className={`text-xs uppercase tracking-[0.2em] font-semibold transition-all duration-200 relative py-1 ${
                     isActive
                       ? 'text-[#141414]'
-                      : 'text-[#706E6B] hover:text-[#141414]'
+                      : 'text-[#5F5D58] hover:text-[#C5A059]'
                   }`}
                 >
                   {link.label}
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#141414] transform translate-y-1" />
+                    <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#C5A059] transform translate-y-1" />
                   )}
                 </button>
               );
@@ -92,7 +92,7 @@ export const Header: React.FC = () => {
           </nav>
 
           {/* Logo Center */}
-          <div className="flex-1 md:flex-initial text-center md:text-left">
+          <div className="text-center md:justify-self-center">
             <button
               id="brand-logo-btn"
               onClick={() => setCurrentView('home')}
@@ -113,7 +113,7 @@ export const Header: React.FC = () => {
           </div>
 
           {/* Right actions */}
-          <div className="flex items-center space-x-3 sm:space-x-5">
+          <div className="flex items-center justify-self-end space-x-3 sm:space-x-5">
             {/* Desktop Search trigger */}
             <button
               id="header-search-btn"
