@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStore } from '../context/StoreContext';
 import { ProductCard } from '../components/ProductCard';
 import {
@@ -11,12 +11,20 @@ import {
   Instagram,
   Star,
   TrendingUp,
-  PackageCheck
+  PackageCheck,
+  X
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export const HomeView: React.FC = () => {
   const { products, collections, cms, setCurrentView, settings } = useStore();
+  const [showMarketplaceSelector, setShowMarketplaceSelector] = useState(false);
+
+  const marketplaceOptions = [
+    { key: 'shopee', label: 'Shopee', href: settings.shopeeUrl || '#' },
+    { key: 'tokopedia', label: 'Tokopedia', href: settings.tokopediaUrl || '#' },
+    { key: 'tiktokshop', label: 'TikTok Shop', href: settings.tiktokshopUrl || '#' }
+  ];
 
   // Featured 4 products for latest drop
   const featuredProducts = products.filter(p => p.isFeatured).slice(0, 4);
@@ -94,25 +102,24 @@ export const HomeView: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 max-w-xl"
+              className="pt-2 flex flex-row flex-wrap items-center gap-3 max-w-[520px]"
             >
               <button
                 id="hero-shop-cta"
                 onClick={() => setCurrentView('shop')}
-                className="px-7 py-4 bg-[#C5A059] text-[#121214] hover:bg-[#D4AF37] transition-all font-cinzel font-bold text-[10px] sm:text-xs uppercase tracking-[0.2em] flex items-center justify-center space-x-2 group shadow-lg w-full sm:w-auto"
+                className="px-4 py-3 bg-[#C5A059] text-[#121214] hover:bg-[#D4AF37] transition-all font-cinzel font-bold text-[10px] sm:text-[11px] uppercase tracking-[0.2em] flex items-center justify-center space-x-2 group shadow-lg w-fit min-w-[150px]"
               >
                 <span>Jelajahi Drop</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
 
-              <a
-                href={settings.shopeeUrl || settings.tiktokshopUrl || settings.tiktokUrl || 'https://instagram.com/rdcloth'}
-                target="_blank"
-                rel="noreferrer"
-                className="px-7 py-4 bg-[#18181B]/80 hover:bg-[#27272A] text-[#F5F5F0] border border-[#C5A059]/40 hover:border-[#C5A059] transition-all font-cinzel font-bold text-[10px] sm:text-xs uppercase tracking-[0.2em] flex items-center justify-center space-x-2 shadow-sm backdrop-blur-md w-full sm:w-auto"
+              <button
+                type="button"
+                onClick={() => setShowMarketplaceSelector(true)}
+                className="px-4 py-3 bg-[#121214]/90 hover:bg-[#17171A] text-[#F5F5F0] border border-[#C5A059]/40 hover:border-[#C5A059] transition-all font-cinzel font-bold text-[10px] sm:text-[11px] uppercase tracking-[0.18em] flex items-center justify-center shadow-sm backdrop-blur-md w-fit min-w-[150px]"
               >
-                <span>Beli di Marketplace</span>
-              </a>
+                Beli di Marketplace
+              </button>
             </motion.div>
           </div>
         </div>
@@ -134,6 +141,58 @@ export const HomeView: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {showMarketplaceSelector && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#141414]/55 px-4 backdrop-blur-[2px]">
+          <div className="w-full max-w-[640px] bg-[#F1EFEA] border border-[#D8D3C6] shadow-[0_30px_80px_rgba(0,0,0,0.28)] p-5 sm:p-7">
+            <div className="flex items-center justify-between mb-6">
+              <span className="text-[11px] font-cinzel font-bold uppercase tracking-[0.26em] text-[#C5A059]">
+                Pilih Marketplace
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowMarketplaceSelector(false)}
+                className="p-1 text-[#141414] hover:text-[#C5A059] transition-colors"
+                aria-label="Tutup marketplace selector"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <h3 className="font-cinzel text-[2.2rem] sm:text-[3rem] font-black uppercase leading-none tracking-[-0.07em] text-[#141414] mb-5">
+              RdCloth Studio
+            </h3>
+
+            <div className="space-y-3">
+              {marketplaceOptions.map(option => (
+                <a
+                  key={option.key}
+                  href={option.href}
+                  target={option.href !== '#' ? '_blank' : undefined}
+                  rel={option.href !== '#' ? 'noreferrer' : undefined}
+                  onClick={() => setShowMarketplaceSelector(false)}
+                  className="flex items-center justify-between w-full border border-[#D9D3C8] bg-[#F6F3EE] px-4 py-4 text-left transition-colors hover:border-[#141414] hover:bg-[#FFFDF9]"
+                >
+                  <span className="font-cinzel text-base sm:text-lg font-bold uppercase tracking-[0.18em] text-[#141414]">
+                    {option.label}
+                  </span>
+                  <span className="text-[10px] font-mono-code uppercase tracking-[0.2em] text-[#706E6B]">
+                    {option.href !== '#' ? 'Buka' : 'Segera'}
+                  </span>
+                </a>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setShowMarketplaceSelector(false)}
+              className="mt-5 w-full border border-[#D9D3C8] bg-[#ECE7DF] px-4 py-3 text-[10px] font-cinzel font-bold uppercase tracking-[0.3em] text-[#141414] hover:bg-[#E1D9CB] transition-colors"
+            >
+              Batal
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* 2. MARQUEE TICKER */}
       <section className="bg-[#121214] text-[#C5A059] py-3.5 overflow-hidden border-y border-[#27272A] select-none">
