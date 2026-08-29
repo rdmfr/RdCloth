@@ -64,18 +64,20 @@ export const HomeView: React.FC = () => {
 
         {/* Center Headlines */}
         <div className="relative z-10 max-w-7xl mx-auto w-full py-12 md:py-16">
-          <div className="max-w-4xl space-y-6">
+          <div className="max-w-[980px] space-y-5 md:space-y-6">
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="space-y-2"
+              className="space-y-2 md:space-y-3"
             >
-              <span className="text-xs sm:text-sm font-cinzel font-bold tracking-[0.3em] text-[#C5A059] block uppercase">
-                CHAPTER I — MOVING ON
+              <span className="text-[10px] sm:text-xs md:text-sm font-cinzel font-bold tracking-[0.22em] text-[#C5A059] block uppercase">
+                STORIES WORTH WEARING.
               </span>
-              <h1 className="font-cinzel text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight text-[#F5F5F0] leading-[0.9]">
-                ANCIENT STORIES. MODERN MEANINGS.
+              <h1 className="font-cinzel text-[2.9rem] sm:text-[4.5rem] md:text-[5.8rem] lg:text-[6.8rem] font-black uppercase tracking-[-0.06em] text-[#F5F5F0] leading-[0.82] max-w-[660px]">
+                EVERY DROP
+                <span className="block">TELLS A</span>
+                <span className="block">STORY.</span>
               </h1>
             </motion.div>
 
@@ -83,34 +85,34 @@ export const HomeView: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-base sm:text-lg font-mono-code text-[#D4D4D8] max-w-xl leading-relaxed backdrop-blur-xs bg-black/20 p-3 border-l-2 border-[#C5A059]"
+              className="text-xs sm:text-sm md:text-base font-mono-code text-[#D4D4D8] max-w-xl leading-relaxed backdrop-blur-xs bg-black/20 p-3 md:p-4 border-l-2 border-[#C5A059]"
             >
-              {cms.heroSubheadline || 'Every journey leaves something behind. Reinterpreting classical mythology and human endurance into architectural heavyweight streetwear.'}
+              {cms.heroSubheadline || 'Setiap drop membawa cerita yang berbeda. Streetwear premium dengan rasa yang kuat, ringan, dan mudah dibawa dalam keseharian.'}
             </motion.p>
 
-            {/* CTAs */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 max-w-md"
+              className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 max-w-xl"
             >
               <button
                 id="hero-shop-cta"
                 onClick={() => setCurrentView('shop')}
-                className="px-8 py-4 bg-[#C5A059] text-[#121214] hover:bg-[#D4AF37] transition-all font-cinzel font-bold text-xs uppercase tracking-widest flex items-center justify-center space-x-2 group shadow-lg"
+                className="px-7 py-4 bg-[#C5A059] text-[#121214] hover:bg-[#D4AF37] transition-all font-cinzel font-bold text-[10px] sm:text-xs uppercase tracking-[0.2em] flex items-center justify-center space-x-2 group shadow-lg w-full sm:w-auto"
               >
-                <span>LIHAT KOLEKSI</span>
+                <span>Jelajahi Drop</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
 
-              <button
-                id="hero-custom-cta"
-                onClick={() => setCurrentView('custom')}
-                className="px-8 py-4 bg-[#18181B]/80 hover:bg-[#27272A] text-[#F5F5F0] border border-[#C5A059]/40 hover:border-[#C5A059] transition-all font-cinzel font-bold text-xs uppercase tracking-widest flex items-center justify-center space-x-2 shadow-sm backdrop-blur-md"
+              <a
+                href={settings.shopeeUrl || settings.tiktokshopUrl || settings.tiktokUrl || 'https://instagram.com/rdcloth'}
+                target="_blank"
+                rel="noreferrer"
+                className="px-7 py-4 bg-[#18181B]/80 hover:bg-[#27272A] text-[#F5F5F0] border border-[#C5A059]/40 hover:border-[#C5A059] transition-all font-cinzel font-bold text-[10px] sm:text-xs uppercase tracking-[0.2em] flex items-center justify-center space-x-2 shadow-sm backdrop-blur-md w-full sm:w-auto"
               >
-                <span>BUAT PESANAN CUSTOM</span>
-              </button>
+                <span>Beli di Marketplace</span>
+              </a>
             </motion.div>
           </div>
         </div>
@@ -142,50 +144,50 @@ export const HomeView: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. CHAPTER I SCROLL EXPERIENCE */}
+      {/* 3. WHY RDCLOTH */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-[#E0DFD8]">
         <div className="text-center max-w-xl mx-auto mb-16 space-y-2">
           <span className="text-xs font-cinzel text-[#C5A059] font-bold tracking-[0.3em] uppercase">
-            CHAPTER I NARRATIVE
+            WHY RDCLOTH
           </span>
           <h2 className="font-cinzel text-3xl sm:text-4xl font-black uppercase tracking-tight text-[#141414]">
-            MOVING ON — THE ODYSSEUS JOURNEY
+            STORIES THAT FEEL REAL.
           </h2>
           <p className="text-xs font-mono-code text-[#706E6B] pt-1">
-            Every journey leaves something behind.
+            Streetwear premium untuk orang yang hidup dengan cerita, bukan sekadar tren.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="p-6 bg-[#FFFFFF] border border-[#E0DFD8] space-y-3 relative group hover:border-[#C5A059] transition-colors">
             <span className="text-xs font-cinzel text-[#C5A059] font-bold">01</span>
-            <h3 className="font-cinzel text-lg font-bold uppercase text-[#141414]">THE JOURNEY</h3>
+            <h3 className="font-cinzel text-lg font-bold uppercase text-[#141414]">STORY-LED</h3>
             <p className="text-xs font-mono-code text-[#706E6B] leading-relaxed">
-              Setting sail into uncharted waters. The unknown path that demands courage.
+              Setiap drop punya ide, mood, dan makna yang berbeda. Bukan sekadar desain acak.
             </p>
           </div>
 
           <div className="p-6 bg-[#FFFFFF] border border-[#E0DFD8] space-y-3 relative group hover:border-[#C5A059] transition-colors">
             <span className="text-xs font-cinzel text-[#C5A059] font-bold">02</span>
-            <h3 className="font-cinzel text-lg font-bold uppercase text-[#141414]">THE LOSS</h3>
+            <h3 className="font-cinzel text-lg font-bold uppercase text-[#141414]">PREMIUM FEEL</h3>
             <p className="text-xs font-mono-code text-[#706E6B] leading-relaxed">
-              Accepting that what once was home no longer exists. Leaving memories behind.
+              Kualitas bahan dan potongan dibuat supaya terasa premium di hari-hari biasa.
             </p>
           </div>
 
           <div className="p-6 bg-[#FFFFFF] border border-[#E0DFD8] space-y-3 relative group hover:border-[#C5A059] transition-colors">
             <span className="text-xs font-cinzel text-[#C5A059] font-bold">03</span>
-            <h3 className="font-cinzel text-lg font-bold uppercase text-[#141414]">THE DECISION</h3>
+            <h3 className="font-cinzel text-lg font-bold uppercase text-[#141414]">EASY TO BUY</h3>
             <p className="text-xs font-mono-code text-[#706E6B] leading-relaxed">
-              The precise moment you stop looking back and stare directly into the horizon.
+              Cukup pilih ukuran, lalu lanjut ke marketplace favorit Anda untuk checkout.
             </p>
           </div>
 
-          <div className="p-6 bg-[#FFFFFF] border-2 border-[#C5A059] bg-[#121214] text-[#F5F5F0] space-y-3 relative group shadow-md">
+          <div className="p-6 bg-[#121214] border-2 border-[#C5A059] text-[#F5F5F0] space-y-3 relative group shadow-md">
             <span className="text-xs font-cinzel text-[#C5A059] font-bold">04</span>
-            <h3 className="font-cinzel text-lg font-bold uppercase text-[#F5F5F0]">MOVING ON</h3>
+            <h3 className="font-cinzel text-lg font-bold uppercase text-[#F5F5F0]">WEAR IT</h3>
             <p className="text-xs font-mono-code text-[#A1A1AA] leading-relaxed">
-              Wearing your resolution. Architectural heavyweight cotton crafted to endure.
+              Pakai dengan percaya diri, semua formatnya siap untuk dinikmati dalam keseharian.
             </p>
           </div>
         </div>
@@ -279,35 +281,39 @@ export const HomeView: React.FC = () => {
         </div>
       </section>
 
-      {/* 6. WRITE YOUR OWN STORY (CUSTOM APPAREL) */}
+      {/* 6. SHOPPING FLOW */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#FFFFFF] border-b border-[#E0DFD8]">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-6 space-y-6">
             <span className="text-xs font-cinzel text-[#C5A059] font-bold uppercase tracking-widest">
-              CUSTOM APPAREL STUDIO
+              CARA BELI
             </span>
             <h2 className="font-cinzel text-4xl sm:text-5xl font-black uppercase text-[#141414] leading-none">
-              WRITE YOUR OWN STORY.
+              MUDAH, CEPAT, DAN JELAS.
             </h2>
             <p className="text-sm font-mono-code text-[#706E6B] leading-relaxed">
-              Not every story has been written yet. While our collection represents stories we have interpreted, our Custom Studio gives your personal ideas a place to exist.
+              Dari katalog sampai checkout, prosesnya dibuat agar pelanggan bisa memilih produk dengan cepat lalu melanjutkan pembelian di marketplace yang paling nyaman untuk mereka.
             </p>
-            <div className="pt-2">
-              <button
-                id="home-make-custom-btn"
-                onClick={() => setCurrentView('custom')}
-                className="px-8 py-4 bg-[#141414] text-[#F5F5F0] hover:bg-[#C5A059] hover:text-[#121214] transition-all font-cinzel font-bold text-xs uppercase tracking-widest flex items-center justify-center space-x-2"
-              >
-                <span>CREATE YOUR OWN STORY</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+              <div className="p-4 border border-[#E0DFD8] bg-[#F5F5F0]">
+                <div className="text-xs font-cinzel text-[#C5A059] font-bold">01</div>
+                <p className="mt-2 text-xs font-mono-code text-[#141414] uppercase">Browse drop</p>
+              </div>
+              <div className="p-4 border border-[#E0DFD8] bg-[#F5F5F0]">
+                <div className="text-xs font-cinzel text-[#C5A059] font-bold">02</div>
+                <p className="mt-2 text-xs font-mono-code text-[#141414] uppercase">Pilih ukuran</p>
+              </div>
+              <div className="p-4 border border-[#E0DFD8] bg-[#F5F5F0]">
+                <div className="text-xs font-cinzel text-[#C5A059] font-bold">03</div>
+                <p className="mt-2 text-xs font-mono-code text-[#141414] uppercase">Checkout</p>
+              </div>
             </div>
           </div>
 
           <div className="lg:col-span-6 aspect-[4/3] bg-[#F5F5F0] border border-[#E0DFD8] overflow-hidden relative">
             <img
               src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=1000&auto=format&fit=crop"
-              alt="Custom Apparel Canvas"
+              alt="Community streetwear fashion"
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
             />
@@ -315,27 +321,38 @@ export const HomeView: React.FC = () => {
         </div>
       </section>
 
-      {/* 7. YOUR ARTIFACT HAS ARRIVED (PACKAGING SECTION) */}
+      {/* 7. MARKETPLACE TRUST */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-[#E0DFD8]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-6 aspect-[16/10] bg-[#ECECE7] border border-[#E0DFD8] overflow-hidden relative">
             <img
               src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=1000&auto=format&fit=crop"
-              alt="RdCloth Unboxing Packaging Box and Stickers"
+              alt="Packaging and streetwear delivery"
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
             />
           </div>
           <div className="lg:col-span-6 space-y-4">
             <span className="text-xs font-cinzel text-[#C5A059] font-bold uppercase tracking-widest">
-              UNBOXING EXPERIENCE
+              MARKETPLACE READY
             </span>
             <h2 className="font-cinzel text-3xl sm:text-4xl font-black uppercase text-[#141414]">
-              YOUR ARTIFACT HAS ARRIVED.
+              BELI DI TEMPAT YANG KAMU PERCAYA.
             </h2>
             <p className="text-sm font-mono-code text-[#706E6B] leading-relaxed">
-              Every order is packed as a piece of the story. From our custom archival box, stickers, and thank-you chapter card to your heavyweight garment.
+              Kami menjaga pengalaman belanja tetap sederhana: pilih produk, lihat detail, lalu lanjut ke Shopee, Tokopedia, atau TikTok Shop sesuai preferensi Anda.
             </p>
+            <div className="flex flex-wrap gap-3 pt-2">
+              <a href={settings.shopeeUrl || '#'} target="_blank" rel="noreferrer" className="px-4 py-2 border border-[#E0DFD8] bg-[#FFFFFF] text-[#141414] text-[10px] font-cinzel uppercase tracking-widest hover:border-[#141414]">
+                Shopee
+              </a>
+              <a href={settings.tokopediaUrl || '#'} target="_blank" rel="noreferrer" className="px-4 py-2 border border-[#E0DFD8] bg-[#FFFFFF] text-[#141414] text-[10px] font-cinzel uppercase tracking-widest hover:border-[#141414]">
+                Tokopedia
+              </a>
+              <a href={settings.tiktokshopUrl || '#'} target="_blank" rel="noreferrer" className="px-4 py-2 border border-[#E0DFD8] bg-[#FFFFFF] text-[#141414] text-[10px] font-cinzel uppercase tracking-widest hover:border-[#141414]">
+                TikTok Shop
+              </a>
+            </div>
           </div>
         </div>
       </section>

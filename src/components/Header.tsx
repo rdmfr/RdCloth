@@ -31,10 +31,10 @@ export const Header: React.FC = () => {
 
   const navLinks = [
     { label: 'BERANDA', view: 'home' },
+    { label: 'DROP', view: 'collection' },
+    { label: 'ARSIP', view: 'shop' },
+    { label: 'CERITA', view: 'about' },
     { label: 'BELANJA', view: 'shop' },
-    { label: 'KOLEKSI', view: 'collection' },
-    { label: 'PESANAN CUSTOM', view: 'custom' },
-    { label: 'CERITA KAMI', view: 'about' },
   ];
 
   return (

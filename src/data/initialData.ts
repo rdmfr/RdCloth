@@ -11,6 +11,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     tagline: 'Boxy Heavyweight 235 GSM Graphic Tee',
     price: 89000,
     originalPrice: 119000,
+    marketplaceLinks: {
+      shopee: 'https://shopee.co.id/search?keyword=RDCLOTH%20Moving%20On%20Tee',
+      tokopedia: 'https://www.tokopedia.com/search?st=product&q=RDCLOTH%20Moving%20On%20Tee',
+      tiktokshop: 'https://www.tiktok.com/search?lang=id-ID&keyword=RDCLOTH%20Moving%20On%20Tee'
+    },
     category: 'tees',
     collectionId: 'drop-001',
     badge: 'NEW',
@@ -91,6 +96,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     tagline: 'The Ultimate Daily Blank Canvas 210 GSM',
     price: 79000,
     originalPrice: 99000,
+    marketplaceLinks: {
+      shopee: 'https://shopee.co.id/search?keyword=RDCLOTH%20Essential%20Blank%20Tee',
+      tokopedia: 'https://www.tokopedia.com/search?st=product&q=RDCLOTH%20Essential%20Blank%20Tee',
+      tiktokshop: 'https://www.tiktok.com/search?lang=id-ID&keyword=RDCLOTH%20Essential%20Blank%20Tee'
+    },
     category: 'tees',
     collectionId: 'essentials',
     badge: 'BEST SELLER',
@@ -163,6 +173,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     tagline: 'Minimalist Typographic Statement Piece',
     price: 89000,
     originalPrice: 129000,
+    marketplaceLinks: {
+      shopee: 'https://shopee.co.id/search?keyword=RDCLOTH%20Move%20Anyway%20Graphic%20Tee',
+      tokopedia: 'https://www.tokopedia.com/search?st=product&q=RDCLOTH%20Move%20Anyway%20Graphic%20Tee',
+      tiktokshop: 'https://www.tiktok.com/search?lang=id-ID&keyword=RDCLOTH%20Move%20Anyway%20Graphic%20Tee'
+    },
     category: 'tees',
     collectionId: 'drop-001',
     badge: 'LIMITED',
@@ -223,6 +238,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     tagline: '16oz Rugged Raw Cotton Everyday Carrier',
     price: 59000,
     originalPrice: 79000,
+    marketplaceLinks: {
+      shopee: 'https://shopee.co.id/search?keyword=RDCLOTH%20Heavy%20Canvas%20Tote',
+      tokopedia: 'https://www.tokopedia.com/search?st=product&q=RDCLOTH%20Heavy%20Canvas%20Tote',
+      tiktokshop: 'https://www.tiktok.com/search?lang=id-ID&keyword=RDCLOTH%20Heavy%20Canvas%20Tote'
+    },
     category: 'accessories',
     collectionId: 'essentials',
     badge: 'BEST SELLER',
@@ -281,6 +301,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     tagline: '6-Panel Vintage Washed Cotton Twill',
     price: 69000,
     originalPrice: 89000,
+    marketplaceLinks: {
+      shopee: 'https://shopee.co.id/search?keyword=RDCLOTH%20Washed%20Dad%20Cap',
+      tokopedia: 'https://www.tokopedia.com/search?st=product&q=RDCLOTH%20Washed%20Dad%20Cap',
+      tiktokshop: 'https://www.tiktok.com/search?lang=id-ID&keyword=RDCLOTH%20Washed%20Dad%20Cap'
+    },
     category: 'accessories',
     collectionId: 'essentials',
     badge: 'NEW',
@@ -338,6 +363,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     tagline: '330 GSM Custom Milled French Terry Cotton',
     price: 149000,
     originalPrice: 189000,
+    marketplaceLinks: {
+      shopee: 'https://shopee.co.id/search?keyword=RDCLOTH%20Heavy%20Fleece%20Hoodie',
+      tokopedia: 'https://www.tokopedia.com/search?st=product&q=RDCLOTH%20Heavy%20Fleece%20Hoodie',
+      tiktokshop: 'https://www.tiktok.com/search?lang=id-ID&keyword=RDCLOTH%20Heavy%20Fleece%20Hoodie'
+    },
     category: 'hoodies',
     collectionId: 'drop-001',
     badge: 'LIMITED',
@@ -467,21 +497,21 @@ export const INITIAL_REVIEWS: Review[] = [
 ];
 
 export const INITIAL_CMS: HomepageCMS = {
-  heroTagline: 'DROP 01 // CHAPTER I: MOVING ON',
-  heroHeadline: 'ANCIENT STORIES. MODERN MEANINGS.',
-  heroSubheadline: 'Every journey leaves something behind. Reinterpreting classical mythology and human endurance into architectural heavyweight streetwear.',
+  heroTagline: 'DROP 01 // MYTHOLOGY',
+  heroHeadline: 'RDCLOTH',
+  heroSubheadline: 'Setiap drop membawa cerita yang berbeda.',
   heroImage: '/thinker-bg.png',
   heroSecondaryImage: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop',
-  heroCtaText: 'ENTER CHAPTER I',
+  heroCtaText: 'Jelajahi Drop 01',
   heroCtaLink: '/shop',
-  heroSecondaryCtaText: 'WRITE YOUR OWN STORY',
-  heroSecondaryCtaLink: '/custom',
-  marqueeText: 'RDCLOTH — ANCIENT STORIES. MODERN MEANINGS. — CHAPTER I: MOVING ON — HEAVYWEIGHT COTTON — MMXXVI —',
-  featuredDropSubtitle: 'Stories that have already been told.',
-  brandStoryTitle: 'WHY ANCIENT STORIES?',
-  brandStoryText1: 'Thousands of years ago, people told stories about love, loss, ambition, failure, and hope. We still live through the same things today. The names changed. The world changed. But the stories didn\'t.',
-  brandStoryText2: 'RdCloth reinterprets those timeless human stories into architectural garments you can wear.',
-  visualBreakQuote: "EVERY JOURNEY LEAVES SOMETHING BEHIND.",
+  heroSecondaryCtaText: 'Lihat di Shopee / Tokopedia / Tiktokshop',
+  heroSecondaryCtaLink: '/shop',
+  marqueeText: 'RDCLOTH — STORIES WORTH WEARING — EVERY DROP TELLS A DIFFERENT STORY —',
+  featuredDropSubtitle: 'Setiap drop punya kisahnya sendiri.',
+  brandStoryTitle: 'WHY RDCLOTH?',
+  brandStoryText1: 'RDCLOTH mengubah cerita, kultur, dan pengalaman manusia menjadi pakaian yang bisa kamu kenakan setiap hari.',
+  brandStoryText2: 'Dari mitologi sampai musik, game, dan budaya masa kini, setiap drop membawa cerita baru dengan rasa yang khas.',
+  visualBreakQuote: 'EVERY DROP TELLS A DIFFERENT STORY.',
   instagramHandle: '@rdcloth.studio',
   instagramImages: [
     'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=600&auto=format&fit=crop',
@@ -495,11 +525,14 @@ export const INITIAL_CMS: HomepageCMS = {
 
 export const INITIAL_SETTINGS: StoreSettings = {
   storeName: 'RdCloth',
-  tagline: 'WEAR YOUR IDEA.',
+  tagline: 'STORIES WORTH WEARING.',
   adminWhatsapp: '6281234567890',
   contactEmail: 'contact@rdcloth.com',
   instagramUrl: 'https://instagram.com/rdcloth',
   tiktokUrl: 'https://tiktok.com/@rdcloth',
+  shopeeUrl: 'https://shopee.co.id/search?keyword=rdcloth',
+  tokopediaUrl: 'https://www.tokopedia.com/',
+  tiktokshopUrl: 'https://www.tiktok.com/shop',
   bankAccount: {
     bankName: 'BCA (Bank Central Asia)',
     accountNumber: '8910-2345-67',

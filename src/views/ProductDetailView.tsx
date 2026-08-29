@@ -30,7 +30,8 @@ export const ProductDetailView: React.FC = () => {
     reviews,
     submitReview,
     showToast,
-    setIsCartOpen
+    setIsCartOpen,
+    settings
   } = useStore();
 
   // Find product by slug or id
@@ -40,6 +41,7 @@ export const ProductDetailView: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState(product?.colors[0] || { name: 'Black', hex: '#121212' });
   const [selectedSize, setSelectedSize] = useState<string>(product?.sizes[0] || 'L');
   const [quantity, setQuantity] = useState<number>(1);
+  const [showMarketplaceSelector, setShowMarketplaceSelector] = useState<boolean>(false);
   
   // Accordion states
   const [openSection, setOpenSection] = useState<'material' | 'care' | 'shipping' | null>('material');
@@ -85,10 +87,24 @@ export const ProductDetailView: React.FC = () => {
     });
   };
 
-  const handleBuyNow = () => {
-    handleAddToCart();
-    setIsCartOpen(false);
-    setCurrentView('checkout');
+  const marketplaceOptions = [
+    { key: 'shopee' as const, label: 'Shopee', href: product.marketplaceLinks?.shopee || settings.shopeeUrl },
+    { key: 'tokopedia' as const, label: 'Tokopedia', href: product.marketplaceLinks?.tokopedia || settings.tokopediaUrl },
+    { key: 'tiktokshop' as const, label: 'TikTok Shop', href: product.marketplaceLinks?.tiktokshop || settings.tiktokshopUrl }
+  ];
+
+  const handleMarketplacePurchase = (channel: 'shopee' | 'tokopedia' | 'tiktokshop') => {
+    const selected = marketplaceOptions.find(option => option.key === channel);
+    const targetUrl = selected?.href;
+
+    if (targetUrl) {
+      window.open(targetUrl, '_blank', 'noopener,noreferrer');
+      showToast(`Anda dialihkan ke ${selected?.label}.`, 'success');
+      setShowMarketplaceSelector(false);
+      return;
+    }
+
+    showToast('Marketplace belum dikonfigurasi untuk produk ini.', 'info');
   };
 
   const handleReviewSubmit = async (e: React.FormEvent) => {
@@ -311,10 +327,9 @@ export const ProductDetailView: React.FC = () => {
               </div>
             </div>
 
-            {/* Quantity + Add to Cart + Buy Now */}
+            {/* Quantity + marketplace CTA */}
             <div className="space-y-3 pt-2">
               <div className="flex items-center space-x-3">
-                {/* Quantity adjuster */}
                 <div className="flex items-center border border-[#E0DFD8] bg-[#FFFFFF] h-12">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -335,25 +350,23 @@ export const ProductDetailView: React.FC = () => {
                   </button>
                 </div>
 
-                {/* Add to Bag */}
                 <button
                   id="pdp-add-to-cart-btn"
                   onClick={handleAddToCart}
                   className="flex-1 h-12 bg-[#141414] text-[#F5F5F0] hover:bg-[#F27D26] transition-all font-heading font-black text-xs uppercase tracking-widest flex items-center justify-center space-x-2 shadow-xs"
                 >
-                  <span>ADD TO BAG</span>
+                  <span>Tambah</span>
                   <span>•</span>
                   <span>{formatIDR(product.price * quantity)}</span>
                 </button>
               </div>
 
-              {/* Buy Now direct button */}
               <button
                 id="pdp-buy-now-btn"
-                onClick={handleBuyNow}
-                className="w-full h-12 bg-[#FFFFFF] hover:bg-[#ECECE7] text-[#141414] border border-[#E0DFD8] hover:border-[#141414] transition-all font-heading font-bold text-xs uppercase tracking-widest flex items-center justify-center space-x-2 shadow-xs"
+                onClick={() => setShowMarketplaceSelector(true)}
+                className="w-full h-12 bg-[#FFFFFF] hover:bg-[#ECECE7] text-[#141414] border border-[#E0DFD8] hover:border-[#141414] transition-all font-cinzel font-bold text-[10px] uppercase tracking-[0.18em] flex items-center justify-center shadow-xs"
               >
-                <span>INSTANT CHECKOUT</span>
+                BELI SEKARANG
               </button>
             </div>
 
@@ -485,6 +498,49 @@ export const ProductDetailView: React.FC = () => {
           )}
         </div>
       </div>
+
+      {showMarketplaceSelector && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4 backdrop-blur-[2px]">
+          <div className="w-full max-w-md bg-[#F5F5F0] border border-[#D8D6CE] p-6 shadow-2xl">
+            <div className="flex items-start justify-between gap-4 mb-4">
+              <div>
+                <p className="text-[10px] font-mono-code uppercase tracking-[0.22em] text-[#C5A059]">Pilih marketplace</p>
+                <h3 className="font-cinzel text-2xl font-black uppercase text-[#141414] mt-2">{product.name}</h3>
+              </div>
+              <button
+                onClick={() => setShowMarketplaceSelector(false)}
+                className="text-[#706E6B] hover:text-[#141414] text-xl leading-none"
+                aria-label="Close marketplace selector"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {marketplaceOptions.map(option => (
+                <button
+                  key={option.key}
+                  onClick={() => handleMarketplacePurchase(option.key)}
+                  disabled={!option.href}
+                  className="w-full flex items-center justify-between gap-3 border border-[#E0DFD8] bg-[#FFFFFF] px-4 py-3 text-left transition-all hover:border-[#141414] hover:bg-[#ECECE7] disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <span className="font-cinzel text-sm uppercase tracking-[0.16em] text-[#141414]">{option.label}</span>
+                  <span className="text-[10px] font-mono-code uppercase text-[#706E6B]">
+                    {option.href ? 'Buka' : 'Belum tersedia'}
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            <button
+              onClick={() => setShowMarketplaceSelector(false)}
+              className="mt-5 w-full border border-[#E0DFD8] bg-transparent text-[#141414] px-4 py-2.5 text-[10px] font-cinzel uppercase tracking-[0.18em] hover:border-[#141414]"
+            >
+              Batal
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Review Submission Modal */}
       {showReviewModal && (

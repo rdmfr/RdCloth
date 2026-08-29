@@ -56,6 +56,11 @@ export interface Product {
   tagline?: string;
   price: number;
   originalPrice?: number;
+  marketplaceLinks?: {
+    shopee?: string;
+    tokopedia?: string;
+    tiktokshop?: string;
+  };
   category: ProductCategory;
   collectionId?: string;
   badge?: ProductBadge;
@@ -243,6 +248,9 @@ export interface StoreSettings {
   contactEmail: string;
   instagramUrl: string;
   tiktokUrl: string;
+  shopeeUrl?: string;
+  tokopediaUrl?: string;
+  tiktokshopUrl?: string;
   bankAccount: {
     bankName: string;
     accountNumber: string;

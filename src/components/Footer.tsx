@@ -31,7 +31,7 @@ export const Footer: React.FC = () => {
 
   const waUrl = generateWhatsAppUrl(
     settings.adminWhatsapp || '6281234567890',
-    'Halo Admin RdCloth! Saya ingin bertanya mengenai katalog produk atau custom order.'
+    'Halo Admin RdCloth! Saya ingin bertanya mengenai katalog produk atau drop terbaru.'
   );
 
   return (
@@ -55,24 +55,24 @@ export const Footer: React.FC = () => {
 
           {/* Core Navigation Links */}
           <div className="flex flex-wrap items-center gap-6 sm:gap-8 text-xs font-mono-code text-[#F4F4F5] font-semibold tracking-widest">
-            <button onClick={() => setCurrentView('shop')} className="hover:text-[#C5A059] transition-colors">
-              BELANJA
+            <button onClick={() => setCurrentView('home')} className="hover:text-[#C5A059] transition-colors">
+              BERANDA
             </button>
             <span>·</span>
             <button onClick={() => setCurrentView('collection')} className="hover:text-[#C5A059] transition-colors">
-              KOLEKSI
+              DROP
             </button>
             <span>·</span>
-            <button onClick={() => setCurrentView('custom')} className="hover:text-[#C5A059] transition-colors">
-              PESANAN CUSTOM
+            <button onClick={() => setCurrentView('shop')} className="hover:text-[#C5A059] transition-colors">
+              ARSIP
             </button>
             <span>·</span>
             <button onClick={() => setCurrentView('about')} className="hover:text-[#C5A059] transition-colors">
-              CERITA KAMI
+              CERITA
             </button>
             <span>·</span>
-            <button onClick={() => setCurrentView('track-order')} className="hover:text-[#C5A059] transition-colors">
-              LACAK PESANAN
+            <button onClick={() => setCurrentView('shop')} className="hover:text-[#C5A059] transition-colors">
+              BELANJA
             </button>
           </div>
 

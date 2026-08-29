@@ -60,22 +60,25 @@ export const AboutView: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 py-20 border-b border-[#E0DFD8]">
           <div className="lg:col-span-4 space-y-2">
             <span className="text-xs font-cinzel uppercase tracking-widest text-[#C5A059] font-bold">
-              02 / YOUR OWN STORY
+              02 / EVERY DROP HAS A VOICE
             </span>
             <h2 className="font-cinzel text-3xl font-black uppercase text-[#141414]">
-              WRITE YOUR OWN STORY
+              STORIES WORTH WEARING
             </h2>
           </div>
           <div className="lg:col-span-8 space-y-4 text-sm font-mono-code text-[#706E6B] leading-relaxed">
             <p>
-              Collection RdCloth adalah cerita yang sudah kami interpretasikan. Namun tidak semua cerita telah tertulis. Melalui Custom Studio, kamu bisa menulis dan mengabadikan ceritamu sendiri ke dalam pakaian heavyweight premium.
+              Setiap drop RdCloth adalah bagian dari satu cerita yang terus berkembang. Kami mengekspresikan tema, emosi, dan perjalanan manusia ke dalam bahan, potongan, serta detail yang dibuat untuk dipakai setiap hari.
+            </p>
+            <p>
+              Bukan sekadar pakaian, tapi pengingat bahwa setiap momen bisa dibawa ke dalam gaya hidup. Koleksi kami hadir untuk menyampaikan rasa, makna, dan karakter yang terasa dekat dengan cara orang memakai dan memahami fashion.
             </p>
             <div className="pt-4">
               <button
-                onClick={() => setCurrentView('custom')}
+                onClick={() => setCurrentView('collection')}
                 className="px-6 py-3 bg-[#121214] text-[#F5F5F0] border border-[#C5A059] font-cinzel font-bold text-xs uppercase tracking-widest hover:bg-[#C5A059] hover:text-[#121214] transition-all inline-flex items-center space-x-2 shadow-md"
               >
-                <span>CREATE YOUR OWN STORY</span>
+                <span>EXPLORE THE DROP</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
