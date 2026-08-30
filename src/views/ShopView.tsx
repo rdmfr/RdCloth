@@ -94,7 +94,7 @@ export const ShopView: React.FC = () => {
         <div className="pb-8 border-b border-[#E0DFD8]">
           <div className="flex items-center space-x-2 text-xs font-mono-code text-[#706E6B] uppercase mb-1">
             <span>KATALOG // 2026</span>
-            {showOnlyWishlist && <span className="text-[#F27D26] font-bold">• PRODUK TERSIMPAN</span>}
+            {showOnlyWishlist && <span className="text-[#C5A059] font-bold">• PRODUK TERSIMPAN</span>}
           </div>
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
@@ -144,7 +144,7 @@ export const ShopView: React.FC = () => {
                 onClick={() => setShowOnlyWishlist(!showOnlyWishlist)}
                 className={`px-3.5 py-1.5 text-xs font-mono-code uppercase font-semibold transition-all border ${
                   showOnlyWishlist
-                    ? 'bg-[#F27D26] text-white border-[#F27D26]'
+                    ? 'bg-[#C5A059] text-white border-[#C5A059]'
                     : 'bg-[#FFFFFF] text-[#706E6B] border-[#E0DFD8] hover:text-[#141414]'
                 }`}
               >
@@ -259,7 +259,7 @@ export const ShopView: React.FC = () => {
               </p>
               <button
                 onClick={resetFilters}
-                className="px-6 py-2.5 bg-[#141414] text-[#F5F5F0] text-xs font-heading font-black uppercase tracking-wider hover:bg-[#F27D26] transition-all shadow-xs"
+                className="px-6 py-2.5 bg-[#141414] text-[#F5F5F0] text-xs font-heading font-black uppercase tracking-wider hover:bg-[#C5A059] transition-all shadow-xs"
               >
                 RESET FILTERS
               </button>

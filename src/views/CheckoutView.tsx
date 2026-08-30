@@ -203,14 +203,14 @@ Mohon konfirmasi pesanan dan proses pengiriman ya min. Terima kasih!`;
             {completedOrder.paymentMethod === 'BANK_TRANSFER' ? (
               <div className="p-6 bg-[#F5F5F0] border border-[#E0DFD8] space-y-4">
                 <div className="flex items-center space-x-2 text-[#141414] font-heading font-bold uppercase text-sm">
-                  <Building2 className="w-4 h-4 text-[#F27D26]" />
+                  <Building2 className="w-4 h-4 text-[#C5A059]" />
                   <span>TRANSFER MANUAL KE REKENING RESMI RDCLOTH:</span>
                 </div>
                 <div className="p-4 bg-[#FFFFFF] border border-[#E0DFD8] flex items-center justify-between">
                   <div className="text-left font-mono-code">
                     <p className="text-xs text-[#706E6B] uppercase">{settings.bankAccount.bankName}</p>
                     <p className="text-lg font-bold text-[#141414] tracking-wider">{settings.bankAccount.accountNumber}</p>
-                    <p className="text-xs text-[#F27D26]">A/N: {settings.bankAccount.accountHolder}</p>
+                    <p className="text-xs text-[#C5A059]">A/N: {settings.bankAccount.accountHolder}</p>
                   </div>
                   <button
                     onClick={copyBankNumber}
@@ -272,7 +272,7 @@ Mohon konfirmasi pesanan dan proses pengiriman ya min. Terima kasih!`;
                 </button>
                 <button
                   onClick={() => setCurrentView('shop')}
-                  className="px-6 py-2.5 bg-[#141414] text-[#F5F5F0] text-xs font-heading font-bold uppercase hover:bg-[#F27D26]"
+                  className="px-6 py-2.5 bg-[#141414] text-[#F5F5F0] text-xs font-heading font-bold uppercase hover:bg-[#C5A059]"
                 >
                   CONTINUE BROWSING
                 </button>
@@ -454,7 +454,7 @@ Mohon konfirmasi pesanan dan proses pengiriman ya min. Terima kasih!`;
             {/* 4. Payment Method */}
             <div className="p-6 bg-[#FFFFFF] border border-[#E0DFD8] space-y-4 shadow-xs">
               <h2 className="font-heading text-lg font-bold uppercase text-[#141414] flex items-center space-x-2">
-                <CreditCard className="w-5 h-5 text-[#F27D26]" />
+                <CreditCard className="w-5 h-5 text-[#C5A059]" />
                 <span>4. PAYMENT METHOD</span>
               </h2>
 
@@ -531,7 +531,7 @@ Mohon konfirmasi pesanan dan proses pengiriman ya min. Terima kasih!`;
                     type="button"
                     onClick={handleApplyPromo}
                     disabled={promoApplied}
-                    className="px-4 bg-[#141414] hover:bg-[#F27D26] text-[#F5F5F0] font-bold text-xs uppercase transition-colors"
+                    className="px-4 bg-[#141414] hover:bg-[#C5A059] text-[#F5F5F0] font-bold text-xs uppercase transition-colors"
                   >
                     APPLY
                   </button>
@@ -562,7 +562,7 @@ Mohon konfirmasi pesanan dan proses pengiriman ya min. Terima kasih!`;
                 )}
                 <div className="flex justify-between text-base font-bold text-[#141414] pt-2 border-t border-[#E0DFD8]">
                   <span>TOTAL</span>
-                  <span className="text-[#F27D26]">{formatIDR(grandTotal)}</span>
+                  <span className="text-[#C5A059]">{formatIDR(grandTotal)}</span>
                 </div>
               </div>
 
@@ -571,7 +571,7 @@ Mohon konfirmasi pesanan dan proses pengiriman ya min. Terima kasih!`;
                 id="place-order-btn"
                 type="submit"
                 disabled={isProcessing || cart.length === 0}
-                className="w-full py-4 bg-[#141414] text-[#F5F5F0] hover:bg-[#F27D26] transition-all font-heading font-black text-xs uppercase tracking-widest flex items-center justify-center space-x-2 shadow-xs disabled:opacity-50"
+                className="w-full py-4 bg-[#141414] text-[#F5F5F0] hover:bg-[#C5A059] transition-all font-heading font-black text-xs uppercase tracking-widest flex items-center justify-center space-x-2 shadow-xs disabled:opacity-50"
               >
                 <Lock className="w-4 h-4" />
                 <span>{isProcessing ? 'CREATING ORDER...' : `PAY ${formatIDR(grandTotal)}`}</span>

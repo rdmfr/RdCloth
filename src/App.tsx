@@ -6,6 +6,7 @@ import { CartDrawer } from './components/CartDrawer';
 import { SearchModal } from './components/SearchModal';
 import { SizeGuideModal } from './components/SizeGuideModal';
 import { ToastContainer } from './components/ToastContainer';
+import { CustomCursor } from './components/reactbits/CustomCursor';
 
 // Page Views
 import { HomeView } from './views/HomeView';
@@ -30,6 +31,9 @@ const MainContent: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F5F5F0] text-[#141414] selection:bg-[#141414] selection:text-[#F5F5F0]">
+      {/* Luxury Custom Cursor (Desktop) */}
+      <CustomCursor />
+
       {/* Global Toast System */}
       <ToastContainer />
 

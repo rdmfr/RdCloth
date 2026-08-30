@@ -246,7 +246,7 @@ export const CustomOrderView: React.FC = () => {
                   currentStep === step.num
                     ? 'text-[#141414] font-bold'
                     : currentStep > step.num
-                    ? 'text-[#F27D26]'
+                    ? 'text-[#C5A059]'
                     : 'text-[#706E6B]'
                 }`}
               >
@@ -255,7 +255,7 @@ export const CustomOrderView: React.FC = () => {
                     currentStep === step.num
                       ? 'bg-[#141414] text-[#F5F5F0] border-[#141414]'
                       : currentStep > step.num
-                      ? 'bg-[#F27D26] text-white border-[#F27D26]'
+                      ? 'bg-[#C5A059] text-white border-[#C5A059]'
                       : 'border-[#E0DFD8] text-[#706E6B]'
                   }`}
                 >
@@ -320,7 +320,7 @@ export const CustomOrderView: React.FC = () => {
                       </div>
 
                       <div className="mt-4 pt-3 border-t border-[#E0DFD8] flex items-center justify-between">
-                        <span className="text-xs font-mono-code font-bold text-[#F27D26]">
+                        <span className="text-xs font-mono-code font-bold text-[#C5A059]">
                           {formatIDR(apparel.basePrice)}
                         </span>
                         {isSelected && (
@@ -337,7 +337,7 @@ export const CustomOrderView: React.FC = () => {
               <div className="flex justify-end pt-4">
                 <button
                   onClick={() => setCurrentStep(2)}
-                  className="px-8 py-3.5 bg-[#141414] text-[#F5F5F0] hover:bg-[#F27D26] transition-all font-heading font-black text-xs uppercase tracking-widest flex items-center space-x-2 shadow-xs"
+                  className="px-8 py-3.5 bg-[#141414] text-[#F5F5F0] hover:bg-[#C5A059] transition-all font-heading font-black text-xs uppercase tracking-widest flex items-center space-x-2 shadow-xs"
                 >
                   <span>NEXT: CHOOSE COLOR</span>
                   <ArrowRight className="w-4 h-4" />
@@ -406,7 +406,7 @@ export const CustomOrderView: React.FC = () => {
                 </button>
                 <button
                   onClick={() => setCurrentStep(3)}
-                  className="px-8 py-3.5 bg-[#141414] text-[#F5F5F0] hover:bg-[#F27D26] transition-all font-heading font-black text-xs uppercase tracking-widest flex items-center space-x-2 shadow-xs"
+                  className="px-8 py-3.5 bg-[#141414] text-[#F5F5F0] hover:bg-[#C5A059] transition-all font-heading font-black text-xs uppercase tracking-widest flex items-center space-x-2 shadow-xs"
                 >
                   <span>NEXT: SIZE & PLACEMENT</span>
                   <ArrowRight className="w-4 h-4" />
@@ -478,7 +478,7 @@ export const CustomOrderView: React.FC = () => {
                           </span>
                         </div>
                         <div className="text-right">
-                          <span className="text-xs font-mono-code font-bold text-[#F27D26]">
+                          <span className="text-xs font-mono-code font-bold text-[#C5A059]">
                             {place.extraPrice > 0 ? `+${formatIDR(place.extraPrice)}` : 'INCLUDED'}
                           </span>
                         </div>
@@ -498,7 +498,7 @@ export const CustomOrderView: React.FC = () => {
                 </button>
                 <button
                   onClick={() => setCurrentStep(4)}
-                  className="px-8 py-3.5 bg-[#141414] text-[#F5F5F0] hover:bg-[#F27D26] transition-all font-heading font-black text-xs uppercase tracking-widest flex items-center space-x-2 shadow-xs"
+                  className="px-8 py-3.5 bg-[#141414] text-[#F5F5F0] hover:bg-[#C5A059] transition-all font-heading font-black text-xs uppercase tracking-widest flex items-center space-x-2 shadow-xs"
                 >
                   <span>NEXT: UPLOAD DESIGN</span>
                   <ArrowRight className="w-4 h-4" />
@@ -565,7 +565,7 @@ export const CustomOrderView: React.FC = () => {
                   {designFile && (
                     <div className="p-3 bg-[#F5F5F0] border border-[#E0DFD8] flex items-center justify-between text-xs font-mono-code">
                       <div className="flex items-center space-x-2 truncate pr-2">
-                        <FileText className="w-4 h-4 text-[#F27D26] flex-shrink-0" />
+                        <FileText className="w-4 h-4 text-[#C5A059] flex-shrink-0" />
                         <span className="truncate text-[#141414] font-bold">{designFile.name}</span>
                         <span className="text-[#706E6B]">
                           ({(designFile.size / 1024 / 1024).toFixed(2)} MB)
@@ -639,7 +639,7 @@ export const CustomOrderView: React.FC = () => {
                 </button>
                 <button
                   onClick={() => setCurrentStep(5)}
-                  className="px-8 py-3.5 bg-[#141414] text-[#F5F5F0] hover:bg-[#F27D26] transition-all font-heading font-black text-xs uppercase tracking-widest flex items-center space-x-2 shadow-xs"
+                  className="px-8 py-3.5 bg-[#141414] text-[#F5F5F0] hover:bg-[#C5A059] transition-all font-heading font-black text-xs uppercase tracking-widest flex items-center space-x-2 shadow-xs"
                 >
                   <span>NEXT: PRODUCTION NOTES</span>
                   <ArrowRight className="w-4 h-4" />
@@ -789,7 +789,7 @@ export const CustomOrderView: React.FC = () => {
                 <button
                   onClick={handleSubmitRequest}
                   disabled={isSubmitting}
-                  className="px-8 py-3.5 bg-[#141414] text-[#F5F5F0] hover:bg-[#F27D26] transition-all font-heading font-black text-xs uppercase tracking-widest flex items-center space-x-2 shadow-xs disabled:opacity-50"
+                  className="px-8 py-3.5 bg-[#141414] text-[#F5F5F0] hover:bg-[#C5A059] transition-all font-heading font-black text-xs uppercase tracking-widest flex items-center space-x-2 shadow-xs disabled:opacity-50"
                 >
                   <span>{isSubmitting ? 'PROCESSING...' : 'SUBMIT & GET QUOTE'}</span>
                   <ArrowRight className="w-4 h-4" />
@@ -840,7 +840,7 @@ export const CustomOrderView: React.FC = () => {
                 </div>
                 <div className="flex justify-between pt-2 text-sm">
                   <span className="text-[#706E6B] font-bold">ESTIMATED TOTAL</span>
-                  <span className="text-[#F27D26] font-bold">{formatIDR(submittedOrder.estimatedPrice)}</span>
+                  <span className="text-[#C5A059] font-bold">{formatIDR(submittedOrder.estimatedPrice)}</span>
                 </div>
               </div>
 
@@ -875,7 +875,7 @@ export const CustomOrderView: React.FC = () => {
                     setSubmittedOrder(null);
                     setCurrentStep(1);
                   }}
-                  className="px-6 py-2.5 bg-[#141414] text-[#F5F5F0] text-xs font-heading font-bold uppercase hover:bg-[#F27D26]"
+                  className="px-6 py-2.5 bg-[#141414] text-[#F5F5F0] text-xs font-heading font-bold uppercase hover:bg-[#C5A059]"
                 >
                   CREATE ANOTHER CUSTOM
                 </button>

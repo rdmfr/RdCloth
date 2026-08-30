@@ -39,7 +39,7 @@ export const SizeGuideModal: React.FC = () => {
         <div className="flex items-center justify-between pb-6 border-b border-[#E0DFD8]">
           <div>
             <div className="flex items-center space-x-2 text-[#706E6B] text-xs font-mono-code mb-1">
-              <Ruler className="w-4 h-4 text-[#F27D26]" />
+              <Ruler className="w-4 h-4 text-[#C5A059]" />
               <span>OFFICIAL SIZING SPECS</span>
             </div>
             <h2 className="font-heading text-xl sm:text-2xl font-black uppercase text-[#141414] tracking-tight">
@@ -108,7 +108,7 @@ export const SizeGuideModal: React.FC = () => {
         {/* Fitting recommendations */}
         <div className="mt-6 p-4 bg-[#F5F5F0] border border-[#E0DFD8] space-y-2 text-xs font-mono-code text-[#706E6B]">
           <div className="flex items-center space-x-2 text-[#141414] font-bold uppercase">
-            <Sparkles className="w-4 h-4 text-[#F27D26]" />
+            <Sparkles className="w-4 h-4 text-[#C5A059]" />
             <span>FIT RECOMMENDATION</span>
           </div>
           <ul className="list-disc list-inside space-y-1 text-[11px] text-[#706E6B] leading-relaxed">

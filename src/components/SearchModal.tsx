@@ -122,7 +122,7 @@ export const SearchModal: React.FC = () => {
                         </span>
                       )}
                     </div>
-                    <h4 className="text-xs font-heading font-bold uppercase text-[#141414] group-hover:text-[#F27D26] transition-colors">
+                    <h4 className="text-xs font-heading font-bold uppercase text-[#141414] group-hover:text-[#C5A059] transition-colors">
                       {product.name}
                     </h4>
                     <p className="text-[11px] font-mono-code text-[#706E6B]">

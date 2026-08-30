@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '../context/StoreContext';
 import { Search, ShoppingBag, Heart, Menu, X, PackageCheck, User as UserIcon } from 'lucide-react';
+import { ShinyText } from './reactbits/ShinyText';
+import { Magnet } from './reactbits/Magnet';
 
 export const Header: React.FC = () => {
   const { 
@@ -42,8 +44,8 @@ export const Header: React.FC = () => {
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled || currentView !== 'home'
-            ? 'bg-[#F5F5F0]/95 backdrop-blur-md border-b border-[#D8D6CE] py-3.5 shadow-sm'
-            : 'bg-[#F5F5F0]/95 backdrop-blur-md border-b border-[#D8D6CE] py-4 shadow-sm'
+            ? 'bg-[#F5F5F0]/90 backdrop-blur-xl border-b border-[#D8D6CE] py-3.5 shadow-sm'
+            : 'bg-[#F5F5F0]/85 backdrop-blur-md border-b border-[#D8D6CE]/80 py-4'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-[auto_1fr_auto] md:grid-cols-[1fr_auto_1fr] items-center gap-4 md:gap-8">
@@ -76,7 +78,7 @@ export const Header: React.FC = () => {
                   key={link.view}
                   id={`nav-${link.view}`}
                   onClick={() => setCurrentView(link.view)}
-                  className={`text-xs uppercase tracking-[0.2em] font-semibold transition-all duration-200 relative py-1 ${
+                  className={`text-xs uppercase tracking-[0.2em] font-cinzel font-bold transition-all duration-200 relative py-1 ${
                     isActive
                       ? 'text-[#141414]'
                       : 'text-[#5F5D58] hover:text-[#C5A059]'
@@ -96,7 +98,7 @@ export const Header: React.FC = () => {
             <button
               id="brand-logo-btn"
               onClick={() => setCurrentView('home')}
-              className="group inline-flex flex-col items-center md:items-start"
+              className="group inline-flex flex-col items-center md:items-start cursor-pointer"
             >
               <div className="flex items-center space-x-2">
                 <span className="font-cinzel text-xl sm:text-2xl font-black tracking-widest uppercase text-[#141414] transition-transform group-hover:scale-[1.01]">
@@ -107,22 +109,22 @@ export const Header: React.FC = () => {
                 </span>
               </div>
               <span className="text-[9px] tracking-[0.24em] uppercase text-[#706E6B] font-mono-code -mt-0.5 hidden sm:block">
-                ANCIENT STORIES. MODERN MEANINGS.
+                <ShinyText text="ANCIENT STORIES · MODERN MEANINGS" speed={5} />
               </span>
             </button>
           </div>
 
           {/* Right actions */}
-          <div className="flex items-center justify-self-end space-x-3 sm:space-x-5">
+          <div className="flex items-center justify-self-end space-x-3 sm:space-x-4">
             {/* Desktop Search trigger */}
             <button
               id="header-search-btn"
               onClick={() => setIsSearchOpen(true)}
-              className="hidden md:flex items-center space-x-2 text-xs tracking-wider uppercase text-[#706E6B] hover:text-[#141414] transition-colors py-1.5 px-3 rounded border border-[#E0DFD8] bg-[#FFFFFF] shadow-sm hover:border-[#141414]"
+              className="hidden md:flex items-center space-x-2 text-xs tracking-wider uppercase text-[#706E6B] hover:text-[#141414] transition-colors py-1.5 px-3 border border-[#E0DFD8] bg-[#FFFFFF] shadow-xs hover:border-[#C5A059]"
             >
               <Search className="w-3.5 h-3.5" />
               <span className="text-[11px] font-mono-code text-[#706E6B]">CARI</span>
-              <kbd className="text-[9px] bg-[#ECECE7] px-1.5 py-0.5 rounded text-[#706E6B] font-mono-code border border-[#E0DFD8]">⌘K</kbd>
+              <kbd className="text-[9px] bg-[#ECECE7] px-1.5 py-0.5 rounded-xs text-[#706E6B] font-mono-code border border-[#E0DFD8]">⌘K</kbd>
             </button>
 
             {/* Track Order quick link */}
@@ -130,12 +132,12 @@ export const Header: React.FC = () => {
               id="header-track-btn"
               onClick={() => setCurrentView('track-order')}
               title="Lacak pesanan"
-              className={`text-xs uppercase tracking-wider font-semibold transition-colors hidden sm:flex items-center space-x-1.5 ${
-                currentView === 'track-order' ? 'text-[#141414]' : 'text-[#706E6B] hover:text-[#141414]'
+              className={`text-xs uppercase tracking-wider font-cinzel font-bold transition-colors hidden sm:flex items-center space-x-1.5 ${
+                currentView === 'track-order' ? 'text-[#141414]' : 'text-[#706E6B] hover:text-[#C5A059]'
               }`}
             >
               <PackageCheck className="w-4 h-4" />
-              <span className="hidden lg:inline text-[11px]">LACAK</span>
+              <span className="hidden lg:inline text-[10px] tracking-widest">LACAK</span>
             </button>
 
             {/* Wishlist */}
@@ -143,11 +145,11 @@ export const Header: React.FC = () => {
               id="header-wishlist-btn"
               onClick={() => setCurrentView('shop', 'wishlist')}
               title="Produk tersimpan"
-              className="relative p-1.5 text-[#706E6B] hover:text-[#141414] transition-colors"
+              className="relative p-1.5 text-[#706E6B] hover:text-[#C5A059] transition-colors"
             >
               <Heart className="w-4 h-4 sm:w-5 sm:h-5" />
               {wishlist.length > 0 && (
-                <span className="absolute top-0 right-0 w-2 h-2 rounded-full bg-[#F27D26] animate-pulse" />
+                <span className="absolute top-0 right-0 w-2 h-2 rounded-full bg-[#C5A059] animate-pulse" />
               )}
             </button>
 
@@ -157,24 +159,25 @@ export const Header: React.FC = () => {
               onClick={() => setCurrentView('account')}
               title="Akun saya"
               className={`p-1.5 transition-colors ${
-                currentView === 'account' ? 'text-[#141414]' : 'text-[#706E6B] hover:text-[#141414]'
+                currentView === 'account' ? 'text-[#141414]' : 'text-[#706E6B] hover:text-[#C5A059]'
               }`}
             >
               <UserIcon className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
 
             {/* Cart Button */}
-            <button
-              id="header-cart-btn"
-              onClick={() => setIsCartOpen(true)}
-              className="flex items-center space-x-2 py-1.5 px-3 bg-[#141414] text-[#F5F5F0] hover:bg-[#F27D26] transition-all font-semibold rounded-none shadow-sm"
-            >
-              <ShoppingBag className="w-4 h-4 stroke-[2.2]" />
-              <span className="text-xs font-mono-code font-bold tracking-tight">
-                {cartCount}
-              </span>
-            </button>
-
+            <Magnet strength={0.2}>
+              <button
+                id="header-cart-btn"
+                onClick={() => setIsCartOpen(true)}
+                className="flex items-center space-x-2 py-1.5 px-3.5 bg-[#121214] text-[#F5F5F0] hover:bg-[#C5A059] hover:text-[#121214] transition-all font-cinzel font-bold rounded-none shadow-sm"
+              >
+                <ShoppingBag className="w-4 h-4 stroke-[2.2]" />
+                <span className="text-xs font-mono-code font-bold tracking-tight">
+                  {cartCount}
+                </span>
+              </button>
+            </Magnet>
           </div>
         </div>
       </header>
@@ -185,7 +188,7 @@ export const Header: React.FC = () => {
           <div>
             <div className="flex items-center justify-between pb-6 border-b border-[#E0DFD8]">
               <div>
-                <span className="font-heading text-2xl font-black uppercase text-[#141414] tracking-tight">
+                <span className="font-cinzel text-2xl font-black uppercase text-[#141414] tracking-tight">
                   RdCloth
                 </span>
                 <p className="text-[10px] font-mono-code uppercase tracking-widest text-[#706E6B]">
@@ -209,8 +212,8 @@ export const Header: React.FC = () => {
                     setCurrentView(link.view);
                     setIsMobileMenuOpen(false);
                   }}
-                  className={`text-left text-xl font-heading font-extrabold tracking-wider uppercase transition-colors ${
-                    currentView === link.view ? 'text-[#141414] pl-3 border-l-2 border-[#141414]' : 'text-[#706E6B] hover:text-[#141414]'
+                  className={`text-left text-xl font-cinzel font-extrabold tracking-wider uppercase transition-colors ${
+                    currentView === link.view ? 'text-[#141414] pl-3 border-l-2 border-[#C5A059]' : 'text-[#706E6B] hover:text-[#141414]'
                   }`}
                 >
                   {link.label}
@@ -247,3 +250,4 @@ export const Header: React.FC = () => {
     </>
   );
 };
+

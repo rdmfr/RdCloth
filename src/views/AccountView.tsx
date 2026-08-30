@@ -108,7 +108,7 @@ export const AccountView: React.FC = () => {
                 </p>
                 <button
                   onClick={() => setCurrentView('shop')}
-                  className="px-6 py-2.5 bg-[#141414] text-[#F5F5F0] text-xs font-mono-code font-bold uppercase hover:bg-[#F27D26]"
+                  className="px-6 py-2.5 bg-[#141414] text-[#F5F5F0] text-xs font-mono-code font-bold uppercase hover:bg-[#C5A059]"
                 >
                   SHOP CATALOG
                 </button>
@@ -120,7 +120,7 @@ export const AccountView: React.FC = () => {
                     <div>
                       <div className="flex items-center space-x-2">
                         <span className="font-heading font-bold text-[#141414] text-sm">#{ord.id}</span>
-                        <span className="text-[10px] font-mono-code font-bold px-2 py-0.5 bg-[#F5F5F0] text-[#F27D26] border border-[#E0DFD8] uppercase">
+                        <span className="text-[10px] font-mono-code font-bold px-2 py-0.5 bg-[#F5F5F0] text-[#C5A059] border border-[#E0DFD8] uppercase">
                           {ord.status}
                         </span>
                       </div>
@@ -161,7 +161,7 @@ export const AccountView: React.FC = () => {
                   <div className="pt-2 flex justify-end">
                     <button
                       onClick={() => setCurrentView('track-order')}
-                      className="text-xs font-mono-code text-[#141414] hover:text-[#F27D26] font-bold underline underline-offset-2 flex items-center space-x-1"
+                      className="text-xs font-mono-code text-[#141414] hover:text-[#C5A059] font-bold underline underline-offset-2 flex items-center space-x-1"
                     >
                       <span>TRACK LOGISTICS TIMELINE</span>
                       <ArrowRight className="w-3 h-3" />
@@ -213,7 +213,7 @@ export const AccountView: React.FC = () => {
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="px-6 py-3 bg-[#141414] text-[#F5F5F0] font-heading font-black text-xs uppercase tracking-wider hover:bg-[#F27D26] transition-colors shadow-xs"
+                  className="px-6 py-3 bg-[#141414] text-[#F5F5F0] font-heading font-black text-xs uppercase tracking-wider hover:bg-[#C5A059] transition-colors shadow-xs"
                 >
                   SAVE CHANGES
                 </button>
@@ -226,7 +226,7 @@ export const AccountView: React.FC = () => {
         {activeTab === 'address' && (
           <div className="max-w-xl bg-[#FFFFFF] border border-[#E0DFD8] p-6 sm:p-8 space-y-4 text-xs font-mono-code shadow-xs">
             <div className="flex items-center space-x-2 text-[#141414] font-bold uppercase">
-              <MapPin className="w-4 h-4 text-[#F27D26]" />
+              <MapPin className="w-4 h-4 text-[#C5A059]" />
               <span>DEFAULT SHIPPING ADDRESS</span>
             </div>
             <div className="p-4 bg-[#F5F5F0] border border-[#E0DFD8] space-y-1 text-[#706E6B]">

@@ -25,7 +25,7 @@ export const ToastContainer: React.FC = () => {
               )}
               {toast.type === 'info' && (
                 <div className="w-6 h-6 rounded-full bg-[#ECECE7] text-[#141414] flex items-center justify-center flex-shrink-0">
-                  <Info className="w-3.5 h-3.5 text-[#F27D26]" />
+                  <Info className="w-3.5 h-3.5 text-[#C5A059]" />
                 </div>
               )}
               {toast.type === 'error' && (

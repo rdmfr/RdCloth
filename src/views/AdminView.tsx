@@ -135,7 +135,7 @@ export const AdminView: React.FC = () => {
         {/* Admin Header */}
         <div className="border-b border-[#E0DFD8] pb-6 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="flex items-center space-x-2 text-xs font-mono-code text-[#F27D26] font-bold">
+            <div className="flex items-center space-x-2 text-xs font-mono-code text-[#C5A059] font-bold">
               <ShieldAlert className="w-4 h-4" />
               <span>RDCLOTH BACKSTAGE / ADMIN STUDIO</span>
             </div>
@@ -147,7 +147,7 @@ export const AdminView: React.FC = () => {
           <div className="flex items-center space-x-3">
             <button
               onClick={logoutAdmin}
-              className="px-4 py-2 bg-[#141414] text-[#F5F5F0] hover:bg-[#F27D26] text-xs font-mono-code uppercase transition-colors shadow-xs"
+              className="px-4 py-2 bg-[#141414] text-[#F5F5F0] hover:bg-[#C5A059] text-xs font-mono-code uppercase transition-colors shadow-xs"
             >
               SIGN OUT
             </button>
@@ -193,7 +193,7 @@ export const AdminView: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               <div className="p-6 bg-[#FFFFFF] border border-[#E0DFD8] space-y-2 shadow-xs">
                 <span className="text-[10px] font-mono-code text-[#706E6B] uppercase font-bold">TOTAL GROSS SALES</span>
-                <p className="font-heading text-2xl sm:text-3xl font-black text-[#F27D26]">
+                <p className="font-heading text-2xl sm:text-3xl font-black text-[#C5A059]">
                   {formatIDR(totalRevenue)}
                 </p>
                 <p className="text-[11px] font-mono-code text-[#706E6B]">{totalOrdersCount} processed orders</p>
@@ -222,7 +222,7 @@ export const AdminView: React.FC = () => {
                 <h3 className="font-heading text-sm font-bold uppercase text-[#141414]">RECENT STORE ORDERS</h3>
                 <button
                   onClick={() => setActiveTab('orders')}
-                  className="text-xs font-mono-code text-[#F27D26] font-bold hover:underline"
+                  className="text-xs font-mono-code text-[#C5A059] font-bold hover:underline"
                 >
                   VIEW ALL ORDERS →
                 </button>
@@ -239,7 +239,7 @@ export const AdminView: React.FC = () => {
                       </p>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <span className="text-[10px] font-bold px-2 py-0.5 bg-[#FFFFFF] text-[#F27D26] border border-[#E0DFD8] uppercase">
+                      <span className="text-[10px] font-bold px-2 py-0.5 bg-[#FFFFFF] text-[#C5A059] border border-[#E0DFD8] uppercase">
                         {ord.status}
                       </span>
                     </div>
@@ -283,7 +283,7 @@ export const AdminView: React.FC = () => {
                     ]
                   });
                 }}
-                className="px-4 py-2.5 bg-[#141414] text-[#F5F5F0] font-heading font-black text-xs uppercase flex items-center space-x-1.5 hover:bg-[#F27D26] transition-colors shadow-xs"
+                className="px-4 py-2.5 bg-[#141414] text-[#F5F5F0] font-heading font-black text-xs uppercase flex items-center space-x-1.5 hover:bg-[#C5A059] transition-colors shadow-xs"
               >
                 <Plus className="w-4 h-4" />
                 <span>ADD NEW APPAREL</span>
@@ -356,7 +356,7 @@ export const AdminView: React.FC = () => {
                     <div>
                       <div className="flex items-center space-x-3">
                         <h4 className="font-heading text-lg font-bold uppercase text-[#141414]">#{ord.id}</h4>
-                        <span className="text-[10px] font-mono-code font-bold px-2 py-0.5 bg-[#F5F5F0] text-[#F27D26] border border-[#E0DFD8] uppercase">
+                        <span className="text-[10px] font-mono-code font-bold px-2 py-0.5 bg-[#F5F5F0] text-[#C5A059] border border-[#E0DFD8] uppercase">
                           {ord.status}
                         </span>
                       </div>
@@ -407,7 +407,7 @@ export const AdminView: React.FC = () => {
                             const val = trackingInputs[ord.id] || ord.trackingNumber || '';
                             updateOrderTracking(ord.id, val);
                           }}
-                          className="px-4 bg-[#141414] text-[#F5F5F0] font-bold text-xs uppercase hover:bg-[#F27D26] transition-colors"
+                          className="px-4 bg-[#141414] text-[#F5F5F0] font-bold text-xs uppercase hover:bg-[#C5A059] transition-colors"
                         >
                           SAVE RESI
                         </button>
@@ -486,7 +486,7 @@ export const AdminView: React.FC = () => {
                         <span className="text-[10px] text-[#706E6B] uppercase block">APPLICATION</span>
                         <p className="text-[#141414] font-bold">{cust.placement}</p>
                         <p className="text-[#706E6B]">Technique: {cust.printTechnique}</p>
-                        <p className="text-[#F27D26] font-bold">Est: {formatIDR(cust.estimatedPrice)}</p>
+                        <p className="text-[#C5A059] font-bold">Est: {formatIDR(cust.estimatedPrice)}</p>
                       </div>
 
                       <div className="p-3 bg-[#F5F5F0] border border-[#E0DFD8] space-y-1">
@@ -528,9 +528,9 @@ export const AdminView: React.FC = () => {
                   <div className="space-y-1">
                     <div className="flex items-center space-x-2">
                       <span className="text-[#141414] font-bold uppercase">{rev.userName}</span>
-                      <div className="flex items-center text-[#F27D26]">
+                      <div className="flex items-center text-[#C5A059]">
                         {[...Array(rev.rating)].map((_, i) => (
-                          <Star key={i} className="w-3 h-3 fill-[#F27D26]" />
+                          <Star key={i} className="w-3 h-3 fill-[#C5A059]" />
                         ))}
                       </div>
                       <span className="text-[#706E6B]">for {rev.productName}</span>
@@ -606,7 +606,7 @@ export const AdminView: React.FC = () => {
             <div className="pt-2">
               <button
                 type="submit"
-                className="px-6 py-3 bg-[#141414] text-[#F5F5F0] font-heading font-black text-xs uppercase tracking-wider hover:bg-[#F27D26] flex items-center space-x-2 shadow-xs transition-colors"
+                className="px-6 py-3 bg-[#141414] text-[#F5F5F0] font-heading font-black text-xs uppercase tracking-wider hover:bg-[#C5A059] flex items-center space-x-2 shadow-xs transition-colors"
               >
                 <Save className="w-4 h-4" />
                 <span>SAVE HOMEPAGE CMS</span>
@@ -677,7 +677,7 @@ export const AdminView: React.FC = () => {
             <div className="pt-2">
               <button
                 type="submit"
-                className="px-6 py-3 bg-[#141414] text-[#F5F5F0] font-heading font-black text-xs uppercase tracking-wider hover:bg-[#F27D26] flex items-center space-x-2 shadow-xs transition-colors"
+                className="px-6 py-3 bg-[#141414] text-[#F5F5F0] font-heading font-black text-xs uppercase tracking-wider hover:bg-[#C5A059] flex items-center space-x-2 shadow-xs transition-colors"
               >
                 <Save className="w-4 h-4" />
                 <span>SAVE SETTINGS</span>
@@ -768,7 +768,7 @@ export const AdminView: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-3 bg-[#141414] text-[#F5F5F0] font-heading font-black uppercase tracking-wider hover:bg-[#F27D26] transition-colors"
+                  className="flex-1 py-3 bg-[#141414] text-[#F5F5F0] font-heading font-black uppercase tracking-wider hover:bg-[#C5A059] transition-colors"
                 >
                   SAVE APPAREL
                 </button>

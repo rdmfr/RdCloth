@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useStore } from '../context/StoreContext';
 import { formatIDR, formatDate } from '../utils/formatters';
 import { 
@@ -15,8 +15,19 @@ import {
   Share2, 
   Sparkles,
   ArrowLeft,
-  MessageSquarePlus
+  MessageSquarePlus,
+  Compass,
+  Layers,
+  Flame,
+  Info,
+  Maximize2
 } from 'lucide-react';
+import { SpotlightCard } from '../components/reactbits/SpotlightCard';
+import { DecryptedText } from '../components/reactbits/DecryptedText';
+import { ShinyText } from '../components/reactbits/ShinyText';
+import { Magnet } from '../components/reactbits/Magnet';
+import { TiltedCard } from '../components/reactbits/TiltedCard';
+import { AnimatedCounter } from '../components/reactbits/AnimatedCounter';
 
 export const ProductDetailView: React.FC = () => {
   const { 
@@ -42,6 +53,9 @@ export const ProductDetailView: React.FC = () => {
   const [selectedSize, setSelectedSize] = useState<string>(product?.sizes[0] || 'L');
   const [quantity, setQuantity] = useState<number>(1);
   const [showMarketplaceSelector, setShowMarketplaceSelector] = useState<boolean>(false);
+  const [showStickyBar, setShowStickyBar] = useState<boolean>(false);
+  const [isZoomed, setIsZoomed] = useState<boolean>(false);
+  const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
   
   // Accordion states
   const [openSection, setOpenSection] = useState<'material' | 'care' | 'shipping' | null>('material');
@@ -53,15 +67,33 @@ export const ProductDetailView: React.FC = () => {
   const [revFit, setRevFit] = useState<'Runs Small' | 'True to Size' | 'Runs Large'>('True to Size');
   const [revComment, setRevComment] = useState('');
 
+  const buyButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Monitor scroll for Sticky Quick-Buy bar
+  useEffect(() => {
+    const handleScroll = () => {
+      if (buyButtonRef.current) {
+        const rect = buyButtonRef.current.getBoundingClientRect();
+        if (rect.bottom < 0) {
+          setShowStickyBar(true);
+        } else {
+          setShowStickyBar(false);
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   if (!product) {
     return (
       <div className="min-h-screen bg-[#F5F5F0] text-[#141414] pt-32 text-center">
-        <p className="font-heading text-xl uppercase">Product Not Found</p>
+        <p className="font-cinzel text-xl uppercase">Artifak Tidak Ditemukan</p>
         <button
           onClick={() => setCurrentView('shop')}
-          className="mt-4 px-6 py-2.5 bg-[#141414] text-[#F5F5F0] text-xs font-mono-code uppercase font-bold hover:bg-[#F27D26]"
+          className="mt-4 px-6 py-2.5 bg-[#121214] text-[#F5F5F0] text-xs font-cinzel uppercase font-bold hover:bg-[#C5A059] hover:text-[#121214]"
         >
-          Back to Shop
+          Kembali ke Katalog
         </button>
       </div>
     );
@@ -88,8 +120,8 @@ export const ProductDetailView: React.FC = () => {
   };
 
   const marketplaceOptions = [
-    { key: 'shopee' as const, label: 'Shopee', href: product.marketplaceLinks?.shopee || settings.shopeeUrl },
-    { key: 'tokopedia' as const, label: 'Tokopedia', href: product.marketplaceLinks?.tokopedia || settings.tokopediaUrl },
+    { key: 'shopee' as const, label: 'Shopee Official', href: product.marketplaceLinks?.shopee || settings.shopeeUrl },
+    { key: 'tokopedia' as const, label: 'Tokopedia Store', href: product.marketplaceLinks?.tokopedia || settings.tokopediaUrl },
     { key: 'tiktokshop' as const, label: 'TikTok Shop', href: product.marketplaceLinks?.tiktokshop || settings.tiktokshopUrl }
   ];
 
@@ -99,7 +131,7 @@ export const ProductDetailView: React.FC = () => {
 
     if (targetUrl) {
       window.open(targetUrl, '_blank', 'noopener,noreferrer');
-      showToast(`Anda dialihkan ke ${selected?.label}.`, 'success');
+      showToast(`Membuka toko resmi di ${selected?.label}...`, 'success');
       setShowMarketplaceSelector(false);
       return;
     }
@@ -110,7 +142,7 @@ export const ProductDetailView: React.FC = () => {
   const handleReviewSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!revName.trim() || !revComment.trim()) {
-      showToast('Please fill in your name and comment.', 'error');
+      showToast('Mohon isi nama dan ulasan Anda.', 'error');
       return;
     }
     await submitReview({
@@ -128,66 +160,89 @@ export const ProductDetailView: React.FC = () => {
     setRevComment('');
   };
 
-  const handleShare = () => {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(window.location.href);
-      showToast('Product link copied to clipboard.', 'success');
-    }
+  const handleMouseMoveZoom = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setZoomPos({ x, y });
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F5F0] text-[#141414] pt-24 pb-24">
-      {/* Breadcrumb back */}
+    <div className="min-h-screen bg-[#F5F5F0] text-[#141414] pt-24 pb-28">
+      {/* Breadcrumb Back */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <button
           onClick={() => setCurrentView('shop')}
-          className="inline-flex items-center space-x-2 text-xs font-mono-code uppercase text-[#706E6B] hover:text-[#141414] transition-colors"
+          className="inline-flex items-center space-x-2 text-xs font-cinzel uppercase font-bold text-[#706E6B] hover:text-[#C5A059] transition-colors cursor-pointer"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
-          <span>BACK TO CATALOG</span>
+          <span>KEMBALI KE KATALOG</span>
         </button>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
-          {/* LEFT: Large Product Gallery */}
+          {/* LEFT: Large Interactive Product Gallery */}
           <div className="lg:col-span-7 space-y-4">
-            {/* Main Stage Image */}
-            <div className="relative aspect-[3/4] sm:aspect-[4/5] bg-[#FFFFFF] border border-[#E0DFD8] overflow-hidden">
+            {/* Main Stage Image with Interactive Lens Zoom */}
+            <div
+              className="relative aspect-[3/4] sm:aspect-[4/5] bg-[#FFFFFF] border-2 border-[#E0DFD8] overflow-hidden group shadow-lg cursor-crosshair"
+              onMouseEnter={() => setIsZoomed(true)}
+              onMouseLeave={() => setIsZoomed(false)}
+              onMouseMove={handleMouseMoveZoom}
+            >
               <img
                 src={product.images[activeImageIndex]?.url || product.images[0]?.url}
                 alt={product.name}
-                className="w-full h-full object-cover object-center transition-all duration-300"
+                className="w-full h-full object-cover object-center transition-transform duration-200"
+                style={
+                  isZoomed
+                    ? {
+                        transform: 'scale(1.8)',
+                        transformOrigin: `${zoomPos.x}% ${zoomPos.y}%`
+                      }
+                    : { transform: 'scale(1)' }
+                }
                 referrerPolicy="no-referrer"
               />
 
+              {/* Badge Overlay */}
               {product.badge && (
-                <span className="absolute top-4 left-4 bg-[#141414] text-[#F5F5F0] text-[10px] font-mono-code font-black px-2.5 py-1 uppercase tracking-widest">
+                <span className="absolute top-4 left-4 bg-[#121214]/95 text-[#C5A059] border border-[#C5A059]/50 text-[10px] font-cinzel font-bold px-3 py-1 uppercase tracking-widest shadow-md backdrop-blur-sm pointer-events-none">
                   {product.badge}
                 </span>
               )}
 
+              {/* Zoom Indicator Icon */}
+              <div className="absolute bottom-4 right-4 bg-[#121214]/80 text-[#C5A059] p-2 backdrop-blur-md border border-[#C5A059]/30 pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity">
+                <Maximize2 className="w-4 h-4" />
+              </div>
+
+              {/* Wishlist Button */}
               <button
-                onClick={() => toggleWishlist(product.id)}
-                className={`absolute top-4 right-4 p-2.5 border border-[#E0DFD8] backdrop-blur-md transition-colors ${
-                  isFav ? 'bg-[#141414] text-white' : 'bg-white/80 text-[#706E6B] hover:text-[#141414]'
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleWishlist(product.id);
+                }}
+                className={`absolute top-4 right-4 p-2.5 border border-[#E0DFD8] backdrop-blur-md transition-all shadow-sm ${
+                  isFav ? 'bg-[#121214] text-[#C5A059] border-[#C5A059]' : 'bg-white/90 text-[#706E6B] hover:text-[#141414]'
                 }`}
                 aria-label="Wishlist"
               >
-                <Heart className={`w-4 h-4 ${isFav ? 'fill-white' : ''}`} />
+                <Heart className={`w-4 h-4 ${isFav ? 'fill-[#C5A059]' : ''}`} />
               </button>
             </div>
 
-            {/* Thumbnails row */}
+            {/* Thumbnails Row */}
             {product.images.length > 1 && (
               <div className="grid grid-cols-4 gap-3">
                 {product.images.map((img, idx) => (
                   <button
                     key={img.id || idx}
                     onClick={() => setActiveImageIndex(idx)}
-                    className={`relative aspect-[3/4] bg-[#FFFFFF] border overflow-hidden transition-all ${
+                    className={`relative aspect-[3/4] bg-[#FFFFFF] border-2 overflow-hidden transition-all cursor-pointer ${
                       activeImageIndex === idx
-                        ? 'border-[#141414] ring-1 ring-[#141414]'
+                        ? 'border-[#C5A059] shadow-md scale-[1.02]'
                         : 'border-[#E0DFD8] opacity-70 hover:opacity-100'
                     }`}
                   >
@@ -201,28 +256,44 @@ export const ProductDetailView: React.FC = () => {
                 ))}
               </div>
             )}
+
+            {/* Model Fit Drape & Spec Card */}
+            <div className="p-4 bg-[#ECECE7] border border-[#E0DFD8] flex items-center justify-between text-xs font-mono-code text-[#706E6B]">
+              <div className="flex items-center space-x-2 text-[#141414]">
+                <Info className="w-4 h-4 text-[#C5A059]" />
+                <span className="font-bold">FIT & DRAPE:</span>
+                <span>Model 182 cm / 74 kg mengenakan ukuran <strong>L (Boxy Drop Shoulder)</strong></span>
+              </div>
+              <span className="text-[10px] text-[#C5A059] font-cinzel font-bold hidden sm:inline">TRUE TO SIZE</span>
+            </div>
           </div>
 
-          {/* RIGHT: Product Information */}
+          {/* RIGHT: Product Information & Purchase Studio */}
           <div className="lg:col-span-5 space-y-6">
             <div className="space-y-2 border-b border-[#E0DFD8] pb-6">
               <div className="flex items-center justify-between text-xs font-mono-code text-[#706E6B]">
-                <span className="font-cinzel text-[#C5A059] font-bold">{product.artifactCode || `RDC / 00${product.id.replace('prod-', '')}`}</span>
+                <DecryptedText
+                  text={product.artifactCode || `RDC / 00${product.id.replace('prod-', '')}`}
+                  speed={30}
+                  maxIterations={8}
+                  className="font-cinzel text-[#C5A059] font-bold"
+                  encryptedClassName="text-[#C5A059]"
+                />
                 <span className="font-cinzel text-[#141414] font-bold">{product.chapter || 'CHAPTER I'}</span>
               </div>
 
-              <h1 className="font-cinzel text-2xl sm:text-3xl font-black uppercase tracking-widest text-[#141414] leading-tight pt-1">
+              <h1 className="font-cinzel text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-wider text-[#141414] leading-tight pt-1">
                 {product.name}
               </h1>
 
               {product.tagline && (
                 <p className="text-xs font-mono-code uppercase text-[#706E6B]">
-                  {product.tagline}
+                  <ShinyText text={product.tagline} speed={4} />
                 </p>
               )}
 
               <div className="flex items-baseline space-x-3 pt-2">
-                <span className="text-xl font-mono-code font-bold text-[#141414]">
+                <span className="text-2xl font-mono-code font-bold text-[#141414]">
                   {formatIDR(product.price)}
                 </span>
                 {product.originalPrice && (
@@ -230,48 +301,49 @@ export const ProductDetailView: React.FC = () => {
                     {formatIDR(product.originalPrice)}
                   </span>
                 )}
-                <span className="text-[10px] font-mono-code text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 uppercase font-bold">
-                  IN STOCK ({currentVariant?.stock ?? 12} LEFT)
+                <span className="text-[10px] font-mono-code text-emerald-800 bg-emerald-100 border border-emerald-300 px-2 py-0.5 uppercase font-bold">
+                  TERSEDIA ({currentVariant?.stock ?? 12} PCS)
                 </span>
               </div>
             </div>
 
-            {/* THE STORY NARRATIVE SECTION */}
-            <div className="p-4 bg-[#FFFFFF] border border-[#E0DFD8] space-y-2.5">
-              <span className="text-xs font-cinzel text-[#C5A059] font-bold tracking-widest uppercase block">
-                THE STORY
-              </span>
+            {/* Narrative Story Block */}
+            <SpotlightCard
+              spotlightColor="rgba(197, 160, 89, 0.12)"
+              borderColor="rgba(197, 160, 89, 0.4)"
+              className="p-5 bg-[#FFFFFF] border border-[#E0DFD8] space-y-2 shadow-xs"
+            >
+              <div className="flex items-center space-x-2">
+                <span className="w-1.5 h-1.5 bg-[#C5A059] rounded-full" />
+                <span className="text-xs font-cinzel text-[#C5A059] font-bold tracking-widest uppercase block">
+                  THE NARRATIVE
+                </span>
+              </div>
               <p className="text-xs font-mono-code text-[#54524F] leading-relaxed italic">
-                {product.storyDescription || 'Odysseus spent years trying to return home. But sometimes, moving forward means accepting that the place you once called home no longer exists. This piece represents the moment you stop looking back.'}
+                {product.storyDescription || 'Odysseus menghabiskan bertahun-tahun mencoba kembali pulang. Namun melangkah maju terkadang berarti menerima bahwa tempat yang dulu kita sebut rumah telah berubah.'}
               </p>
-            </div>
+            </SpotlightCard>
 
-            {/* SYMBOLISM BREAKDOWN SECTION */}
-            {product.symbolism && product.symbolism.length > 0 && (
-              <div className="p-4 bg-[#FFFFFF] border border-[#E0DFD8] space-y-2">
-                <span className="text-xs font-cinzel text-[#141414] font-bold tracking-widest uppercase block border-b border-[#E0DFD8] pb-1.5">
-                  SYMBOLISM
-                </span>
-                <div className="grid grid-cols-2 gap-2 text-xs font-mono-code pt-1">
-                  {product.symbolism.map((item, idx) => (
-                    <div key={idx} className="space-y-0.5">
-                      <span className="text-[#C5A059] font-bold block">{item.label}</span>
-                      <span className="text-[#706E6B] block text-[11px] leading-tight">{item.meaning}</span>
-                    </div>
-                  ))}
-                </div>
+            {/* Garment Fabric Anatomy Badges */}
+            <div className="grid grid-cols-3 gap-2">
+              <div className="p-3 bg-[#FFFFFF] border border-[#E0DFD8] text-center space-y-0.5">
+                <span className="text-[10px] font-mono-code text-[#706E6B] block">DENSITY</span>
+                <span className="text-xs font-cinzel font-bold text-[#C5A059]">235 GSM 16S</span>
               </div>
-            )}
-
-            {/* Description */}
-            <p className="text-xs sm:text-sm font-mono-code text-[#54524F] leading-relaxed">
-              {product.description}
-            </p>
+              <div className="p-3 bg-[#FFFFFF] border border-[#E0DFD8] text-center space-y-0.5">
+                <span className="text-[10px] font-mono-code text-[#706E6B] block">COLLAR</span>
+                <span className="text-xs font-cinzel font-bold text-[#C5A059]">2.5 CM RIB</span>
+              </div>
+              <div className="p-3 bg-[#FFFFFF] border border-[#E0DFD8] text-center space-y-0.5">
+                <span className="text-[10px] font-mono-code text-[#706E6B] block">PRINTING</span>
+                <span className="text-xs font-cinzel font-bold text-[#C5A059]">JAPANESE DTF</span>
+              </div>
+            </div>
 
             {/* Color Selector */}
             <div className="space-y-2.5">
               <div className="flex items-center justify-between text-xs font-mono-code">
-                <span className="text-[#706E6B] uppercase font-bold">COLOR:</span>
+                <span className="text-[#706E6B] uppercase font-bold">WARNA:</span>
                 <span className="text-[#141414] font-bold">{selectedColor.name}</span>
               </div>
               <div className="flex items-center space-x-3">
@@ -279,9 +351,9 @@ export const ProductDetailView: React.FC = () => {
                   <button
                     key={color.name}
                     onClick={() => setSelectedColor(color)}
-                    className={`w-8 h-8 rounded-full border-2 transition-all p-0.5 ${
+                    className={`w-8 h-8 rounded-full border-2 transition-all p-0.5 cursor-pointer ${
                       selectedColor.name === color.name
-                        ? 'border-[#141414] scale-110'
+                        ? 'border-[#C5A059] scale-110 shadow-md'
                         : 'border-[#E0DFD8] hover:border-[#706E6B]'
                     }`}
                   >
@@ -294,16 +366,16 @@ export const ProductDetailView: React.FC = () => {
               </div>
             </div>
 
-            {/* Size Selector + Size Guide link */}
+            {/* Size Selector + Size Guide Link */}
             <div className="space-y-2.5">
               <div className="flex items-center justify-between text-xs font-mono-code">
-                <span className="text-[#706E6B] uppercase font-bold">SELECT SIZE:</span>
+                <span className="text-[#706E6B] uppercase font-bold">PILIH UKURAN:</span>
                 <button
                   onClick={() => setIsSizeGuideOpen(true)}
-                  className="text-[#141414] hover:text-[#F27D26] flex items-center space-x-1 underline underline-offset-2 transition-colors font-bold"
+                  className="text-[#141414] hover:text-[#C5A059] flex items-center space-x-1 underline underline-offset-2 transition-colors font-bold cursor-pointer"
                 >
-                  <Ruler className="w-3.5 h-3.5 text-[#F27D26]" />
-                  <span>SIZE GUIDE</span>
+                  <Ruler className="w-3.5 h-3.5 text-[#C5A059]" />
+                  <span>PANDUAN UKURAN</span>
                 </button>
               </div>
 
@@ -314,10 +386,10 @@ export const ProductDetailView: React.FC = () => {
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`py-3 text-xs font-mono-code uppercase font-bold border transition-all ${
+                      className={`py-3 text-xs font-mono-code uppercase font-bold border transition-all cursor-pointer ${
                         isSelected
-                          ? 'bg-[#141414] text-[#F5F5F0] border-[#141414]'
-                          : 'bg-[#FFFFFF] text-[#706E6B] border-[#E0DFD8] hover:text-[#141414] hover:border-[#141414]'
+                          ? 'bg-[#121214] text-[#C5A059] border-[#121214] shadow-sm'
+                          : 'bg-[#FFFFFF] text-[#706E6B] border-[#E0DFD8] hover:text-[#141414] hover:border-[#C5A059]'
                       }`}
                     >
                       {size}
@@ -327,14 +399,14 @@ export const ProductDetailView: React.FC = () => {
               </div>
             </div>
 
-            {/* Quantity + marketplace CTA */}
+            {/* Quantity + Add to Bag CTAs */}
             <div className="space-y-3 pt-2">
               <div className="flex items-center space-x-3">
                 <div className="flex items-center border border-[#E0DFD8] bg-[#FFFFFF] h-12">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="px-3 text-[#706E6B] hover:text-[#141414] transition-colors"
-                    aria-label="Decrease"
+                    className="px-3 text-[#706E6B] hover:text-[#141414] transition-colors cursor-pointer"
+                    aria-label="Kurang"
                   >
                     <Minus className="w-4 h-4" />
                   </button>
@@ -343,19 +415,20 @@ export const ProductDetailView: React.FC = () => {
                   </span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="px-3 text-[#706E6B] hover:text-[#141414] transition-colors"
-                    aria-label="Increase"
+                    className="px-3 text-[#706E6B] hover:text-[#141414] transition-colors cursor-pointer"
+                    aria-label="Tambah"
                   >
                     <Plus className="w-4 h-4" />
                   </button>
                 </div>
 
                 <button
+                  ref={buyButtonRef}
                   id="pdp-add-to-cart-btn"
                   onClick={handleAddToCart}
-                  className="flex-1 h-12 bg-[#141414] text-[#F5F5F0] hover:bg-[#F27D26] transition-all font-heading font-black text-xs uppercase tracking-widest flex items-center justify-center space-x-2 shadow-xs"
+                  className="flex-1 h-12 bg-[#121214] text-[#F5F5F0] hover:bg-[#C5A059] hover:text-[#121214] transition-all font-cinzel font-bold text-xs uppercase tracking-widest flex items-center justify-center space-x-2 shadow-md cursor-pointer"
                 >
-                  <span>Tambah</span>
+                  <span>TAMBAH KE BAG</span>
                   <span>•</span>
                   <span>{formatIDR(product.price * quantity)}</span>
                 </button>
@@ -364,21 +437,21 @@ export const ProductDetailView: React.FC = () => {
               <button
                 id="pdp-buy-now-btn"
                 onClick={() => setShowMarketplaceSelector(true)}
-                className="w-full h-12 bg-[#FFFFFF] hover:bg-[#ECECE7] text-[#141414] border border-[#E0DFD8] hover:border-[#141414] transition-all font-cinzel font-bold text-[10px] uppercase tracking-[0.18em] flex items-center justify-center shadow-xs"
+                className="w-full h-12 bg-[#FFFFFF] hover:bg-[#ECECE7] text-[#141414] border-2 border-[#C5A059] hover:border-[#141414] transition-all font-cinzel font-bold text-xs uppercase tracking-[0.18em] flex items-center justify-center shadow-xs cursor-pointer"
               >
-                BELI SEKARANG
+                BELI DI OFFICIAL MARKETPLACE →
               </button>
             </div>
 
-            {/* Guarantee badges */}
+            {/* Delivery & Assurance Badges */}
             <div className="p-4 bg-[#FFFFFF] border border-[#E0DFD8] space-y-2 text-xs font-mono-code text-[#706E6B]">
               <div className="flex items-center space-x-2 text-[#141414]">
-                <Truck className="w-4 h-4 text-[#F27D26]" />
-                <span>FREE SHIPPING ON ORDERS OVER RP 250.000</span>
+                <Truck className="w-4 h-4 text-[#C5A059]" />
+                <span>GRATIS ONGKIR DENGAN PEMBELIAN MINIMAL RP 250.000</span>
               </div>
               <div className="flex items-center space-x-2 text-[#706E6B]">
                 <ShieldCheck className="w-4 h-4 text-[#141414]" />
-                <span>100% Cotton 16s • Ribbed 2.5cm Non-sagging collar</span>
+                <span>Garansi tukar ukuran 3 hari jika belum pernah dicuci/dipakai</span>
               </div>
             </div>
 
@@ -388,9 +461,9 @@ export const ProductDetailView: React.FC = () => {
               <div>
                 <button
                   onClick={() => setOpenSection(openSection === 'material' ? null : 'material')}
-                  className="w-full py-4 flex items-center justify-between text-xs font-mono-code uppercase font-bold text-[#141414] hover:text-[#F27D26] transition-colors"
+                  className="w-full py-4 flex items-center justify-between text-xs font-cinzel uppercase font-bold text-[#141414] hover:text-[#C5A059] transition-colors cursor-pointer"
                 >
-                  <span>MATERIAL & SPECIFICATIONS</span>
+                  <span>MATERIAL & ARSITEKTUR KAIN</span>
                   {openSection === 'material' ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                 </button>
                 {openSection === 'material' && (
@@ -410,9 +483,9 @@ export const ProductDetailView: React.FC = () => {
               <div>
                 <button
                   onClick={() => setOpenSection(openSection === 'care' ? null : 'care')}
-                  className="w-full py-4 flex items-center justify-between text-xs font-mono-code uppercase font-bold text-[#141414] hover:text-[#F27D26] transition-colors"
+                  className="w-full py-4 flex items-center justify-between text-xs font-cinzel uppercase font-bold text-[#141414] hover:text-[#C5A059] transition-colors cursor-pointer"
                 >
-                  <span>CARE INSTRUCTIONS</span>
+                  <span>PETUNJUK PERAWATAN</span>
                   {openSection === 'care' ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                 </button>
                 {openSection === 'care' && (
@@ -428,16 +501,16 @@ export const ProductDetailView: React.FC = () => {
               <div>
                 <button
                   onClick={() => setOpenSection(openSection === 'shipping' ? null : 'shipping')}
-                  className="w-full py-4 flex items-center justify-between text-xs font-mono-code uppercase font-bold text-[#141414] hover:text-[#F27D26] transition-colors"
+                  className="w-full py-4 flex items-center justify-between text-xs font-cinzel uppercase font-bold text-[#141414] hover:text-[#C5A059] transition-colors cursor-pointer"
                 >
-                  <span>SHIPPING & RETURNS</span>
+                  <span>PENGIRIMAN & PENUKARAN</span>
                   {openSection === 'shipping' ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                 </button>
                 {openSection === 'shipping' && (
                   <div className="pb-4 space-y-2 text-xs font-mono-code text-[#706E6B]">
-                    <p>• Ready stock orders dispatched within 24 hours (Monday-Saturday).</p>
-                    <p>• Available couriers: JNE Regular, SiCepat BEST, J&T Express, GoSend Instant.</p>
-                    <p>• Size exchange available within 3 days after arrival (garment must be unworn with tags intact).</p>
+                    <p>• Pesanan dikirim dalam 24 jam kerja dari workshop Bandung.</p>
+                    <p>• Kurir tersedia: JNE, SiCepat, J&T, dan GoSend Instant.</p>
+                    <p>• Layanan retur tukar size tersedia selama hangtag masih terpasang rapi.</p>
                   </div>
                 )}
               </div>
@@ -445,38 +518,38 @@ export const ProductDetailView: React.FC = () => {
           </div>
         </div>
 
-        {/* REVIEWS SECTION */}
+        {/* Customer Reviews Section */}
         <div className="mt-24 pt-12 border-t border-[#E0DFD8]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
             <div>
               <span className="text-xs font-mono-code uppercase tracking-widest text-[#706E6B]">
                 VERIFIED FEEDBACK
               </span>
-              <h2 className="font-heading text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#141414] mt-1">
+              <h2 className="font-cinzel text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#141414] mt-1">
                 CUSTOMER REVIEWS ({productReviews.length})
               </h2>
             </div>
             <button
               onClick={() => setShowReviewModal(true)}
-              className="px-5 py-2.5 bg-[#FFFFFF] border border-[#E0DFD8] text-[#141414] hover:border-[#141414] text-xs font-mono-code uppercase font-bold flex items-center space-x-2 transition-all self-start sm:self-auto shadow-xs"
+              className="px-5 py-2.5 bg-[#FFFFFF] border border-[#E0DFD8] text-[#141414] hover:border-[#C5A059] text-xs font-cinzel uppercase font-bold flex items-center space-x-2 transition-all self-start sm:self-auto shadow-xs cursor-pointer"
             >
-              <MessageSquarePlus className="w-4 h-4 text-[#F27D26]" />
-              <span>WRITE A REVIEW</span>
+              <MessageSquarePlus className="w-4 h-4 text-[#C5A059]" />
+              <span>TULIS ULASAN</span>
             </button>
           </div>
 
           {productReviews.length === 0 ? (
             <div className="p-8 text-center bg-[#FFFFFF] border border-[#E0DFD8] text-xs font-mono-code text-[#706E6B]">
-              No reviews yet for this drop. Be the first to review!
+              Belum ada ulasan untuk artifak ini. Jadilah yang pertama memberikan testimoni!
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {productReviews.map(rev => (
                 <div key={rev.id} className="p-5 bg-[#FFFFFF] border border-[#E0DFD8] space-y-3 shadow-xs">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-1 text-[#F27D26]">
+                    <div className="flex items-center space-x-1 text-[#C5A059]">
                       {[...Array(rev.rating)].map((_, i) => (
-                        <Star key={i} className="w-3.5 h-3.5 fill-[#F27D26]" />
+                        <Star key={i} className="w-3.5 h-3.5 fill-[#C5A059]" />
                       ))}
                     </div>
                     <span className="text-[10px] font-mono-code text-[#706E6B]">
@@ -499,18 +572,57 @@ export const ProductDetailView: React.FC = () => {
         </div>
       </div>
 
+      {/* Sticky Bottom Quick-Buy Bar (Mobile & Desktop) */}
+      {showStickyBar && (
+        <div className="fixed bottom-0 inset-x-0 z-40 bg-[#121214]/95 backdrop-blur-xl border-t border-[#C5A059]/40 p-3 sm:p-4 shadow-2xl transition-all animate-in slide-in-from-bottom duration-300">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            <div className="flex items-center space-x-3">
+              <img
+                src={product.images[0]?.url}
+                alt={product.name}
+                className="w-12 h-12 object-cover border border-[#C5A059]/40"
+              />
+              <div>
+                <p className="font-cinzel text-xs font-bold text-[#F5F5F0] uppercase truncate max-w-[160px] sm:max-w-xs">
+                  {product.name}
+                </p>
+                <p className="text-xs font-mono-code text-[#C5A059] font-bold">
+                  {formatIDR(product.price)}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-3">
+              <button
+                onClick={handleAddToCart}
+                className="px-5 py-2.5 bg-[#C5A059] text-[#121214] hover:bg-[#D4AF37] font-cinzel font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer"
+              >
+                + BAG ({selectedSize})
+              </button>
+              <button
+                onClick={() => setShowMarketplaceSelector(true)}
+                className="hidden sm:inline-flex px-4 py-2.5 bg-[#18181B] text-[#F5F5F0] border border-[#C5A059]/40 hover:border-[#C5A059] font-cinzel font-bold text-xs uppercase tracking-wider transition-all cursor-pointer"
+              >
+                MARKETPLACE
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Marketplace Selector Modal */}
       {showMarketplaceSelector && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4 backdrop-blur-[2px]">
-          <div className="w-full max-w-md bg-[#F5F5F0] border border-[#D8D6CE] p-6 shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#141414]/75 p-4 backdrop-blur-sm">
+          <div className="w-full max-w-md bg-[#F5F5F0] border-2 border-[#C5A059] p-6 sm:p-8 shadow-2xl">
             <div className="flex items-start justify-between gap-4 mb-4">
               <div>
-                <p className="text-[10px] font-mono-code uppercase tracking-[0.22em] text-[#C5A059]">Pilih marketplace</p>
-                <h3 className="font-cinzel text-2xl font-black uppercase text-[#141414] mt-2">{product.name}</h3>
+                <p className="text-[10px] font-mono-code uppercase tracking-[0.22em] text-[#C5A059]">PILIH OFFICIAL STORE</p>
+                <h3 className="font-cinzel text-2xl font-black uppercase text-[#141414] mt-1">{product.name}</h3>
               </div>
               <button
                 onClick={() => setShowMarketplaceSelector(false)}
-                className="text-[#706E6B] hover:text-[#141414] text-xl leading-none"
-                aria-label="Close marketplace selector"
+                className="text-[#706E6B] hover:text-[#141414] text-xl leading-none cursor-pointer"
+                aria-label="Tutup selector"
               >
                 ×
               </button>
@@ -522,11 +634,11 @@ export const ProductDetailView: React.FC = () => {
                   key={option.key}
                   onClick={() => handleMarketplacePurchase(option.key)}
                   disabled={!option.href}
-                  className="w-full flex items-center justify-between gap-3 border border-[#E0DFD8] bg-[#FFFFFF] px-4 py-3 text-left transition-all hover:border-[#141414] hover:bg-[#ECECE7] disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full flex items-center justify-between gap-3 border border-[#E0DFD8] bg-[#FFFFFF] px-4 py-3.5 text-left transition-all hover:border-[#C5A059] hover:bg-[#FFFDF9] hover:shadow-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
-                  <span className="font-cinzel text-sm uppercase tracking-[0.16em] text-[#141414]">{option.label}</span>
+                  <span className="font-cinzel text-sm font-bold uppercase tracking-[0.16em] text-[#141414]">{option.label}</span>
                   <span className="text-[10px] font-mono-code uppercase text-[#706E6B]">
-                    {option.href ? 'Buka' : 'Belum tersedia'}
+                    {option.href ? 'Buka Toko →' : 'Belum tersedia'}
                   </span>
                 </button>
               ))}
@@ -534,7 +646,7 @@ export const ProductDetailView: React.FC = () => {
 
             <button
               onClick={() => setShowMarketplaceSelector(false)}
-              className="mt-5 w-full border border-[#E0DFD8] bg-transparent text-[#141414] px-4 py-2.5 text-[10px] font-cinzel uppercase tracking-[0.18em] hover:border-[#141414]"
+              className="mt-5 w-full border border-[#D9D3C8] bg-[#ECE7DF] text-[#141414] px-4 py-2.5 text-[10px] font-cinzel font-bold uppercase tracking-[0.2em] hover:bg-[#E1D9CB] cursor-pointer"
             >
               Batal
             </button>
@@ -544,22 +656,22 @@ export const ProductDetailView: React.FC = () => {
 
       {/* Review Submission Modal */}
       {showReviewModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto p-4 bg-black/40 backdrop-blur-xs flex items-center justify-center">
-          <div className="relative w-full max-w-md bg-[#FFFFFF] border border-[#E0DFD8] p-6 sm:p-8 space-y-4 shadow-2xl">
-            <h3 className="font-heading text-xl font-bold uppercase text-[#141414]">
-              REVIEW: {product.name}
+        <div className="fixed inset-0 z-50 overflow-y-auto p-4 bg-black/50 backdrop-blur-xs flex items-center justify-center">
+          <div className="relative w-full max-w-md bg-[#FFFFFF] border-2 border-[#C5A059]/60 p-6 sm:p-8 space-y-4 shadow-2xl">
+            <h3 className="font-cinzel text-xl font-bold uppercase text-[#141414]">
+              ULASAN: {product.name}
             </h3>
 
             <form onSubmit={handleReviewSubmit} className="space-y-4 text-xs font-mono-code">
               <div>
-                <label className="text-[#706E6B] block mb-1 uppercase font-bold">YOUR NAME</label>
+                <label className="text-[#706E6B] block mb-1 uppercase font-bold">NAMA ANDA</label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Aris Setiawan"
+                  placeholder="Contoh: Aris Setiawan"
                   value={revName}
                   onChange={e => setRevName(e.target.value)}
-                  className="w-full bg-[#F5F5F0] border border-[#E0DFD8] px-3 py-2 text-[#141414] focus:outline-none focus:border-[#141414]"
+                  className="w-full bg-[#F5F5F0] border border-[#E0DFD8] px-3 py-2 text-[#141414] focus:outline-none focus:border-[#C5A059]"
                 />
               </div>
 
@@ -571,24 +683,24 @@ export const ProductDetailView: React.FC = () => {
                       key={star}
                       type="button"
                       onClick={() => setRevRating(star)}
-                      className="p-1 text-[#F27D26]"
+                      className="p-1 text-[#C5A059] cursor-pointer"
                     >
-                      <Star className={`w-6 h-6 ${revRating >= star ? 'fill-[#F27D26]' : 'text-[#E0DFD8]'}`} />
+                      <Star className={`w-6 h-6 ${revRating >= star ? 'fill-[#C5A059]' : 'text-[#E0DFD8]'}`} />
                     </button>
                   ))}
                 </div>
               </div>
 
               <div>
-                <label className="text-[#706E6B] block mb-1 uppercase font-bold">FIT FEEDBACK</label>
+                <label className="text-[#706E6B] block mb-1 uppercase font-bold">FEEDBACK UKURAN</label>
                 <div className="grid grid-cols-3 gap-2">
                   {(['Runs Small', 'True to Size', 'Runs Large'] as const).map(fit => (
                     <button
                       key={fit}
                       type="button"
                       onClick={() => setRevFit(fit)}
-                      className={`py-2 text-[10px] uppercase font-bold border ${
-                        revFit === fit ? 'bg-[#141414] text-[#F5F5F0] border-[#141414]' : 'bg-[#FFFFFF] text-[#706E6B] border-[#E0DFD8]'
+                      className={`py-2 text-[10px] uppercase font-bold border cursor-pointer ${
+                        revFit === fit ? 'bg-[#121214] text-[#C5A059] border-[#121214]' : 'bg-[#FFFFFF] text-[#706E6B] border-[#E0DFD8]'
                       }`}
                     >
                       {fit}
@@ -598,14 +710,14 @@ export const ProductDetailView: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-[#706E6B] block mb-1 uppercase font-bold">YOUR THOUGHTS</label>
+                <label className="text-[#706E6B] block mb-1 uppercase font-bold">ULASAN & PENGALAMAN BAHAN</label>
                 <textarea
                   required
                   rows={3}
-                  placeholder="Tell us about the fabric density, collar fit, and styling..."
+                  placeholder="Ceritakan tentang ketebalan kain 235 GSM, fitting kerah, atau kenyamanan..."
                   value={revComment}
                   onChange={e => setRevComment(e.target.value)}
-                  className="w-full bg-[#F5F5F0] border border-[#E0DFD8] px-3 py-2 text-[#141414] focus:outline-none focus:border-[#141414]"
+                  className="w-full bg-[#F5F5F0] border border-[#E0DFD8] px-3 py-2 text-[#141414] focus:outline-none focus:border-[#C5A059]"
                 />
               </div>
 
@@ -613,15 +725,15 @@ export const ProductDetailView: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowReviewModal(false)}
-                  className="flex-1 py-2.5 bg-[#FFFFFF] border border-[#E0DFD8] text-[#706E6B] hover:text-[#141414] uppercase font-bold"
+                  className="flex-1 py-2.5 bg-[#FFFFFF] border border-[#E0DFD8] text-[#706E6B] hover:text-[#141414] uppercase font-bold cursor-pointer"
                 >
-                  CANCEL
+                  BATAL
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 bg-[#141414] text-[#F5F5F0] font-heading font-bold uppercase tracking-wider hover:bg-[#F27D26] shadow-xs"
+                  className="flex-1 py-2.5 bg-[#121214] text-[#C5A059] font-cinzel font-bold uppercase tracking-wider hover:bg-[#C5A059] hover:text-[#121214] transition-colors shadow-xs cursor-pointer"
                 >
-                  SUBMIT REVIEW
+                  KIRIM ULASAN
                 </button>
               </div>
             </form>

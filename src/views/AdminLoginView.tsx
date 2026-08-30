@@ -79,7 +79,7 @@ export const AdminLoginView: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full mt-2 px-5 py-3.5 bg-[#141414] text-[#F5F5F0] font-heading font-black text-xs uppercase tracking-wider hover:bg-[#F27D26] disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
+              className="w-full mt-2 px-5 py-3.5 bg-[#141414] text-[#F5F5F0] font-heading font-black text-xs uppercase tracking-wider hover:bg-[#C5A059] disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
             >
               {isSubmitting ? 'CHECKING SESSION...' : 'ENTER ADMIN STUDIO'}
               <ArrowRight className="w-4 h-4" />

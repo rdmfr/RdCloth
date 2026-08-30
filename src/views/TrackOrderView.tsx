@@ -103,7 +103,7 @@ export const TrackOrderView: React.FC = () => {
             </div>
             <button
               type="submit"
-              className="px-8 py-3 bg-[#141414] text-[#F5F5F0] font-heading font-black text-xs uppercase tracking-widest hover:bg-[#F27D26] transition-all flex items-center justify-center space-x-2 shadow-xs"
+              className="px-8 py-3 bg-[#141414] text-[#F5F5F0] font-heading font-black text-xs uppercase tracking-widest hover:bg-[#C5A059] transition-all flex items-center justify-center space-x-2 shadow-xs"
             >
               <span>TRACK STATUS</span>
               <ArrowRight className="w-4 h-4" />
@@ -119,7 +119,7 @@ export const TrackOrderView: React.FC = () => {
                 setSearchId('RDC-8921');
                 setSearchedOrder(orders.find(o => o.id === 'RDC-8921') || null);
               }}
-              className="text-[#F27D26] font-bold underline underline-offset-2"
+              className="text-[#C5A059] font-bold underline underline-offset-2"
             >
               RDC-8921 (Shipped)
             </button>
@@ -130,7 +130,7 @@ export const TrackOrderView: React.FC = () => {
                 setSearchId('RDC-8922');
                 setSearchedOrder(orders.find(o => o.id === 'RDC-8922') || null);
               }}
-              className="text-[#F27D26] font-bold underline underline-offset-2"
+              className="text-[#C5A059] font-bold underline underline-offset-2"
             >
               RDC-8922 (Production)
             </button>
@@ -150,7 +150,7 @@ export const TrackOrderView: React.FC = () => {
                   <span className="font-heading text-xl font-black text-[#141414]">
                     #{searchedOrder.id}
                   </span>
-                  <span className="text-[10px] font-mono-code font-bold bg-[#F5F5F0] text-[#F27D26] border border-[#E0DFD8] px-2 py-0.5 uppercase">
+                  <span className="text-[10px] font-mono-code font-bold bg-[#F5F5F0] text-[#C5A059] border border-[#E0DFD8] px-2 py-0.5 uppercase">
                     {searchedOrder.status}
                   </span>
                 </div>
@@ -210,7 +210,7 @@ export const TrackOrderView: React.FC = () => {
                             {step.label}
                           </h4>
                           {isCurrent && (
-                            <span className="text-[9px] font-mono-code text-[#F27D26] bg-[#F5F5F0] border border-[#E0DFD8] px-1.5 py-0.2 uppercase font-bold">
+                            <span className="text-[9px] font-mono-code text-[#C5A059] bg-[#F5F5F0] border border-[#E0DFD8] px-1.5 py-0.2 uppercase font-bold">
                               CURRENT STEP
                             </span>
                           )}
@@ -279,7 +279,7 @@ export const TrackOrderView: React.FC = () => {
           </div>
         ) : hasSearched ? (
           <div className="p-12 text-center bg-[#FFFFFF] border border-[#E0DFD8] space-y-3 shadow-xs">
-            <AlertCircle className="w-8 h-8 text-[#F27D26] mx-auto" />
+            <AlertCircle className="w-8 h-8 text-[#C5A059] mx-auto" />
             <p className="font-heading text-lg font-bold uppercase text-[#141414]">
               ORDER NOT FOUND
             </p>
