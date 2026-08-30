@@ -30,13 +30,13 @@ export const CollectionView: React.FC = () => {
         {/* Title */}
         <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
           <span className="text-xs font-cinzel uppercase tracking-[0.3em] text-[#C5A059] font-bold">
-            <ShinyText text="EDITORIAL CAPSULES & DROPS" speed={4} />
+            <ShinyText text="EDITORIAL CAPSULES & CHAPTERS" speed={5.5} />
           </span>
           <h1 className="font-cinzel text-4xl sm:text-6xl font-black uppercase tracking-tight text-[#F5F5F0]">
             COLLECTIONS
           </h1>
           <p className="text-xs sm:text-sm font-mono-code text-[#A1A1AA]">
-            Curated capsules, small-batch releases, and permanent blank foundations.
+            Arsip rilisan limited-batch, drop bertema, dan fondasi pakaian esensial.
           </p>
         </div>
 
@@ -54,7 +54,7 @@ export const CollectionView: React.FC = () => {
                     : 'bg-[#18181B] text-[#A1A1AA] border-[#27272A] hover:text-[#F5F5F0] hover:border-[#C5A059]/50'
                 }`}
               >
-                {col.name} ({col.subtitle})
+                {col.name}
               </button>
             );
           })}
@@ -88,20 +88,20 @@ export const CollectionView: React.FC = () => {
             <div className="space-y-6">
               <div className="flex items-center justify-between border-b border-[#27272A] pb-4">
                 <span className="text-xs font-cinzel uppercase font-bold text-[#C5A059] tracking-wider">
-                  PIECES IN THIS DROP ({collectionProducts.length})
+                  ARTIKEL DALAM DROP INI ({collectionProducts.length})
                 </span>
                 <button
                   onClick={() => setCurrentView('shop')}
                   className="text-xs font-cinzel uppercase font-bold text-[#F5F5F0] hover:text-[#C5A059] flex items-center space-x-1 transition-colors cursor-pointer"
                 >
-                  <span>SEE ALL ARTIFACTS</span>
+                  <span>LIHAT SEMUA ARTIFAK</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
 
               {collectionProducts.length === 0 ? (
                 <div className="py-12 text-center text-xs font-mono-code text-[#71717A] border border-[#27272A]">
-                  No products currently in this collection.
+                  Belum ada produk dalam koleksi ini.
                 </div>
               ) : (
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">

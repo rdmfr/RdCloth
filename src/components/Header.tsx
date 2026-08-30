@@ -109,7 +109,7 @@ export const Header: React.FC = () => {
                 </span>
               </div>
               <span className="text-[9px] tracking-[0.24em] uppercase text-[#706E6B] font-mono-code -mt-0.5 hidden sm:block">
-                <ShinyText text="ANCIENT STORIES · MODERN MEANINGS" speed={5} />
+                <ShinyText text="STORIES WORTH WEARING · EVERY DROP TELLS A STORY" speed={5.5} />
               </span>
             </button>
           </div>

@@ -62,7 +62,7 @@ export const CartDrawer: React.FC = () => {
                   TAS BELANJA ({cart.reduce((a, b) => a + b.quantity, 0)})
                 </h2>
                 <p className="text-[10px] font-mono-code text-[#706E6B] uppercase mt-0.5">
-                  <ShinyText text="RDCLOTH · SMALL BATCH CAPSULE" speed={4} />
+                  <ShinyText text="RDCLOTH · SMALL BATCH CAPSULE" speed={5.5} />
                 </p>
               </div>
               <button

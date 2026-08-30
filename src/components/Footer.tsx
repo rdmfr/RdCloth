@@ -55,7 +55,7 @@ export const Footer: React.FC = () => {
               ARCHIVAL SOCIETY
             </span>
             <h3 className="font-cinzel text-xl sm:text-2xl font-bold uppercase text-[#F5F5F0]">
-              <ShinyText text="DAPATKAN AKSES DROP EKSKLUSIF" speed={4} />
+              <ShinyText text="DAPATKAN AKSES DROP EKSKLUSIF" speed={5.5} />
             </h3>
             <p className="text-xs font-mono-code text-[#A1A1AA]">
               Jadilah yang pertama menerima kabar drop rilis terbatas dan token diskon chapter.
@@ -101,7 +101,7 @@ export const Footer: React.FC = () => {
               </h2>
             </button>
             <p className="text-xs font-mono-code text-[#C5A059] uppercase tracking-[0.25em]">
-              ANCIENT STORIES. MODERN MEANINGS.
+              STORIES WORTH WEARING.
             </p>
           </div>
 

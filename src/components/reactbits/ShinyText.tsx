@@ -11,7 +11,7 @@ interface ShinyTextProps {
 export const ShinyText: React.FC<ShinyTextProps> = ({
   text,
   disabled = false,
-  speed = 4,
+  speed = 5.5,
   className = '',
   shineColor = 'rgba(255, 235, 180, 0.95)'
 }) => {
@@ -23,9 +23,9 @@ export const ShinyText: React.FC<ShinyTextProps> = ({
       style={{
         backgroundImage: disabled
           ? 'none'
-          : `linear-gradient(115deg, currentColor 0%, currentColor 38%, ${shineColor} 50%, currentColor 62%, currentColor 100%)`,
-        backgroundSize: '200% 100%',
-        animation: disabled ? 'none' : `shine-sweep ${speed}s linear infinite`,
+          : `linear-gradient(120deg, currentColor 0%, currentColor 40%, ${shineColor} 50%, currentColor 60%, currentColor 100%)`,
+        backgroundSize: '220% 100%',
+        animation: disabled ? 'none' : `shine-sweep ${speed}s ease-in-out infinite`,
         WebkitBackgroundClip: 'text'
       }}
     >

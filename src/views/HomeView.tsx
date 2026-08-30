@@ -402,7 +402,7 @@ export const HomeView: React.FC = () => {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto">
-          <div className="text-center max-w-xl mx-auto mb-16 space-y-3">
+          <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
             <span className="text-xs font-cinzel text-[#C5A059] font-bold tracking-[0.3em] uppercase">
               CHAPTER CHRONICLES
             </span>
@@ -410,80 +410,86 @@ export const HomeView: React.FC = () => {
               THE ARCHIVE
             </h2>
             <p className="text-xs sm:text-sm font-mono-code text-[#A1A1AA]">
-              Kisah-kisah klasik yang telah diceritakan dan bab-bab yang akan segera terungkap.
+              Setiap drop membawa narasi dan universe berbeda yang terikat pada fase kehidupan manusia.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Chapter I */}
+            {/* Chapter I: Mythology */}
             <SpotlightCard
               spotlightColor="rgba(197, 160, 89, 0.2)"
               borderColor="#C5A059"
-              className="p-7 bg-[#18181B] border border-[#C5A059]/50 space-y-4 shadow-xl"
+              className="p-7 bg-[#18181B] border border-[#C5A059]/50 space-y-4 shadow-xl flex flex-col justify-between"
             >
-              <div className="flex items-center justify-between text-xs font-mono-code text-[#C5A059]">
-                <DecryptedText text="CHAPTER I" speed={30} maxIterations={8} animateOn="hover" />
-                <span className="px-2.5 py-0.5 border border-[#C5A059]/50 bg-[#C5A059]/15 text-[10px] uppercase font-bold text-[#C5A059]">
-                  RELEASED
-                </span>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-xs font-mono-code text-[#C5A059]">
+                  <DecryptedText text="CHAPTER I // MYTHOLOGY" speed={30} maxIterations={8} animateOn="hover" />
+                  <span className="px-2.5 py-0.5 border border-[#C5A059]/50 bg-[#C5A059]/15 text-[10px] uppercase font-bold text-[#C5A059]">
+                    RELEASED
+                  </span>
+                </div>
+                <h3 className="font-cinzel text-2xl font-black text-[#F5F5F0] tracking-wide">
+                  <ShinyText text="MOVING ON" speed={5.5} />
+                </h3>
+                <p className="text-xs font-mono-code text-[#A1A1AA] leading-relaxed">
+                  Narasi mitologi Yunani kuno. Metafora manusia yang berani menerima kehilangan masa lalu dan melangkah maju menghadapi cakrawala baru dengan kepala tegak.
+                </p>
               </div>
-              <h3 className="font-cinzel text-2xl font-black text-[#F5F5F0] tracking-wide">
-                <ShinyText text="MOVING ON" speed={4} />
-              </h3>
-              <p className="text-xs font-mono-code text-[#A1A1AA] leading-relaxed">
-                Narasi Sang Odysseus. Menerima kenyataan kehilangan masa lalu dan melangkah maju menghadapi cakrawala baru dengan kepala tegak.
-              </p>
-              <div className="pt-2 border-t border-[#27272A] flex items-center justify-between text-[11px] font-mono-code text-[#71717A]">
+              <div className="pt-3 border-t border-[#27272A] flex items-center justify-between text-[11px] font-mono-code text-[#71717A]">
                 <span>235 GSM COMBED 16S</span>
                 <span className="text-[#C5A059] font-cinzel font-bold">AVAILABLE NOW</span>
               </div>
             </SpotlightCard>
 
-            {/* Chapter II */}
+            {/* Chapter II: Games */}
             <SpotlightCard
-              spotlightColor="rgba(197, 160, 89, 0.1)"
-              borderColor="rgba(255, 255, 255, 0.15)"
-              className="p-7 bg-[#18181B]/60 border border-[#27272A] space-y-4 opacity-85 hover:opacity-100 transition-opacity"
+              spotlightColor="rgba(197, 160, 89, 0.15)"
+              borderColor="rgba(197, 160, 89, 0.4)"
+              className="p-7 bg-[#18181B]/80 border border-[#27272A] space-y-4 opacity-95 hover:opacity-100 transition-opacity flex flex-col justify-between"
             >
-              <div className="flex items-center justify-between text-xs font-mono-code text-[#71717A]">
-                <DecryptedText text="CHAPTER II" speed={30} maxIterations={8} animateOn="hover" />
-                <span className="px-2.5 py-0.5 border border-[#3F3F46] bg-[#27272A]/50 text-[10px] uppercase font-bold text-[#A1A1AA]">
-                  COMING SOON
-                </span>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-xs font-mono-code text-[#71717A]">
+                  <DecryptedText text="CHAPTER II // GAMES" speed={30} maxIterations={8} animateOn="hover" />
+                  <span className="px-2.5 py-0.5 border border-[#C5A059]/40 bg-[#C5A059]/10 text-[10px] uppercase font-bold text-[#C5A059]">
+                    COMING SOON
+                  </span>
+                </div>
+                <h3 className="font-cinzel text-2xl font-black text-[#D4D4D8] tracking-wide">
+                  RESPAWN & QUESTS
+                </h3>
+                <p className="text-xs font-mono-code text-[#A1A1AA] leading-relaxed">
+                  Dunia game sebagai cermin realitas: kegagalan hanyalah checkpoint sementara, arti hidup dalam side quests, dan keberanian untuk menekan tombol Respawn.
+                </p>
               </div>
-              <h3 className="font-cinzel text-2xl font-black text-[#D4D4D8] tracking-wide">
-                THE FALL
-              </h3>
-              <p className="text-xs font-mono-code text-[#71717A] leading-relaxed">
-                Tragedi Icarus. Ambisi besar, keberanian melompat bebas, dan keindahan saat mencoba meraih matahari meskipun harus terjatuh.
-              </p>
-              <div className="pt-2 border-t border-[#27272A] flex items-center justify-between text-[11px] font-mono-code text-[#52525B]">
+              <div className="pt-3 border-t border-[#27272A] flex items-center justify-between text-[11px] font-mono-code text-[#52525B]">
                 <span>DROP Q3 2026</span>
-                <span>TEASER SOON</span>
+                <span className="text-[#C5A059] font-mono-code text-[10px]">IN PRODUCTION</span>
               </div>
             </SpotlightCard>
 
-            {/* Chapter III */}
+            {/* Chapter III: Anime */}
             <SpotlightCard
-              spotlightColor="rgba(197, 160, 89, 0.08)"
-              borderColor="rgba(255, 255, 255, 0.1)"
-              className="p-7 bg-[#18181B]/40 border border-[#27272A] space-y-4 opacity-70 hover:opacity-100 transition-opacity"
+              spotlightColor="rgba(197, 160, 89, 0.12)"
+              borderColor="rgba(197, 160, 89, 0.3)"
+              className="p-7 bg-[#18181B]/60 border border-[#27272A] space-y-4 opacity-85 hover:opacity-100 transition-opacity flex flex-col justify-between"
             >
-              <div className="flex items-center justify-between text-xs font-mono-code text-[#71717A]">
-                <DecryptedText text="CHAPTER III" speed={30} maxIterations={8} animateOn="hover" />
-                <span className="px-2.5 py-0.5 border border-[#27272A] text-[10px] uppercase font-bold text-[#71717A]">
-                  UPCOMING
-                </span>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-xs font-mono-code text-[#71717A]">
+                  <DecryptedText text="CHAPTER III // ANIME" speed={30} maxIterations={8} animateOn="hover" />
+                  <span className="px-2.5 py-0.5 border border-[#27272A] text-[10px] uppercase font-bold text-[#71717A]">
+                    UPCOMING
+                  </span>
+                </div>
+                <h3 className="font-cinzel text-2xl font-black text-[#A1A1AA] tracking-wide">
+                  LIMIT BREAK
+                </h3>
+                <p className="text-xs font-mono-code text-[#71717A] leading-relaxed">
+                  Filosofi anime shonen: tekad melampaui batasan diri, menjadi tokoh utama dalam takdir sendiri, dan kekuatan ikatan emosional yang tak tergoyahkan.
+                </p>
               </div>
-              <h3 className="font-cinzel text-2xl font-black text-[#A1A1AA] tracking-wide">
-                ENDURE
-              </h3>
-              <p className="text-xs font-mono-code text-[#71717A] leading-relaxed">
-                Beban Sang Atlas. Ketabahan hening, menopang semesta hidupmu sendiri tanpa perlu mengeluh kepada dunia.
-              </p>
-              <div className="pt-2 border-t border-[#27272A] flex items-center justify-between text-[11px] font-mono-code text-[#52525B]">
+              <div className="pt-3 border-t border-[#27272A] flex items-center justify-between text-[11px] font-mono-code text-[#52525B]">
                 <span>DROP Q4 2026</span>
-                <span>IN DEVELOPMENT</span>
+                <span>CONCEPT ARCHIVE</span>
               </div>
             </SpotlightCard>
           </div>
@@ -501,7 +507,7 @@ export const HomeView: React.FC = () => {
               KUALITAS YANG DAPAT KAMU RASAKAN.
             </h2>
             <p className="text-sm font-mono-code text-[#706E6B] leading-relaxed">
-              Kami tidak memproduksi kaos tipis sekali pakai. Setiap potongan dirancang dengan standar arsitektur pakaian tingkat tinggi—memberikan bentuk siluet yang tegak dan tidak menempel di tubuh.
+              Setiap tema drop dieksekusi di atas kanvas pakaian berbobot tebal. Kami menggunakan katun combed 16s 235 GSM presisi dengan kerah 2.5cm yang tahan terhadap siklus pencucian jangka panjang.
             </p>
 
             <div className="grid grid-cols-3 gap-4 pt-2">
@@ -599,16 +605,16 @@ export const HomeView: React.FC = () => {
           MANIFESTO
         </span>
         <h2 className="font-cinzel text-4xl sm:text-5xl font-black uppercase text-[#141414]">
-          {cms.brandStoryTitle || 'WHY ANCIENT STORIES?'}
+          {cms.brandStoryTitle || 'EVERY DROP TELLS A STORY'}
         </h2>
         <div className="space-y-4 text-sm sm:text-base font-mono-code text-[#54524F] leading-relaxed">
           <p>
             {cms.brandStoryText1 ||
-              'Thousands of years ago, people told stories about love, loss, ambition, failure, and hope. We still live through the same things today. The names changed. The world changed. But the stories didn\'t.'}
+              'RdCloth adalah brand apparel storytelling. Kami percaya bahwa setiap pakaian dapat membawa makna mendalam dari berbagai fase dan kultur perjalanan hidup manusia.'}
           </p>
           <p>
             {cms.brandStoryText2 ||
-              'RdCloth reinterprets those timeless human stories into architectural garments you can wear.'}
+              'Dari kisah Mitologi Kuno, dunia Games & Realitas Virtual, hingga Filosofi Anime—setiap drop kami rancang dengan riset narasi dan arsitektur pakaian berkualitas tinggi.'}
           </p>
         </div>
         <div className="pt-4">
@@ -617,7 +623,7 @@ export const HomeView: React.FC = () => {
               onClick={() => setCurrentView('about')}
               className="inline-flex items-center space-x-2 text-xs font-cinzel font-bold uppercase tracking-widest text-[#141414] border-b-2 border-[#141414] pb-1 hover:text-[#C5A059] hover:border-[#C5A059] transition-colors cursor-pointer"
             >
-              <span>READ THE FULL STORY</span>
+              <span>BACA CERITA LENGKAP</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </Magnet>

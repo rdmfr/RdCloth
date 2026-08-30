@@ -423,37 +423,50 @@ export const INITIAL_COLLECTIONS: Collection[] = [
   {
     id: 'drop-001',
     slug: 'drop-001',
-    name: 'DROP 001',
-    subtitle: 'START SOMEWHERE.',
-    description: 'The debut capsule. A tribute to unfiltered creative impulses and personal execution. Heavyweight garments engineered to be lived in.',
+    name: 'DROP 01: MYTHOLOGY',
+    subtitle: 'CHAPTER I — MOVING ON',
+    description: 'Kisah mitologi kuno sebagai metafora perjalanan hidup, ketabahan menghadapi badai kehilangan, dan keberanian melangkah menuju cakrawala baru.',
     bannerImage: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1600&auto=format&fit=crop',
     productIds: ['prod-1', 'prod-3', 'prod-6'],
     isFeatured: true,
     status: 'ACTIVE',
-    releaseDate: 'MARCH 2026'
+    releaseDate: 'RELEASED — DROP 01'
+  },
+  {
+    id: 'drop-002',
+    slug: 'drop-002',
+    name: 'DROP 02: GAMES',
+    subtitle: 'CHAPTER II — RESPAWN & QUESTS',
+    description: 'Dunia game sebagai metafora realitas: tentang kegagalan yang bukan akhir, keberanian menekan tombol Respawn, dan grinding tanpa henti.',
+    bannerImage: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1600&auto=format&fit=crop',
+    productIds: ['prod-2', 'prod-4'],
+    isFeatured: true,
+    status: 'ACTIVE',
+    releaseDate: 'COMING SOON — Q3 2026'
+  },
+  {
+    id: 'drop-003',
+    slug: 'drop-003',
+    name: 'DROP 03: ANIME',
+    subtitle: 'CHAPTER III — LIMIT BREAK',
+    description: 'Arsip narasi anime tentang tekad manusia yang pantang menyerah, menjadi tokoh utama dalam hidup sendiri, dan ikatan persahabatan yang abadi.',
+    bannerImage: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=1600&auto=format&fit=crop',
+    productIds: ['prod-5'],
+    isFeatured: true,
+    status: 'ACTIVE',
+    releaseDate: 'UPCOMING — Q4 2026'
   },
   {
     id: 'essentials',
     slug: 'essentials',
     name: 'ESSENTIALS',
-    subtitle: 'BUILT TO BE WORN.',
-    description: 'Clean blanks and daily carry essentials. High-thread-count combed cotton and heavy canvas designed for constant rotation.',
+    subtitle: 'PERMANENT FOUNDATIONS',
+    description: 'Kaos polos katun combed premium 24s dan 16s untuk rotasi pemakaian harian dengan standar ketebalan dan fitting streetwear terbaik.',
     bannerImage: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop',
     productIds: ['prod-2', 'prod-4', 'prod-5'],
     isFeatured: true,
     status: 'ACTIVE',
     releaseDate: 'PERMANENT CAPSULE'
-  },
-  {
-    id: 'custom-blanks',
-    slug: 'custom-blanks',
-    name: 'CUSTOM CANVAS',
-    subtitle: 'YOUR IDEA. YOUR SHIRT.',
-    description: 'Order your custom graphic or community apparel on our premium heavy cotton blanks with no minimum order requirements.',
-    bannerImage: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1600&auto=format&fit=crop',
-    productIds: ['prod-1', 'prod-2', 'prod-4'],
-    isFeatured: true,
-    status: 'ACTIVE'
   }
 ];
 
@@ -461,10 +474,10 @@ export const INITIAL_REVIEWS: Review[] = [
   {
     id: 'rev-1',
     productId: 'prod-1',
-    productName: 'Stay Lowkey Tee',
+    productName: 'Moving On Tee',
     userName: 'Dimas Aditya',
     rating: 5,
-    comment: 'Bahan 16s cotton-nya tebal dan kokoh banget, jatuhnya beneran boxy streetwear. Pas dicuci kerah lehernya gak melar sama sekali. Definitely worth the price!',
+    comment: 'Bahan 16s cotton-nya tebal dan kokoh banget, jatuhnya beneran boxy streetwear. Pas dicuci kerah lehernya gak melar sama sekali. Makna ceritanya juga dapet banget!',
     fitFeedback: 'True to Size',
     sizePurchased: 'L',
     isApproved: true,
@@ -476,7 +489,7 @@ export const INITIAL_REVIEWS: Review[] = [
     productName: 'RDC Essential Blank Tee',
     userName: 'Farhan Maulana',
     rating: 5,
-    comment: 'Nyaman dipakai seharian di Jakarta yang panas, adem tapi gak nerawang. Sablonan neck label-nya rapi gak gatal.',
+    comment: 'Nyaman dipakai seharian, adem tapi gak nerawang. Sablonan neck label-nya rapi gak gatal.',
     fitFeedback: 'True to Size',
     sizePurchased: 'XL',
     isApproved: true,
@@ -497,20 +510,20 @@ export const INITIAL_REVIEWS: Review[] = [
 ];
 
 export const INITIAL_CMS: HomepageCMS = {
-  heroTagline: 'DROP 01 // MYTHOLOGY',
+  heroTagline: 'DROP 01 // CHAPTER I: MYTHOLOGY',
   heroHeadline: 'RDCLOTH',
-  heroSubheadline: 'Setiap drop membawa cerita yang berbeda.',
+  heroSubheadline: 'Setiap drop membawa narasi dan makna tersendiri tentang fase kehidupan manusia. Diekspresikan ke dalam streetwear berbobot tebal dengan kualitas tanpa kompromi.',
   heroImage: '/thinker-bg.png',
   heroSecondaryImage: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop',
   heroCtaText: 'Jelajahi Drop 01',
   heroCtaLink: '/shop',
-  heroSecondaryCtaText: 'Lihat di Shopee / Tokopedia / Tiktokshop',
+  heroSecondaryCtaText: 'Beli di Marketplace',
   heroSecondaryCtaLink: '/shop',
-  marqueeText: 'RDCLOTH — STORIES WORTH WEARING — EVERY DROP TELLS A DIFFERENT STORY —',
-  featuredDropSubtitle: 'Setiap drop punya kisahnya sendiri.',
-  brandStoryTitle: 'WHY RDCLOTH?',
-  brandStoryText1: 'RDCLOTH mengubah cerita, kultur, dan pengalaman manusia menjadi pakaian yang bisa kamu kenakan setiap hari.',
-  brandStoryText2: 'Dari mitologi sampai musik, game, dan budaya masa kini, setiap drop membawa cerita baru dengan rasa yang khas.',
+  marqueeText: 'RDCLOTH — STORIES WORTH WEARING — DROP 01: MYTHOLOGY • DROP 02: GAMES • DROP 03: ANIME — EVERY DROP TELLS A STORY —',
+  featuredDropSubtitle: 'Cerita yang bermakna, dibuat untuk dipakai setiap hari.',
+  brandStoryTitle: 'EVERY DROP TELLS A STORY',
+  brandStoryText1: 'RdCloth adalah brand apparel storytelling. Kami percaya bahwa pakaian bukan sekadar kain kosong, melainkan kanvas yang merefleksikan fase perjalanan hidup manusia.',
+  brandStoryText2: 'Setiap Drop dirilis dengan tema dan narasi yang berbeda—mulai dari Mitologi Kuno, Dunia Games & Realitas Virtual, hingga Filosofi Anime—dibuat dengan bahan katun 235 GSM terbaik.',
   visualBreakQuote: 'EVERY DROP TELLS A DIFFERENT STORY.',
   instagramHandle: '@rdcloth.studio',
   instagramImages: [

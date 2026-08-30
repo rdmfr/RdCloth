@@ -75,15 +75,15 @@
 
 @keyframes shine-sweep {
   0% {
-    background-position: 200% 0;
+    background-position: 220% 0;
   }
   100% {
-    background-position: -200% 0;
+    background-position: -220% 0;
   }
 }
 
 .animate-shine {
-  animation: shine-sweep 4s linear infinite;
+  animation: shine-sweep 5.5s ease-in-out infinite;
 }
 
 /* Subtle Film Grain Noise Texture */

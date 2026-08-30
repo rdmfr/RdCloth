@@ -17,18 +17,18 @@ export const AboutView: React.FC = () => {
         {/* Header / Brand Manifesto Title */}
         <div className="max-w-3xl space-y-4 mb-16">
           <span className="text-xs font-cinzel uppercase tracking-[0.3em] text-[#C5A059] font-bold">
-            <ShinyText text="THE MANIFESTO & ORIGINS" speed={4} />
+            <ShinyText text="THE STORYTELLING APPAREL PHILOSOPHY" speed={5.5} />
           </span>
           <div className="font-cinzel text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#141414] leading-none">
             <BlurText
-              text="WHY ANCIENT STORIES?"
+              text="EVERY DROP TELLS A STORY."
               delay={50}
               animateBy="words"
               direction="top"
             />
           </div>
           <p className="text-base sm:text-lg font-mono-code text-[#706E6B] leading-relaxed pt-2">
-            Thousands of years ago, people told stories about love, loss, ambition, failure, and hope. We still live through the same things today. The names changed. The world changed. But the stories didn't.
+            RdCloth adalah brand pakaian yang percaya bahwa setiap desain memiliki jiwa dan kisah tersendiri yang berkaitan erat dengan perjalanan hidup manusia.
           </p>
         </div>
 
@@ -37,18 +37,18 @@ export const AboutView: React.FC = () => {
           <div className="relative aspect-[16/9] sm:aspect-[21/9] bg-[#121214] border-2 border-[#C5A059]/40 overflow-hidden shadow-2xl">
             <img
               src="/thinker-bg.png"
-              alt="RdCloth Thinker Statue"
+              alt="RdCloth Storytelling Workshop"
               className="w-full h-full object-cover object-center opacity-85 saturate-90 contrast-125"
               referrerPolicy="no-referrer"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#121214] via-transparent to-transparent opacity-85" />
             <div className="absolute bottom-6 left-6 sm:bottom-10 sm:left-10 bg-[#18181B]/95 backdrop-blur-md p-4 sm:p-5 border border-[#C5A059]/50 text-xs font-mono-code space-y-1.5 shadow-2xl">
               <p className="text-[#C5A059] font-cinzel font-bold tracking-wider text-sm sm:text-base">
-                <ShinyText text="THE THINKER APPAREL WORKSHOP" speed={5} />
+                <ShinyText text="THE RDCLOTH STORYTELLING WORKSHOP" speed={5.5} />
               </p>
               <p className="text-[#A1A1AA]">
                 <DecryptedText
-                  text="Reinterpreting Human Endurance • 235 GSM Combed Cotton • Bandung, Indonesia"
+                  text="Human Life Metaphors • Heavyweight 235 GSM Combed Cotton • Bandung, Indonesia"
                   speed={25}
                   maxIterations={10}
                   animateOn="view"
@@ -58,31 +58,11 @@ export const AboutView: React.FC = () => {
           </div>
         </TiltedCard>
 
-        {/* Manifesto Grid - Chapter I */}
+        {/* Manifesto Grid - 01: Concept */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-20 border-b border-[#E0DFD8]">
           <div className="lg:col-span-4 space-y-2">
             <span className="text-xs font-cinzel uppercase tracking-widest text-[#C5A059] font-bold">
-              01 / REINTERPRETATION
-            </span>
-            <h2 className="font-cinzel text-3xl font-black uppercase text-[#141414]">
-              CLOTHING WITH INTENT
-            </h2>
-          </div>
-          <div className="lg:col-span-8 space-y-4 text-sm font-mono-code text-[#706E6B] leading-relaxed">
-            <p>
-              RdCloth mereinterpretasi kisah-kisah abadi tersebut ke dalam pakaian arsitektural yang dapat Anda kenakan sehari-hari. Baju bukan sekadar kain, tapi bagian dari fase kehidupan yang sedang kamu jalani.
-            </p>
-            <p>
-              At <strong className="text-[#141414]">RdCloth</strong>, we design exclusively on heavyweight combed cotton (235 GSM 16s and premium 24s). Collars feature 2.5cm heavy ribbing and double-needle chain stitching so they retain their crisp architectural posture year after year.
-            </p>
-          </div>
-        </div>
-
-        {/* Manifesto Grid - Chapter II */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 py-20 border-b border-[#E0DFD8]">
-          <div className="lg:col-span-4 space-y-2">
-            <span className="text-xs font-cinzel uppercase tracking-widest text-[#C5A059] font-bold">
-              02 / EVERY DROP HAS A VOICE
+              01 / CONCEPT
             </span>
             <h2 className="font-cinzel text-3xl font-black uppercase text-[#141414]">
               STORIES WORTH WEARING
@@ -90,10 +70,50 @@ export const AboutView: React.FC = () => {
           </div>
           <div className="lg:col-span-8 space-y-4 text-sm font-mono-code text-[#706E6B] leading-relaxed">
             <p>
-              Setiap drop RdCloth adalah bagian dari satu cerita yang terus berkembang. Kami mengekspresikan tema, emosi, dan perjalanan manusia ke dalam bahan, potongan, serta detail yang dibuat untuk dipakai setiap hari.
+              Di <strong className="text-[#141414]">RdCloth</strong>, kami tidak sekadar membuat desain grafis acak. Setiap Drop dirancang dengan satu tema dan konsep khusus yang mengangkat refleksi kehidupan manusia:
             </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+              <div className="p-4 bg-[#FFFFFF] border border-[#E0DFD8] space-y-1.5 shadow-xs">
+                <span className="text-[10px] font-cinzel text-[#C5A059] font-bold block">DROP 01 // RELEASED</span>
+                <h4 className="font-cinzel font-bold text-sm text-[#141414]">MYTHOLOGY</h4>
+                <p className="text-[11px] text-[#706E6B] leading-normal">
+                  Kisah Yunani Kuno & epik klasik tentang ketabahan, luka masa lalu, dan keberanian melangkah maju (*Moving On*).
+                </p>
+              </div>
+              <div className="p-4 bg-[#FFFFFF] border border-[#E0DFD8] space-y-1.5 shadow-xs">
+                <span className="text-[10px] font-cinzel text-[#C5A059] font-bold block">DROP 02 // COMING SOON</span>
+                <h4 className="font-cinzel font-bold text-sm text-[#141414]">GAMES</h4>
+                <p className="text-[11px] text-[#706E6B] leading-normal">
+                  Metafora dunia game: tentang bangkit setelah kegagalan (*Respawn*), mencari arti dalam *Side Quests*, dan mengalahkan tantangan hidup.
+                </p>
+              </div>
+              <div className="p-4 bg-[#FFFFFF] border border-[#E0DFD8] space-y-1.5 shadow-xs">
+                <span className="text-[10px] font-cinzel text-[#C5A059] font-bold block">DROP 03 // UPCOMING</span>
+                <h4 className="font-cinzel font-bold text-sm text-[#141414]">ANIME</h4>
+                <p className="text-[11px] text-[#706E6B] leading-normal">
+                  Arsip filosofi anime: tekad melampaui batasan diri (*Limit Break*), menjadi tokoh utama takdir sendiri, dan ikatan persahabatan abadi.
+                </p>
+              </div>
+            </div>
+            <p className="pt-2 text-xs">
+              Tema-tema pada drop berikutnya akan terus berkembang mengeksplorasi spektrum kehidupan manusia, kultur, dan emosi yang relevan dengan realitas kita.
+            </p>
+          </div>
+        </div>
+
+        {/* Manifesto Grid - 02: Garment Craftsmanship */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 py-20 border-b border-[#E0DFD8]">
+          <div className="lg:col-span-4 space-y-2">
+            <span className="text-xs font-cinzel uppercase tracking-widest text-[#C5A059] font-bold">
+              02 / CRAFTSMANSHIP
+            </span>
+            <h2 className="font-cinzel text-3xl font-black uppercase text-[#141414]">
+              ARCHITECTURAL POSTURE
+            </h2>
+          </div>
+          <div className="lg:col-span-8 space-y-4 text-sm font-mono-code text-[#706E6B] leading-relaxed">
             <p>
-              Bukan sekadar pakaian, tapi pengingat bahwa setiap momen bisa dibawa ke dalam gaya hidup. Koleksi kami hadir untuk menyampaikan rasa, makna, dan karakter yang terasa dekat dengan cara orang memakai dan memahami fashion.
+              Pakaian yang membawa cerita mendalam membutuhkan material berbobot kuat. Kami menggunakan bahan **Heavyweight Combed Cotton 16s (235 GSM)** dan katun combed 24s pilihan, dipadukan dengan rib kerah 2.5cm dan jahitan rantai ganda agar bentuk siluetnya tetap kokoh dan tidak jatuh lemas saat dipakai.
             </p>
             <div className="pt-4">
               <Magnet strength={0.25}>
@@ -101,7 +121,7 @@ export const AboutView: React.FC = () => {
                   onClick={() => setCurrentView('collection')}
                   className="px-6 py-3 bg-[#121214] text-[#F5F5F0] border border-[#C5A059] font-cinzel font-bold text-xs uppercase tracking-widest hover:bg-[#C5A059] hover:text-[#121214] transition-all inline-flex items-center space-x-2 shadow-md cursor-pointer"
                 >
-                  <span>EXPLORE THE DROP</span>
+                  <span>JELAJAHI KOLEKSI DROP</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </Magnet>
