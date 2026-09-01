@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStore } from '../context/StoreContext';
 import { ProductCard } from '../components/ProductCard';
 import {
@@ -31,6 +31,32 @@ export const HomeView: React.FC = () => {
   const { products, collections, cms, setCurrentView, settings } = useStore();
   const [showMarketplaceSelector, setShowMarketplaceSelector] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const releaseDate = new Date('2026-10-30T19:00:00+07:00');
+
+  const getTimeLeft = () => {
+    const diff = releaseDate.getTime() - Date.now();
+
+    if (diff <= 0) {
+      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    }
+
+    return {
+      days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((diff / (1000 * 60)) % 60),
+      seconds: Math.floor((diff / 1000) % 60),
+    };
+  };
+
+  const [timeLeft, setTimeLeft] = useState(getTimeLeft);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setTimeLeft(getTimeLeft());
+    }, 1000);
+
+    return () => window.clearInterval(timer);
+  }, []);
 
   const marketplaceOptions = [
     { key: 'shopee', label: 'Shopee', href: settings.shopeeUrl || '#' },
@@ -44,6 +70,9 @@ export const HomeView: React.FC = () => {
     if (selectedCategory === 'featured') return p.isFeatured;
     return p.category.toLowerCase() === selectedCategory.toLowerCase();
   }).slice(0, 4);
+
+  const bestSellerProduct = products.find(product => product.badge === 'BEST SELLER' || product.isFeatured)
+    ?? products[0];
 
   const editorialShots = [
     {
@@ -461,6 +490,116 @@ export const HomeView: React.FC = () => {
         </div>
       </section>
 
+      {/* BEST SELLER / URGENT RETAIL FEATURE */}
+      {bestSellerProduct && (
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#121214] border-b border-[#27272A]">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-8 items-center">
+            <div className="relative overflow-hidden border border-[#C5A059]/40 bg-[#1A1A1D] shadow-[0_24px_80px_rgba(0,0,0,0.35)] min-h-[460px]">
+              <img
+                src={bestSellerProduct.images?.[0]?.url || 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1200&auto=format&fit=crop'}
+                alt={bestSellerProduct.name}
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#121214]/90 via-[#121214]/35 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+                <div className="inline-flex items-center px-2.5 py-1 border border-[#C5A059]/50 bg-[#121214]/75 text-[10px] font-cinzel font-bold uppercase tracking-[0.2em] text-[#C5A059]">
+                  {bestSellerProduct.badge || 'BEST SELLER'}
+                </div>
+                <h3 className="mt-4 font-cinzel text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#F5F5F0] leading-none">
+                  {bestSellerProduct.name}
+                </h3>
+              </div>
+            </div>
+
+            <div className="space-y-6 text-[#F5F5F0]">
+              <div className="space-y-3">
+                <span className="text-xs font-cinzel font-bold uppercase tracking-[0.3em] text-[#C5A059]">
+                  MOST LOVED DROP
+                </span>
+                <h3 className="font-cinzel text-3xl sm:text-4xl font-black uppercase tracking-tight text-[#F5F5F0]">
+                  The piece people keep coming back for.
+                </h3>
+              </div>
+
+              <p className="text-sm sm:text-base font-mono-code text-[#D4D4D8] leading-relaxed">
+                {bestSellerProduct.description || 'Premium streetwear built for lasting comfort, bold identity, and everyday confidence.'}
+              </p>
+
+              <div className="grid grid-cols-3 gap-3">
+                <div className="border border-[#27272A] bg-[#18181B] p-3">
+                  <div className="font-cinzel text-xl font-black text-[#C5A059]">235</div>
+                  <div className="mt-1 text-[9px] font-mono-code uppercase tracking-[0.2em] text-[#A1A1AA]">GSM</div>
+                </div>
+                <div className="border border-[#27272A] bg-[#18181B] p-3">
+                  <div className="font-cinzel text-xl font-black text-[#C5A059]">4.9</div>
+                  <div className="mt-1 text-[9px] font-mono-code uppercase tracking-[0.2em] text-[#A1A1AA]">RATING</div>
+                </div>
+                <div className="border border-[#27272A] bg-[#18181B] p-3">
+                  <div className="font-cinzel text-xl font-black text-[#C5A059]">230</div>
+                  <div className="mt-1 text-[9px] font-mono-code uppercase tracking-[0.2em] text-[#A1A1AA]">LEFT</div>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                <button
+                  onClick={() => setCurrentView('product-detail', bestSellerProduct.slug)}
+                  className="flex-1 px-5 py-3.5 bg-[#C5A059] text-[#121214] font-cinzel font-black uppercase tracking-[0.2em] text-[11px] hover:bg-[#D4AF37] transition-all cursor-pointer"
+                >
+                  View product
+                </button>
+                <button
+                  onClick={() => setShowMarketplaceSelector(true)}
+                  className="flex-1 px-5 py-3.5 border border-[#C5A059]/60 bg-[#121214] text-[#F5F5F0] font-cinzel font-black uppercase tracking-[0.2em] text-[11px] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all cursor-pointer"
+                >
+                  Buy now
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* RETAIL CONFIDENCE / LUXURY SELLING POINTS */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#F7F4EE] border-b border-[#E0DFD8]">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
+            <span className="text-xs font-cinzel font-bold uppercase tracking-[0.3em] text-[#C5A059]">
+              PREMIUM EXPERIENCE
+            </span>
+            <h2 className="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#141414]">
+              SHOP WITH CONFIDENCE.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 bg-[#FFFFFF] border border-[#E0DFD8] shadow-sm">
+              <div className="text-[10px] font-cinzel uppercase tracking-[0.26em] text-[#C5A059] font-bold mb-4">01 // LIMITED</div>
+              <h3 className="font-cinzel text-2xl font-black uppercase text-[#141414] mb-3">SMALL BATCH DROP</h3>
+              <p className="text-xs sm:text-sm font-mono-code text-[#706E6B] leading-relaxed">
+                Setiap run diproduksi terbatas agar kualitas tetap tinggi dan setiap item punya eksklusivitas yang terasa lebih premium.
+              </p>
+            </div>
+
+            <div className="p-6 bg-[#121214] border border-[#27272A] shadow-md">
+              <div className="text-[10px] font-cinzel uppercase tracking-[0.26em] text-[#C5A059] font-bold mb-4">02 // QUALITY</div>
+              <h3 className="font-cinzel text-2xl font-black uppercase text-[#F5F5F0] mb-3">FABRIC THAT LASTS</h3>
+              <p className="text-xs sm:text-sm font-mono-code text-[#A1A1AA] leading-relaxed">
+                Heavyweight cotton, rib collar yang mantap, dan finishing yang dirancang untuk tahan lama dari hari ke hari.
+              </p>
+            </div>
+
+            <div className="p-6 bg-[#FFFFFF] border border-[#E0DFD8] shadow-sm">
+              <div className="text-[10px] font-cinzel uppercase tracking-[0.26em] text-[#C5A059] font-bold mb-4">03 // TRUST</div>
+              <h3 className="font-cinzel text-2xl font-black uppercase text-[#141414] mb-3">FAST & SAFE</h3>
+              <p className="text-xs sm:text-sm font-mono-code text-[#706E6B] leading-relaxed">
+                Proses order, pengecekan stok, dan checkout tetap simpel supaya brand terasa lebih profesional dan aman di mata pembeli.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 4.5. EDITORIAL LOOKBOOK WITH PRODUCT PHOTOS */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#F5F5F0] border-b border-[#E0DFD8]">
         <div className="max-w-7xl mx-auto">
@@ -653,6 +792,96 @@ export const HomeView: React.FC = () => {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* NEW DROP / NEXT CHAPTER */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-[#121214] text-[#F5F5F0] border-b border-[#27272A] relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(197,160,89,0.18),_transparent_38%)]" />
+        <div className="absolute inset-0 opacity-20 pointer-events-none">
+          <Squares
+            direction="diagonal"
+            speed={0.18}
+            squareSize={52}
+            borderColor="rgba(197, 160, 89, 0.12)"
+            hoverFillColor="rgba(197, 160, 89, 0.18)"
+          />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-2.5 border border-[#C5A059]/60 bg-[#18181B]/80 px-3 py-1.5 text-[10px] font-cinzel font-bold uppercase tracking-[0.24em] text-[#C5A059]">
+              <span className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse" />
+              New Drop / Next Chapter
+            </div>
+
+            <div className="space-y-4">
+              <span className="text-xs font-cinzel font-bold uppercase tracking-[0.28em] text-[#C5A059]">
+                CHAPTER II // RESPAWN & QUESTS
+              </span>
+              <h2 className="font-cinzel text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-[-0.06em] text-[#F5F5F0] leading-[0.9]">
+                The next chapter is almost here.
+              </h2>
+            </div>
+
+            <p className="max-w-xl text-sm sm:text-base font-mono-code text-[#D4D4D8] leading-relaxed">
+              Setelah <span className="text-[#C5A059] font-bold">Chapter I: Moving On</span>, RdCloth kembali hadir dengan visual baru yang lebih tajam, lebih percaya diri, dan lebih siap ditampilkan di setiap ruang hidupmu.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3 pt-2">
+              <button
+                onClick={() => setCurrentView('shop')}
+                className="px-5 py-3.5 bg-[#C5A059] text-[#121214] font-cinzel font-black uppercase tracking-[0.2em] text-[11px] hover:bg-[#D4AF37] transition-all shadow-[0_0_22px_rgba(197,160,89,0.22)] cursor-pointer"
+              >
+                Reserve the drop
+              </button>
+              <button
+                onClick={() => setShowMarketplaceSelector(true)}
+                className="px-5 py-3.5 border border-[#C5A059]/60 bg-[#121214] text-[#F5F5F0] font-cinzel font-black uppercase tracking-[0.2em] text-[11px] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all cursor-pointer"
+              >
+                Buy on marketplace
+              </button>
+            </div>
+
+            <div className="pt-4">
+              <div className="flex items-center gap-3 text-xs font-mono-code uppercase tracking-[0.2em] text-[#A1A1AA]">
+                <span className="inline-block w-2 h-2 rounded-full bg-[#C5A059]" />
+                Release date: 30 Oct 2026 · 7:00 PM WIB
+              </div>
+            </div>
+
+            <div className="grid grid-cols-4 gap-3 max-w-lg pt-2">
+              {[
+                { label: 'DAYS', value: timeLeft.days },
+                { label: 'HRS', value: timeLeft.hours },
+                { label: 'MIN', value: timeLeft.minutes },
+                { label: 'SEC', value: timeLeft.seconds },
+              ].map((unit) => (
+                <div key={unit.label} className="border border-[#C5A059]/35 bg-[#18181B]/85 p-3 text-center">
+                  <div className="font-cinzel text-2xl font-black text-[#F5F5F0]">{String(unit.value).padStart(2, '0')}</div>
+                  <div className="mt-1 text-[9px] font-mono-code uppercase tracking-[0.2em] text-[#A1A1AA]">{unit.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative overflow-hidden border border-[#C5A059]/40 bg-[#1A1A1D] shadow-[0_24px_90px_rgba(0,0,0,0.35)] min-h-[500px]">
+            <img
+              src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1200&auto=format&fit=crop"
+              alt="RdCloth next chapter release"
+              className="w-full h-full object-cover"
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#121214]/90 via-[#121214]/10 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+              <div className="inline-flex items-center px-2.5 py-1 border border-[#C5A059]/50 bg-[#121214]/80 text-[10px] font-cinzel font-bold uppercase tracking-[0.2em] text-[#C5A059]">
+                PRE-ORDER WINDOW
+              </div>
+              <h3 className="mt-4 font-cinzel text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-[#F5F5F0] leading-none">
+                Limited run. Loud identity.
+              </h3>
+            </div>
           </div>
         </div>
       </section>
