@@ -311,17 +311,38 @@ export const ProductDetailView: React.FC = () => {
             <SpotlightCard
               spotlightColor="rgba(197, 160, 89, 0.12)"
               borderColor="rgba(197, 160, 89, 0.4)"
-              className="p-5 bg-[#FFFFFF] border border-[#E0DFD8] space-y-2 shadow-xs"
+              className="p-5 bg-[#FFFFFF] border border-[#E0DFD8] space-y-3 shadow-xs"
             >
               <div className="flex items-center space-x-2">
                 <span className="w-1.5 h-1.5 bg-[#C5A059] rounded-full" />
                 <span className="text-xs font-cinzel text-[#C5A059] font-bold tracking-widest uppercase block">
-                  THE NARRATIVE
+                  THE NARRATIVE & CONCEPT
                 </span>
               </div>
               <p className="text-xs font-mono-code text-[#54524F] leading-relaxed italic">
-                {product.storyDescription || 'Odysseus menghabiskan bertahun-tahun mencoba kembali pulang. Namun melangkah maju terkadang berarti menerima bahwa tempat yang dulu kita sebut rumah telah berubah.'}
+                "{product.storyDescription || 'Setiap drop membawa narasi dan makna tersendiri tentang fase kehidupan manusia.'}"
               </p>
+
+              {/* Symbolism Breakdown (if available) */}
+              {product.symbolism && product.symbolism.length > 0 && (
+                <div className="pt-3 border-t border-[#E0DFD8] space-y-2">
+                  <span className="text-[10px] font-cinzel font-bold text-[#141414] uppercase tracking-wider block">
+                    MAKNA SIMBOLIK PADA DESAIN:
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                    {product.symbolism.map((sym, i) => (
+                      <div key={i} className="p-2.5 bg-[#F5F5F0] border border-[#E0DFD8] space-y-0.5">
+                        <span className="text-[10px] font-cinzel font-bold text-[#C5A059] block">
+                          {sym.label}
+                        </span>
+                        <span className="text-[11px] font-mono-code text-[#706E6B] leading-tight block">
+                          {sym.meaning}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </SpotlightCard>
 
             {/* Garment Fabric Anatomy Badges */}

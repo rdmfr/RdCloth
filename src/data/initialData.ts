@@ -3,12 +3,12 @@ import { Product, Collection, Review, HomepageCMS, StoreSettings, CustomOrder, O
 export const INITIAL_PRODUCTS: Product[] = [
   {
     id: 'prod-1',
-    slug: 'stay-lowkey-tee',
+    slug: 'moving-on-tee',
     sku: 'RDC-001',
     artifactCode: 'RDC / 001',
     chapter: 'CHAPTER I',
     name: 'Moving On Tee',
-    tagline: 'Boxy Heavyweight 235 GSM Graphic Tee',
+    tagline: 'Heavyweight Boxy 235 GSM — Drop 01: Mythology',
     price: 89000,
     originalPrice: 119000,
     marketplaceLinks: {
@@ -19,48 +19,48 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'tees',
     collectionId: 'drop-001',
     badge: 'NEW',
-    description: 'Designed for quiet confidence and endurance. Crafted from custom-knit 235 GSM heavyweight combed cotton with an architectural boxy drape. High-density micro-screenprinted chest accent with subtle typography across the back yolk.',
-    storyDescription: 'Odysseus spent years trying to return home. But sometimes, moving forward means accepting that the place you once called home no longer exists. This piece represents the moment you stop looking back and embrace the horizon.',
+    description: 'Dirancang untuk keberanian yang tenang dan ketahanan jangka panjang. Dibuat dari katun combed 16s 235 GSM dengan siluet boxy arsitektural yang gagah. Sablon high-density di dada dan tipografi halus di bagian belakang.',
+    storyDescription: 'Odysseus menghabiskan bertahun-tahun berusaha pulang ke rumah. Tapi terkadang, melangkah maju berarti menerima bahwa tempat yang dulu disebut rumah sudah tidak ada lagi. Kaos ini merepresentasikan momen ketika kamu berhenti menoleh ke belakang — dan memeluk cakrawala baru dengan penuh keberanian.',
     symbolism: [
-      { label: 'THE SEA', meaning: 'The vast, unknown journey ahead.' },
-      { label: 'THE SHIP', meaning: 'The vessel of human endurance and choice.' },
-      { label: 'THE HORIZON', meaning: 'What comes next when nostalgia ends.' },
-      { label: 'THE BROKEN MARBLE', meaning: 'What remains from the past.' }
+      { label: 'THE SEA', meaning: 'Perjalanan panjang yang penuh ketidakpastian di hadapanmu.' },
+      { label: 'THE SHIP', meaning: 'Dirimu sendiri — kendaraan ketahanan dan pilihan hidup.' },
+      { label: 'THE HORIZON', meaning: 'Apa yang menantimu ketika nostalgia sudah berakhir.' },
+      { label: 'THE BROKEN MARBLE', meaning: 'Sisa kenangan dari masa yang telah berlalu.' }
     ],
     details: [
       '100% Ring-Spun Combed Cotton 16s (235 GSM)',
-      'Boxy drop-shoulder modern streetwear silhouette',
-      'Thick 2.5cm ribbed collar that holds shape after multiple washes',
-      'Dual-pass Plastisol silkscreen print for ultra-durable texture',
-      'Pre-shrunk to prevent shrinkage after machine wash',
-      'Made in Bandung, Indonesia in limited small batches'
+      'Siluet boxy drop-shoulder streetwear modern',
+      'Kerah ribbed 2.5cm yang tetap tegak setelah berkali-kali dicuci',
+      'Sablon Plastisol dual-pass untuk tekstur yang awet dan tahan lama',
+      'Pre-shrunk untuk mencegah penyusutan setelah dicuci',
+      'Dibuat di Bandung, Indonesia dalam batch terbatas'
     ],
     material: '100% Heavyweight Combed Cotton 16s (235 GSM)',
-    fit: 'Boxy Streetwear Fit (True to size for relaxed look, size down for fitted)',
+    fit: 'Boxy Streetwear Fit (True to size untuk tampilan relaxed, size down untuk fitted)',
     care: [
-      'Machine wash cold with like colors',
-      'Turn garment inside out before washing',
-      'Do not iron directly on print graphic',
-      'Hang dry in shade to preserve cotton density'
+      'Cuci mesin dengan air dingin, pisahkan dari warna cerah',
+      'Balikkan kaos sebelum dicuci untuk menjaga warna',
+      'Jangan setrika langsung di atas sablon',
+      'Keringkan dengan cara digantung di tempat teduh'
     ],
     images: [
       {
         id: 'img-1-1',
         url: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1200&auto=format&fit=crop',
-        alt: 'Stay Lowkey Tee Front Angle - Model wearing black oversized streetwear tee',
+        alt: 'Moving On Tee — Model view, black oversized streetwear',
         isPrimary: true,
         angle: 'model'
       },
       {
         id: 'img-1-2',
         url: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=1200&auto=format&fit=crop',
-        alt: 'Stay Lowkey Tee Back Detail Angle',
+        alt: 'Moving On Tee — Detail tampilan belakang',
         angle: 'back'
       },
       {
         id: 'img-1-3',
         url: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=1200&auto=format&fit=crop',
-        alt: 'Stay Lowkey Tee Fabric Texture and Ribbed Neck Detail',
+        alt: 'Moving On Tee — Detail tekstur kain dan kerah ribbed',
         angle: 'detail'
       }
     ],
@@ -86,14 +86,16 @@ export const INITIAL_PRODUCTS: Product[] = [
     rating: 4.9,
     reviewCount: 28,
     seoTitle: 'Moving On Tee — Artifact 001 | RdCloth',
-    seoDescription: 'Heavyweight 235 GSM boxy streetwear graphic t-shirt by RdCloth. Reinterpreting classical mythology into modern apparel.'
+    seoDescription: 'Kaos heavyweight streetwear 235 GSM boxy oleh RdCloth. Drop 01: Mythology — Moving On.'
   },
   {
     id: 'prod-2',
     slug: 'rdc-essential-tee',
     sku: 'RDC-002',
+    artifactCode: 'RDC / 002',
+    chapter: 'ESSENTIALS',
     name: 'RDC Essential Blank Tee',
-    tagline: 'The Ultimate Daily Blank Canvas 210 GSM',
+    tagline: 'Katun Combed 24s 210 GSM — Blank Canvas Harian',
     price: 79000,
     originalPrice: 99000,
     marketplaceLinks: {
@@ -104,40 +106,40 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'tees',
     collectionId: 'essentials',
     badge: 'BEST SELLER',
-    description: 'The foundation of everyday styling. Built for effortless daily wear or as a custom-ready canvas. Pure breathable combed cotton 24s with reinforced double-needle hem and zero scratchy neck labels.',
+    description: 'Fondasi pemakaian harian yang tidak pernah ketinggalan. Dibuat untuk dipakai setiap hari sebagai blank canvas atau statement piece polos. Katun combed 24s yang lembut dan bernapas dengan hem double-needle dan label leher screenprint anti-gatal.',
     details: [
       '100% Premium Combed Cotton 24s (210 GSM)',
-      'Contemporary relaxed silhouette that drapes naturally',
-      'Comfort-bound ribbed crewneck collar',
-      'Screenprinted interior neck sizing for itch-free wear',
-      'Reactive dyed fabric that stays deep and rich after dozens of washes',
-      'Compatible with custom silkscreen, DTF, or direct wear'
+      'Siluet relaxed kontemporer yang jatuh alami',
+      'Kerah ribbed yang nyaman dan pas di leher',
+      'Label ukuran screenprint di bagian dalam — bebas gatal',
+      'Warna reactive dyed yang tetap kaya dan dalam setelah puluhan kali cuci',
+      'Kompatibel untuk custom sablon DTF, silkscreen, atau pemakaian langsung'
     ],
     material: '100% Combed Cotton 24s (210 GSM)',
-    fit: 'Relaxed Streetwear Fit (Casual cut with room in chest and arms)',
+    fit: 'Relaxed Streetwear Fit (Potongan casual dengan ruang di dada dan lengan)',
     care: [
-      'Normal machine wash cold',
-      'Tumble dry low or air dry',
-      'Warm iron if necessary'
+      'Cuci mesin normal dengan air dingin',
+      'Keringkan dengan cara digantung atau mesin pengering suhu rendah',
+      'Setrika suhu sedang jika diperlukan'
     ],
     images: [
       {
         id: 'img-2-1',
         url: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=1200&auto=format&fit=crop',
-        alt: 'RDC Essential Tee in Charcoal Grey on Street Model',
+        alt: 'RDC Essential Tee — Charcoal Grey, street model',
         isPrimary: true,
         angle: 'model'
       },
       {
         id: 'img-2-2',
         url: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?q=80&w=1200&auto=format&fit=crop',
-        alt: 'RDC Essential Tee Flat Lay Front View',
+        alt: 'RDC Essential Tee — Flat lay depan',
         angle: 'front'
       },
       {
         id: 'img-2-3',
         url: 'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?q=80&w=1200&auto=format&fit=crop',
-        alt: 'RDC Essential Tee Collar and Stitching Detail',
+        alt: 'RDC Essential Tee — Detail kerah dan jahitan',
         angle: 'detail'
       }
     ],
@@ -163,14 +165,16 @@ export const INITIAL_PRODUCTS: Product[] = [
     rating: 4.8,
     reviewCount: 42,
     seoTitle: 'RDC Essential Blank Tee | RdCloth',
-    seoDescription: 'Premium blank t-shirt 210 GSM Combed 24s. Soft, structured, and long-lasting.'
+    seoDescription: 'Kaos blank premium 210 GSM Combed 24s. Lembut, berstruktur, dan tahan lama untuk pemakaian harian.'
   },
   {
     id: 'prod-3',
     slug: 'move-anyway-tee',
     sku: 'RDC-003',
-    name: 'Move Anyway Graphic Tee',
-    tagline: 'Minimalist Typographic Statement Piece',
+    artifactCode: 'RDC / 003',
+    chapter: 'CHAPTER I',
+    name: 'Move Anyway Tee',
+    tagline: 'Statement Typographic Drop 01 — 220 GSM Limited',
     price: 89000,
     originalPrice: 129000,
     marketplaceLinks: {
@@ -181,33 +185,39 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'tees',
     collectionId: 'drop-001',
     badge: 'LIMITED',
-    description: 'A bold, rebellious reminder to execute without waiting for validation. Features high-contrast editorial Swiss-style typography across the chest and vertical Japanese coordinates on the sleeve hem.',
+    description: 'Pengingat keras untuk bergerak tanpa menunggu validasi. Tipografi editorial Swiss-style kontras tinggi di dada dengan koordinat Jepang vertikal di hem lengan. Ini bukan hanya kaos — ini manifesto pergerakan.',
+    storyDescription: 'Penantian yang sempurna tidak pernah datang. Mitologi mengajarkan kita bahwa para pahlawan bergerak meski takut, bukan karena tidak takut. "Move Anyway" adalah satu-satunya filosofi yang membuat perbedaan antara yang bermimpi dan yang berhasil.',
+    symbolism: [
+      { label: 'THE TYPOGRAPHY', meaning: 'Manifesto yang dicetak langsung di tubuhmu.' },
+      { label: 'THE COORDINATES', meaning: 'Petunjuk arah menuju dirimu sendiri yang lebih baik.' },
+      { label: 'THE WEIGHT', meaning: '220 GSM — seberat komitmen yang kamu buat.' }
+    ],
     details: [
       '100% Combed Cotton 20s (220 GSM)',
-      'Silkscreen rubber ink + subtle matte puff print on headline',
-      'Boxy drop-shoulder cut with elongated sleeves',
-      'Reinforced shoulder-to-shoulder neck tape',
-      'Numbered run of 150 pieces per batch'
+      'Sablon rubber ink silkscreen + matte puff print pada headline',
+      'Potongan boxy drop-shoulder dengan lengan yang sedikit lebih panjang',
+      'Neck tape shoulder-to-shoulder yang diperkuat',
+      'Run terbatas 150 pcs per batch'
     ],
     material: '100% Heavyweight Cotton 20s (220 GSM)',
     fit: 'Boxy Oversized Fit',
     care: [
-      'Machine wash inside out in cold water',
-      'Do not bleach',
-      'Cool iron inside out'
+      'Cuci mesin dengan air dingin, balikkan kaos ke dalam',
+      'Jangan menggunakan pemutih',
+      'Setrika dingin dari sisi dalam'
     ],
     images: [
       {
         id: 'img-3-1',
         url: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=1200&auto=format&fit=crop',
-        alt: 'Move Anyway Tee Editorial Streetwear Shot',
+        alt: 'Move Anyway Tee — Editorial streetwear shot',
         isPrimary: true,
         angle: 'model'
       },
       {
         id: 'img-3-2',
         url: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1200&auto=format&fit=crop',
-        alt: 'Move Anyway Tee Front Angle',
+        alt: 'Move Anyway Tee — Tampilan depan',
         angle: 'front'
       }
     ],
@@ -227,15 +237,17 @@ export const INITIAL_PRODUCTS: Product[] = [
     createdAt: '2026-03-03T10:00:00Z',
     rating: 5.0,
     reviewCount: 19,
-    seoTitle: 'Move Anyway Graphic Tee | RdCloth',
-    seoDescription: 'Limited edition streetwear graphic tee with modern typographic print.'
+    seoTitle: 'Move Anyway Tee — Artifact 003 | RdCloth',
+    seoDescription: 'Kaos streetwear limited edition dengan sablon tipografi editorial modern. RdCloth Drop 01: Mythology.'
   },
   {
     id: 'prod-4',
     slug: 'rdc-canvas-tote',
     sku: 'RDC-004',
+    artifactCode: 'RDC / 004',
+    chapter: 'ESSENTIALS',
     name: 'RDC Heavy Canvas Tote',
-    tagline: '16oz Rugged Raw Cotton Everyday Carrier',
+    tagline: 'Tas Kanvas 16oz Raw Cotton — Everyday Carrier',
     price: 59000,
     originalPrice: 79000,
     marketplaceLinks: {
@@ -246,33 +258,33 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'accessories',
     collectionId: 'essentials',
     badge: 'BEST SELLER',
-    description: 'Built to carry laptops, books, sketching pads, or daily essentials without bowing. Constructed from ultra-tough 16oz unbleached natural canvas with reinforced X-box cross-stitching on load points.',
+    description: 'Dibuat untuk membawa laptop, buku, dan perlengkapan harian tanpa melorot. Konstruksi dari kanvas katun alami unbleached 16oz yang berat dengan jahitan X-box di titik-titik beban utama. Tas yang bertahan lebih lama dari trennya.',
     details: [
       '16oz Heavyweight Unbleached Raw Cotton Canvas',
-      'Inner zippered security pocket for phone, keys & wallet',
-      '38cm x 42cm x 10cm wide bottom gusset for structured volume',
-      '65cm heavy-duty webbing shoulder handles for comfortable over-shoulder carry',
-      'Woven RdCloth label on exterior side seam'
+      'Kantong resleting dalam untuk ponsel, kunci, dan dompet',
+      'Ukuran 38cm × 42cm × 10cm dengan gusset bawah untuk volume terstruktur',
+      'Handle webbing 65cm heavy-duty untuk kenyamanan carry over-shoulder',
+      'Label woven RdCloth di sisi luar sambungan'
     ],
     material: '100% 16oz Rugged Cotton Canvas',
-    fit: 'One Size (38 x 42 x 10 cm)',
+    fit: 'One Size (38 × 42 × 10 cm)',
     care: [
-      'Spot clean with mild soap and cold water',
-      'Do not machine wash to preserve canvas stiffness',
-      'Air dry flat'
+      'Bersihkan dengan sabun ringan dan air dingin secara spot-clean',
+      'Jangan cuci mesin agar kekauan kanvas terjaga',
+      'Keringkan dengan posisi flat di tempat teduh'
     ],
     images: [
       {
         id: 'img-4-1',
         url: 'https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=1200&auto=format&fit=crop',
-        alt: 'RDC Heavy Canvas Tote Street Lifestyle',
+        alt: 'RDC Heavy Canvas Tote — Street lifestyle shot',
         isPrimary: true,
         angle: 'model'
       },
       {
         id: 'img-4-2',
         url: 'https://images.unsplash.com/photo-1597484661643-2f5fef640dd1?q=80&w=1200&auto=format&fit=crop',
-        alt: 'RDC Heavy Canvas Tote Studio Flat Shot',
+        alt: 'RDC Heavy Canvas Tote — Studio flat lay',
         angle: 'front'
       }
     ],
@@ -291,12 +303,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     rating: 4.9,
     reviewCount: 36,
     seoTitle: 'RDC Heavy Canvas Tote | RdCloth Essentials',
-    seoDescription: '16oz heavy cotton canvas tote bag with inner zipped pocket and reinforced webbing.'
+    seoDescription: 'Tas kanvas katun 16oz berat dengan kantong resleting dalam dan webbing yang diperkuat.'
   },
   {
     id: 'prod-5',
     slug: 'rdc-unstructured-cap',
     sku: 'RDC-005',
+    artifactCode: 'RDC / 005',
+    chapter: 'ESSENTIALS',
     name: 'RDC Washed Dad Cap',
     tagline: '6-Panel Vintage Washed Cotton Twill',
     price: 69000,
@@ -309,32 +323,32 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'accessories',
     collectionId: 'essentials',
     badge: 'NEW',
-    description: 'Low-profile, unstructured 6-panel silhouette in vintage enzyme-washed twill. Features subtle tonal micro-embroidery of the RdCloth monogram with an antique brass strapback buckle.',
+    description: 'Siluet 6-panel unstructured low-profile dari chino twill vintage enzyme-washed. Bordir monogram RdCloth 3D tonal yang halus dengan buckle kuningan antik. Topi yang pas untuk segala situasi — dari pasar hingga exhibit.',
     details: [
       '100% Enzyme-Washed Chino Cotton Twill',
-      'Unstructured low crown for effortless silhouette',
-      'Self-fabric strap with antique brass sliding buckle',
-      'High-density 3D tonal embroidery on front crown',
-      'Curved brim with stitched ventilation eyelets'
+      'Crown unstructured rendah untuk siluet yang effortless',
+      'Tali self-fabric dengan buckle sliding kuningan antik',
+      'Bordir 3D tonal high-density di crown depan',
+      'Brim melengkung dengan eyelet ventilasi yang dijahit'
     ],
     material: '100% Washed Chino Cotton Twill',
-    fit: 'One Size Fits All (Adjustable 54-60cm circumference)',
+    fit: 'One Size Fits All (Lingkar kepala 54-60cm, adjustable)',
     care: [
-      'Hand wash in lukewarm water with gentle detergent',
-      'Reshape brim and dry on a rounded bowl or head form'
+      'Cuci tangan dengan air hangat suam dan deterjen lembut',
+      'Bentuk ulang brim dan keringkan di atas mangkuk bulat atau bentuk kepala'
     ],
     images: [
       {
         id: 'img-5-1',
         url: 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=1200&auto=format&fit=crop',
-        alt: 'RDC Washed Dad Cap in Black Cotton',
+        alt: 'RDC Washed Dad Cap — Black cotton',
         isPrimary: true,
         angle: 'model'
       },
       {
         id: 'img-5-2',
         url: 'https://images.unsplash.com/photo-1575428652377-a2d80e2277fc?q=80&w=1200&auto=format&fit=crop',
-        alt: 'RDC Washed Dad Cap Side Profile',
+        alt: 'RDC Washed Dad Cap — Side profile',
         angle: 'front'
       }
     ],
@@ -353,14 +367,16 @@ export const INITIAL_PRODUCTS: Product[] = [
     rating: 4.7,
     reviewCount: 15,
     seoTitle: 'RDC Washed Dad Cap | RdCloth',
-    seoDescription: 'Low profile 6-panel washed cotton twill dad cap with antique brass buckle.'
+    seoDescription: 'Topi 6-panel washed cotton twill low-profile dengan buckle kuningan antik.'
   },
   {
     id: 'prod-6',
     slug: 'rdc-heavy-fleece-hoodie',
     sku: 'RDC-006',
+    artifactCode: 'RDC / 006',
+    chapter: 'CHAPTER I',
     name: 'RDC Heavy Fleece Hoodie',
-    tagline: '330 GSM Custom Milled French Terry Cotton',
+    tagline: 'French Terry 330 GSM Custom Milled — Drop 01',
     price: 149000,
     originalPrice: 189000,
     marketplaceLinks: {
@@ -371,32 +387,38 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'hoodies',
     collectionId: 'drop-001',
     badge: 'LIMITED',
-    description: 'Substantial, warm, and structured without being stiff. Double-layered hood without drawstring for a clean architectural aesthetic, dropped shoulders, and deep kangaroo pouch.',
+    description: 'Berbobot berat, hangat, dan terstruktur tanpa terasa kaku. Hood double-layer tanpa drawstring untuk estetika arsitektural yang bersih, bahu yang jatuh, dan kantong kangguru yang dalam. Hoodie untuk mereka yang memilih ketahanan sebagai gaya hidup.',
+    storyDescription: 'Dalam mitologi Yunani, para pahlawan tidak pernah berhenti di saat dingin. Mereka melanjutkan perjalanan — diselimuti ketabahan yang lebih tebal dari kain manapun. Hoodie ini adalah armor modern untuk hari-hari berat.',
+    symbolism: [
+      { label: 'THE DOUBLE HOOD', meaning: 'Perlindungan berlapis — dari dingin dan dari keraguan.' },
+      { label: 'THE WEIGHT', meaning: '330 GSM — seberat tanggung jawab yang kamu pikul dengan bangga.' },
+      { label: 'THE KANGAROO POUCH', meaning: 'Tempat menyimpan keberanian — tersembunyi, tapi selalu ada.' }
+    ],
     details: [
       '330 GSM Custom Milled French Terry 100% Cotton',
-      'Seamless double-walled hood structure',
-      'Wide 2x2 ribbed cuffs and waistband',
-      'Hidden interior earbud/key loop in pocket',
-      'Pre-washed and enzyme softened'
+      'Struktur hood double-walled tanpa jahitan yang terlihat',
+      'Cuff dan waistband ribbed 2x2 yang lebar',
+      'Loop earbud/kunci tersembunyi di dalam kantong',
+      'Pre-washed dan enzyme softened'
     ],
     material: '100% French Terry Cotton 330 GSM',
-    fit: 'Boxy Relaxed Cut (Fits oversized comfortably)',
+    fit: 'Boxy Relaxed Cut (Pas oversized dengan nyaman)',
     care: [
-      'Machine wash gentle cycle cold',
-      'Lay flat to dry to maintain shape'
+      'Cuci mesin gentle cycle dengan air dingin',
+      'Keringkan dengan posisi flat untuk menjaga bentuk'
     ],
     images: [
       {
         id: 'img-6-1',
         url: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=1200&auto=format&fit=crop',
-        alt: 'RDC Heavy Fleece Hoodie Model Shot',
+        alt: 'RDC Heavy Fleece Hoodie — Model shot',
         isPrimary: true,
         angle: 'model'
       },
       {
         id: 'img-6-2',
         url: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=1200&auto=format&fit=crop',
-        alt: 'RDC Heavy Fleece Hoodie Texture and Hood',
+        alt: 'RDC Heavy Fleece Hoodie — Tekstur dan detail hood',
         angle: 'front'
       }
     ],
@@ -415,7 +437,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     rating: 4.9,
     reviewCount: 11,
     seoTitle: 'RDC Heavy Fleece Hoodie | RdCloth',
-    seoDescription: '330 GSM French Terry heavyweight boxy hoodie.'
+    seoDescription: 'Hoodie boxy heavyweight 330 GSM French Terry. RdCloth Drop 01: Mythology.'
   }
 ];
 
@@ -571,8 +593,8 @@ export const INITIAL_ORDERS: Order[] = [
     items: [
       {
         productId: 'prod-1',
-        productName: 'Stay Lowkey Tee',
-        productSlug: 'stay-lowkey-tee',
+        productName: 'Moving On Tee',
+        productSlug: 'moving-on-tee',
         sku: 'RDC-001-BLK-L',
         size: 'L',
         colorName: 'Washed Black',

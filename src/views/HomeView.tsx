@@ -45,6 +45,48 @@ export const HomeView: React.FC = () => {
     return p.category.toLowerCase() === selectedCategory.toLowerCase();
   }).slice(0, 4);
 
+  const editorialShots = [
+    {
+      title: 'Urban Ritual',
+      label: 'DROP 01',
+      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1200&auto=format&fit=crop',
+      description: 'Boxy silhouette, premium cotton, and a quiet confidence built for daily wear.'
+    },
+    {
+      title: 'After Hours Studio',
+      label: 'STUDIO NOTES',
+      image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=1200&auto=format&fit=crop',
+      description: 'Detail work that matters: rib collar, hand-finished texture, and build quality you can feel.'
+    },
+    {
+      title: 'Streetwear With Meaning',
+      label: 'SIGNATURE LOOK',
+      image: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1200&auto=format&fit=crop',
+      description: 'Built for people who wear identity, not just clothing.'
+    }
+  ];
+
+  const testimonials = [
+    {
+      name: 'Alya N.',
+      title: 'Creative Strategist',
+      quote: 'Bahan tebal, fit-nya enak dipakai, dan tampilannya terasa premium banget. Kayak barang limited edition yang benar-benar punya karakter.',
+      rating: 5
+    },
+    {
+      name: 'Raka D.',
+      title: 'Designer',
+      quote: 'RdCloth berhasil gabungkan streetwear dengan storytelling yang kuat. Setiap drop terasa punya mood dan identitas, bukan cuma kaos biasa.',
+      rating: 5
+    },
+    {
+      name: 'Mira P.',
+      title: 'Content Creator',
+      quote: 'Karakter visualnya keren, kualitas jahitan rapi, dan detailnya terasa lebih premium daripada brand lokal pada umumnya.',
+      rating: 5
+    }
+  ];
+
   return (
     <div className="w-full bg-[#F5F5F0] text-[#141414] overflow-hidden">
       {/* 1. HERO SECTION */}
@@ -285,7 +327,7 @@ export const HomeView: React.FC = () => {
             </div>
             <h3 className="font-cinzel text-lg font-bold uppercase text-[#141414]">STORY-LED</h3>
             <p className="text-xs font-mono-code text-[#706E6B] leading-relaxed">
-              Setiap drop punya ide, mood, dan pesan filosofis Yunani Kuno yang relevan untuk generasi modern.
+              Setiap drop membawa narasi dan konsep tersendiri—dari Mitologi Kuno, Dunia Games, hingga Filosofi Anime.
             </p>
           </SpotlightCard>
 
@@ -385,6 +427,233 @@ export const HomeView: React.FC = () => {
           {filteredProducts.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
+        </div>
+      </section>
+
+      {/* AGGRESSIVE CTA / LUXURY RETAIL BAND */}
+      <section className="px-4 sm:px-6 lg:px-8 py-6 bg-[#121214] border-b border-[#27272A]">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 border border-[#C5A059]/40 bg-[#18181B] px-6 py-6 sm:px-8">
+            <div className="space-y-2 text-center lg:text-left">
+              <div className="text-[10px] font-cinzel uppercase tracking-[0.3em] text-[#C5A059] font-bold">
+                LIMITED DROP // CHAPTER I
+              </div>
+              <h3 className="font-cinzel text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-[#F5F5F0]">
+                230 pcs remaining in this run.
+              </h3>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+              <button
+                onClick={() => setCurrentView('shop')}
+                className="w-full sm:w-auto min-w-[220px] px-5 py-3.5 bg-[#C5A059] text-[#121214] font-cinzel font-black uppercase tracking-[0.2em] text-[11px] hover:bg-[#D4AF37] transition-all shadow-[0_0_22px_rgba(197,160,89,0.28)] cursor-pointer"
+              >
+                Shop the drop
+              </button>
+              <button
+                onClick={() => setShowMarketplaceSelector(true)}
+                className="w-full sm:w-auto min-w-[220px] px-5 py-3.5 border border-[#C5A059]/60 bg-[#121214] text-[#F5F5F0] font-cinzel font-black uppercase tracking-[0.2em] text-[11px] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all cursor-pointer"
+              >
+                Buy on marketplace
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4.5. EDITORIAL LOOKBOOK WITH PRODUCT PHOTOS */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#F5F5F0] border-b border-[#E0DFD8]">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+            <div className="space-y-3">
+              <span className="text-xs font-cinzel font-bold text-[#C5A059] uppercase tracking-[0.28em]">
+                LOOKBOOK // STUDIO SHOTS
+              </span>
+              <h2 className="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#141414]">
+                FIT FOR DAILY IDENTITY.
+              </h2>
+            </div>
+
+            <div className="flex items-center gap-4 text-xs font-mono-code text-[#706E6B] uppercase">
+              <div className="flex items-center gap-2">
+                <Star className="w-3.5 h-3.5 text-[#C5A059] fill-[#C5A059]" />
+                <span>4.9/5</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Instagram className="w-3.5 h-3.5 text-[#C5A059]" />
+                <span>3.2K followers</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div className="lg:col-span-7 relative overflow-hidden border border-[#E0DFD8] bg-[#FFFFFF] shadow-md min-h-[540px]">
+              <img
+                src={editorialShots[0].image}
+                alt={editorialShots[0].title}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#121214]/85 via-[#121214]/15 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                <div className="inline-flex items-center px-2.5 py-1 border border-[#C5A059]/60 bg-[#121214]/75 text-[10px] font-cinzel font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-3">
+                  {editorialShots[0].label}
+                </div>
+                <h3 className="font-cinzel text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-[#F5F5F0]">
+                  {editorialShots[0].title}
+                </h3>
+                <p className="mt-3 max-w-md text-xs sm:text-sm font-mono-code text-[#E4E4E7] leading-relaxed">
+                  {editorialShots[0].description}
+                </p>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5 grid grid-cols-1 gap-6">
+              {editorialShots.slice(1).map((shot) => (
+                <div
+                  key={shot.title}
+                  className="group relative overflow-hidden border border-[#E0DFD8] bg-[#FFFFFF] shadow-sm min-h-[250px]"
+                >
+                  <img
+                    src={shot.image}
+                    alt={shot.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#121214]/80 via-[#121214]/10 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <div className="inline-flex items-center px-2 py-1 border border-[#C5A059]/60 bg-[#121214]/75 text-[10px] font-cinzel font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-2">
+                      {shot.label}
+                    </div>
+                    <h3 className="font-cinzel text-xl sm:text-2xl font-black uppercase tracking-tight text-[#F5F5F0]">
+                      {shot.title}
+                    </h3>
+                    <p className="mt-1 text-[10px] sm:text-xs font-mono-code text-[#E4E4E7] leading-relaxed">
+                      {shot.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BRAND ETHOS / THEME ALIGNMENT */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#FFFFFF] border-b border-[#E0DFD8]">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center mb-10">
+            <div className="space-y-5">
+              <span className="text-xs font-cinzel font-bold uppercase tracking-[0.3em] text-[#C5A059]">
+                PHILOSOPHY // BRAND DNA
+              </span>
+              <h2 className="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#141414] leading-none">
+                WEAR YOUR IDEA.
+              </h2>
+              <p className="max-w-xl text-sm sm:text-base font-mono-code text-[#706E6B] leading-relaxed">
+                RdCloth hadir untuk mereka yang tidak ingin terlihat seperti orang lain. Kami memadukan streetwear premium, cerita hidup, dan estetika klasik agar setiap pakaian terasa lebih dari sekadar outfit — ia menjadi tanda identitas.
+              </p>
+            </div>
+
+            <div className="p-6 sm:p-8 border border-[#E0DFD8] bg-[#F5F5F0] shadow-sm">
+              <div className="text-[10px] font-cinzel font-bold uppercase tracking-[0.28em] text-[#C5A059] mb-2">
+                MOTTO
+              </div>
+              <p className="font-cinzel text-2xl sm:text-3xl font-black uppercase leading-tight text-[#141414]">
+                “Build your story,
+                <span className="block text-[#C5A059]">wear the truth.”</span>
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="group p-6 bg-[#121214] border border-[#27272A] shadow-md hover:shadow-xl transition-all">
+              <div className="text-[10px] font-cinzel font-bold uppercase tracking-[0.26em] text-[#C5A059] mb-4">
+                01 // CRAFT
+              </div>
+              <h3 className="font-cinzel text-2xl font-black uppercase text-[#F5F5F0] mb-3">
+                BUILT WITH INTENT
+              </h3>
+              <p className="text-xs sm:text-sm font-mono-code text-[#A1A1AA] leading-relaxed">
+                Bahan dipilih bukan untuk tren pasar, melainkan untuk kenyamanan, tahan lama, dan rasa yang konsisten di setiap hari.
+              </p>
+            </div>
+
+            <div className="group p-6 bg-[#F7F4EE] border border-[#D9D3C8] shadow-sm hover:shadow-xl transition-all">
+              <div className="text-[10px] font-cinzel font-bold uppercase tracking-[0.26em] text-[#C5A059] mb-4">
+                02 // STORY
+              </div>
+              <h3 className="font-cinzel text-2xl font-black uppercase text-[#141414] mb-3">
+                LIMITED BY DESIGN
+              </h3>
+              <p className="text-xs sm:text-sm font-mono-code text-[#706E6B] leading-relaxed">
+                Setiap drop terinspirasi dari konsep, mitologi, dan fase hidup yang ingin dibawa ke dalam bentuk visual streetwear yang lebih manusiawi.
+              </p>
+            </div>
+
+            <div className="group p-6 bg-[#18181B] border border-[#C5A059]/50 shadow-md hover:shadow-xl transition-all">
+              <div className="text-[10px] font-cinzel font-bold uppercase tracking-[0.26em] text-[#C5A059] mb-4">
+                03 // MOVE
+              </div>
+              <h3 className="font-cinzel text-2xl font-black uppercase text-[#F5F5F0] mb-3">
+                MADE TO MOVE
+              </h3>
+              <p className="text-xs sm:text-sm font-mono-code text-[#A1A1AA] leading-relaxed">
+                Siluet dibuat untuk bergerak, bukan hanya dipajang. Praktis di keseharian, kuat di performa, dan tetap punya karakter utama.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIALS / SOCIAL PROOF */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-[#FFFFFF] border-b border-[#E0DFD8]">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+            <div className="space-y-3">
+              <span className="text-xs font-cinzel font-bold uppercase tracking-[0.28em] text-[#C5A059]">
+                CUSTOMER LOVE
+              </span>
+              <h2 className="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#141414]">
+                WHAT PEOPLE SAY.
+              </h2>
+            </div>
+
+            <div className="flex items-center gap-2 text-[#C5A059]">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-4 h-4 fill-[#C5A059]" />
+              ))}
+              <span className="ml-2 text-xs font-mono-code uppercase tracking-wider text-[#706E6B]">
+                4.9/5 average rating
+              </span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {testimonials.map((item) => (
+              <div key={item.name} className="bg-[#F7F4EE] border border-[#E0DFD8] p-6 sm:p-7 shadow-sm hover:shadow-xl transition-all">
+                <div className="flex items-center gap-1 mb-4 text-[#C5A059]">
+                  {[...Array(item.rating)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-[#C5A059]" />
+                  ))}
+                </div>
+
+                <p className="text-sm sm:text-base font-mono-code text-[#141414] leading-relaxed mb-6">
+                  “{item.quote}”
+                </p>
+
+                <div className="pt-4 border-t border-[#E0DFD8] flex items-center justify-between">
+                  <div>
+                    <div className="font-cinzel text-lg font-black uppercase text-[#141414]">{item.name}</div>
+                    <div className="text-[10px] font-mono-code uppercase tracking-[0.2em] text-[#706E6B]">{item.title}</div>
+                  </div>
+                  <div className="text-[#C5A059]">
+                    <Sparkles className="w-4 h-4" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -574,15 +843,15 @@ export const HomeView: React.FC = () => {
                 href={settings.shopeeUrl || '#'}
                 target="_blank"
                 rel="noreferrer"
-                className="px-4 py-2.5 border border-[#E0DFD8] bg-[#FFFFFF] text-[#141414] text-[10px] font-cinzel font-bold uppercase tracking-widest hover:border-[#C5A059] hover:shadow-sm transition-all"
+                className="px-5 py-3 border border-[#C5A059] bg-[#121214] text-[#F5F5F0] text-[10px] font-cinzel font-bold uppercase tracking-[0.2em] hover:bg-[#C5A059] hover:text-[#121214] transition-all shadow-[0_0_18px_rgba(197,160,89,0.2)]"
               >
-                Shopee Official
+                Buy on Shopee
               </a>
               <a
                 href={settings.tokopediaUrl || '#'}
                 target="_blank"
                 rel="noreferrer"
-                className="px-4 py-2.5 border border-[#E0DFD8] bg-[#FFFFFF] text-[#141414] text-[10px] font-cinzel font-bold uppercase tracking-widest hover:border-[#C5A059] hover:shadow-sm transition-all"
+                className="px-5 py-3 border border-[#E0DFD8] bg-[#FFFFFF] text-[#141414] text-[10px] font-cinzel font-bold uppercase tracking-[0.2em] hover:border-[#C5A059] hover:shadow-sm transition-all"
               >
                 Tokopedia Store
               </a>
@@ -590,7 +859,7 @@ export const HomeView: React.FC = () => {
                 href={settings.tiktokshopUrl || '#'}
                 target="_blank"
                 rel="noreferrer"
-                className="px-4 py-2.5 border border-[#E0DFD8] bg-[#FFFFFF] text-[#141414] text-[10px] font-cinzel font-bold uppercase tracking-widest hover:border-[#C5A059] hover:shadow-sm transition-all"
+                className="px-5 py-3 border border-[#E0DFD8] bg-[#FFFFFF] text-[#141414] text-[10px] font-cinzel font-bold uppercase tracking-[0.2em] hover:border-[#C5A059] hover:shadow-sm transition-all"
               >
                 TikTok Shop
               </a>

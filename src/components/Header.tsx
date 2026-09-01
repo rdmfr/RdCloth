@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '../context/StoreContext';
 import { Search, ShoppingBag, Heart, Menu, X, PackageCheck, User as UserIcon } from 'lucide-react';
-import { ShinyText } from './reactbits/ShinyText';
 import { Magnet } from './reactbits/Magnet';
 
+
 export const Header: React.FC = () => {
-  const { 
-    currentView, 
-    setCurrentView, 
-    cartCount, 
-    setIsCartOpen, 
-    setIsSearchOpen, 
+  const {
+    currentView,
+    setCurrentView,
+    cartCount,
+    setIsCartOpen,
+    setIsSearchOpen,
     setIsSizeGuideOpen,
-    wishlist, 
+    wishlist,
     cms
   } = useStore();
 
@@ -42,11 +42,10 @@ export const Header: React.FC = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          isScrolled || currentView !== 'home'
-            ? 'bg-[#F5F5F0]/90 backdrop-blur-xl border-b border-[#D8D6CE] py-3.5 shadow-sm'
-            : 'bg-[#F5F5F0]/85 backdrop-blur-md border-b border-[#D8D6CE]/80 py-4'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${isScrolled || currentView !== 'home'
+          ? 'bg-[#F5F5F0]/90 backdrop-blur-xl border-b border-[#D8D6CE] py-3.5 shadow-sm'
+          : 'bg-[#F5F5F0]/85 backdrop-blur-md border-b border-[#D8D6CE]/80 py-4'
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-[auto_1fr_auto] md:grid-cols-[1fr_auto_1fr] items-center gap-4 md:gap-8">
           {/* Mobile menu trigger */}
@@ -78,11 +77,10 @@ export const Header: React.FC = () => {
                   key={link.view}
                   id={`nav-${link.view}`}
                   onClick={() => setCurrentView(link.view)}
-                  className={`text-xs uppercase tracking-[0.2em] font-cinzel font-bold transition-all duration-200 relative py-1 ${
-                    isActive
-                      ? 'text-[#141414]'
-                      : 'text-[#5F5D58] hover:text-[#C5A059]'
-                  }`}
+                  className={`text-xs uppercase tracking-[0.2em] font-cinzel font-bold transition-all duration-200 relative py-1 ${isActive
+                    ? 'text-[#141414]'
+                    : 'text-[#5F5D58] hover:text-[#C5A059]'
+                    }`}
                 >
                   {link.label}
                   {isActive && (
@@ -109,7 +107,7 @@ export const Header: React.FC = () => {
                 </span>
               </div>
               <span className="text-[9px] tracking-[0.24em] uppercase text-[#706E6B] font-mono-code -mt-0.5 hidden sm:block">
-                <ShinyText text="STORIES WORTH WEARING · EVERY DROP TELLS A STORY" speed={5.5} />
+                STORIES WORTH WEARING · EVERY DROP TELLS A STORY
               </span>
             </button>
           </div>
@@ -132,9 +130,8 @@ export const Header: React.FC = () => {
               id="header-track-btn"
               onClick={() => setCurrentView('track-order')}
               title="Lacak pesanan"
-              className={`text-xs uppercase tracking-wider font-cinzel font-bold transition-colors hidden sm:flex items-center space-x-1.5 ${
-                currentView === 'track-order' ? 'text-[#141414]' : 'text-[#706E6B] hover:text-[#C5A059]'
-              }`}
+              className={`text-xs uppercase tracking-wider font-cinzel font-bold transition-colors hidden sm:flex items-center space-x-1.5 ${currentView === 'track-order' ? 'text-[#141414]' : 'text-[#706E6B] hover:text-[#C5A059]'
+                }`}
             >
               <PackageCheck className="w-4 h-4" />
               <span className="hidden lg:inline text-[10px] tracking-widest">LACAK</span>
@@ -158,9 +155,8 @@ export const Header: React.FC = () => {
               id="header-account-btn"
               onClick={() => setCurrentView('account')}
               title="Akun saya"
-              className={`p-1.5 transition-colors ${
-                currentView === 'account' ? 'text-[#141414]' : 'text-[#706E6B] hover:text-[#C5A059]'
-              }`}
+              className={`p-1.5 transition-colors ${currentView === 'account' ? 'text-[#141414]' : 'text-[#706E6B] hover:text-[#C5A059]'
+                }`}
             >
               <UserIcon className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
@@ -212,9 +208,8 @@ export const Header: React.FC = () => {
                     setCurrentView(link.view);
                     setIsMobileMenuOpen(false);
                   }}
-                  className={`text-left text-xl font-cinzel font-extrabold tracking-wider uppercase transition-colors ${
-                    currentView === link.view ? 'text-[#141414] pl-3 border-l-2 border-[#C5A059]' : 'text-[#706E6B] hover:text-[#141414]'
-                  }`}
+                  className={`text-left text-xl font-cinzel font-extrabold tracking-wider uppercase transition-colors ${currentView === link.view ? 'text-[#141414] pl-3 border-l-2 border-[#C5A059]' : 'text-[#706E6B] hover:text-[#141414]'
+                    }`}
                 >
                   {link.label}
                 </button>

@@ -113,8 +113,9 @@ export const AboutView: React.FC = () => {
           </div>
           <div className="lg:col-span-8 space-y-4 text-sm font-mono-code text-[#706E6B] leading-relaxed">
             <p>
-              Pakaian yang membawa cerita mendalam membutuhkan material berbobot kuat. Kami menggunakan bahan **Heavyweight Combed Cotton 16s (235 GSM)** dan katun combed 24s pilihan, dipadukan dengan rib kerah 2.5cm dan jahitan rantai ganda agar bentuk siluetnya tetap kokoh dan tidak jatuh lemas saat dipakai.
+              Pakaian yang membawa cerita mendalam membutuhkan material berbobot kuat. Kami menggunakan bahan <strong className="text-[#141414] font-semibold">Heavyweight Combed Cotton 16s (235 GSM)</strong> dan katun combed 24s pilihan, dipadukan dengan rib kerah 2.5cm dan jahitan rantai ganda agar bentuk siluetnya tetap kokoh dan tidak jatuh lemas saat dipakai.
             </p>
+
             <div className="pt-4">
               <Magnet strength={0.25}>
                 <button
