@@ -38,13 +38,13 @@ Open <http://localhost:3000> after the server starts.
 
 ## Available scripts
 
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Start the local Express/Vite development server. |
-| `npm run lint` | Run the TypeScript check without emitting files. |
-| `npm run build` | Build the frontend and bundle the server. |
-| `npm run start` | Run the bundled production server after a build. |
-| `npm run preview` | Preview the Vite production output. |
+| Command           | Purpose                                          |
+| ----------------- | ------------------------------------------------ |
+| `npm run dev`     | Start the local Express/Vite development server. |
+| `npm run lint`    | Run the TypeScript check without emitting files. |
+| `npm run build`   | Build the frontend and bundle the server.        |
+| `npm run start`   | Run the bundled production server after a build. |
+| `npm run preview` | Preview the Vite production output.              |
 
 ## Project layout
 
@@ -61,7 +61,7 @@ server.ts       Local Express server and Vite integration
 
 ## Production Readiness
 
-The project currently uses seeded in-memory data from `src/data/initialData.ts`. The admin login is suitable for local development, but payment processing, persistent storage, production-grade authentication, upload storage, and operational monitoring still need to be connected before launch.
+The project currently uses seeded in-memory data from `src/data/initialData.ts`. Admin login is disabled until `ADMIN_EMAIL` and `ADMIN_PASSWORD` are configured in the environment; there is no built-in default password. Payment processing, persistent storage, production-grade authentication, upload storage, and operational monitoring still need to be connected before launch.
 
 Product and homepage content can be edited through the admin view during local development. Keep real customer data and credentials out of the seed files and repository.
 

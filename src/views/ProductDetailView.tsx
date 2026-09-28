@@ -145,19 +145,22 @@ export const ProductDetailView: React.FC = () => {
       showToast('Mohon isi nama dan ulasan Anda.', 'error');
       return;
     }
-    await submitReview({
-      productId: product.id,
-      productName: product.name,
-      userName: revName,
-      rating: revRating,
-      fitFeedback: revFit,
-      sizePurchased: selectedSize,
-      comment: revComment,
-      isApproved: true
-    });
-    setShowReviewModal(false);
-    setRevName('');
-    setRevComment('');
+    try {
+      await submitReview({
+        productId: product.id,
+        productName: product.name,
+        userName: revName,
+        rating: revRating,
+        fitFeedback: revFit,
+        sizePurchased: selectedSize,
+        comment: revComment
+      });
+      setShowReviewModal(false);
+      setRevName('');
+      setRevComment('');
+    } catch {
+      showToast('Ulasan gagal dikirim. Silakan coba lagi.', 'error');
+    }
   };
 
   const handleMouseMoveZoom = (e: React.MouseEvent<HTMLDivElement>) => {

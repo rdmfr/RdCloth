@@ -83,7 +83,7 @@ interface StoreContextType {
   
   // Mutators
   refreshData: () => Promise<void>;
-  createOrder: (orderData: Partial<Order>) => Promise<Order>;
+  createOrder: (orderData: Partial<Order> & { promoCode?: string }) => Promise<Order>;
   submitCustomOrder: (customData: Partial<CustomOrder>) => Promise<CustomOrder>;
   submitReview: (reviewData: Partial<Review>) => Promise<Review>;
   updateProduct: (productOrId: Product | string, data?: Partial<Product>) => Promise<Product>;
@@ -346,7 +346,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const isWishlisted = (productId: string) => wishlist.includes(productId);
 
   // Order actions
-  const createOrder = async (orderData: Partial<Order>): Promise<Order> => {
+  const createOrder = async (orderData: Partial<Order> & { promoCode?: string }): Promise<Order> => {
     try {
       const res = await fetch('/api/orders', {
         method: 'POST',
@@ -358,28 +358,8 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       setOrders(prev => [json.data, ...prev]);
       clearCart();
       return json.data;
-    } catch (err: any) {
-      const fallbackOrder: Order = {
-        id: `RDC-${Math.floor(1000 + Math.random() * 9000)}`,
-        customer: orderData.customer!,
-        items: orderData.items!,
-        subtotal: orderData.subtotal!,
-        shippingMethod: orderData.shippingMethod!,
-        shippingCost: orderData.shippingCost!,
-        discount: orderData.discount || 0,
-        total: orderData.total!,
-        paymentMethod: orderData.paymentMethod || 'BANK_TRANSFER',
-        paymentStatus: orderData.paymentMethod === 'QRIS' ? 'PAID' : 'UNPAID',
-        status: 'PENDING',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        timeline: [
-          { status: 'PENDING', timestamp: new Date().toLocaleString('id-ID'), description: 'Order created.' }
-        ]
-      };
-      setOrders(prev => [fallbackOrder, ...prev]);
-      clearCart();
-      return fallbackOrder;
+    } catch (err) {
+      throw err;
     }
   };
 
@@ -395,30 +375,8 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       setCustomOrders(prev => [json.data, ...prev]);
       showToast('Custom apparel request submitted successfully!', 'success');
       return json.data;
-    } catch (err: any) {
-      const fallbackCustom: CustomOrder = {
-        id: `CUST-${Math.floor(1000 + Math.random() * 9000)}`,
-        customerName: customData.customerName || 'Customer',
-        whatsapp: customData.whatsapp || '',
-        email: customData.email || '',
-        apparelType: customData.apparelType || 'Heavyweight Boxy Tee',
-        color: customData.color || 'Black',
-        colorHex: customData.colorHex || '#121212',
-        size: customData.size || 'L',
-        quantity: customData.quantity || 1,
-        placement: customData.placement || 'Front Center',
-        printTechnique: customData.printTechnique || 'DTF',
-        designFileUrl: customData.designFileUrl,
-        designFileName: customData.designFileName,
-        notes: customData.notes,
-        estimatedPrice: customData.estimatedPrice || 89000,
-        status: 'NEW',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      };
-      setCustomOrders(prev => [fallbackCustom, ...prev]);
-      showToast('Custom apparel request submitted successfully!', 'success');
-      return fallbackCustom;
+    } catch (err) {
+      throw err;
     }
   };
 
@@ -434,22 +392,8 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       setReviews(prev => [json.data, ...prev]);
       showToast('Thank you! Your review has been submitted.', 'success');
       return json.data;
-    } catch {
-      const fallbackRev: Review = {
-        id: `rev-${Date.now()}`,
-        productId: reviewData.productId || '1',
-        productName: reviewData.productName || 'RdCloth Apparel',
-        userName: reviewData.userName || 'Anonymous',
-        rating: reviewData.rating || 5,
-        fitFeedback: reviewData.fitFeedback || 'True to Size',
-        sizePurchased: reviewData.sizePurchased || 'L',
-        comment: reviewData.comment || 'Great quality!',
-        isApproved: true,
-        createdAt: new Date().toISOString()
-      };
-      setReviews(prev => [fallbackRev, ...prev]);
-      showToast('Thank you! Your review has been submitted.', 'success');
-      return fallbackRev;
+    } catch (err) {
+      throw err;
     }
   };
 
@@ -559,9 +503,21 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   };
 
   const updateReviewStatus = async (id: string, isApproved: boolean): Promise<Review> => {
-    setReviews(prev => prev.map(r => (r.id === id ? { ...r, isApproved } : r)));
-    showToast(`Review ${isApproved ? 'approved' : 'hidden'}.`, 'success');
-    return reviews.find(r => r.id === id)!;
+    try {
+      const res = await fetch(`/api/reviews/${id}/approve`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isApproved })
+      });
+      const json = await res.json();
+      if (!res.ok || !json.success) throw new Error(json.error || 'Failed to update review');
+      setReviews(prev => prev.map(review => (review.id === id ? json.data : review)));
+      showToast(`Review ${isApproved ? 'approved' : 'hidden'}.`, 'success');
+      return json.data;
+    } catch {
+      showToast('Could not update review. Please retry.', 'error');
+      return reviews.find(review => review.id === id)!;
+    }
   };
 
   const updateCMS = async (data: Partial<HomepageCMS>): Promise<HomepageCMS> => {

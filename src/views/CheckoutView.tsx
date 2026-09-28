@@ -68,7 +68,7 @@ export const CheckoutView: React.FC = () => {
   const [notes, setNotes] = useState('');
 
   const [selectedCourier, setSelectedCourier] = useState<ShippingMethod>(COURIER_OPTIONS[0]);
-  const [paymentMethod, setPaymentMethod] = useState<'BANK_TRANSFER' | 'QRIS' | 'EWALLET'>('QRIS');
+  const paymentMethod: Order['paymentMethod'] = 'BANK_TRANSFER';
   
   // Promo code
   const [promoCode, setPromoCode] = useState('');
@@ -143,6 +143,7 @@ export const CheckoutView: React.FC = () => {
         shippingMethod: selectedCourier,
         shippingCost: effectiveShippingCost,
         discount: discountAmount,
+        promoCode: promoApplied ? promoCode.trim().toUpperCase() : '',
         total: grandTotal,
         paymentMethod,
         notes
@@ -458,16 +459,14 @@ Mohon konfirmasi pesanan dan proses pengiriman ya min. Terima kasih!`;
                 <span>4. PAYMENT METHOD</span>
               </h2>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono-code">
+              <div className="grid grid-cols-1 gap-3 text-xs font-mono-code">
                 {[
-                  { id: 'QRIS', label: 'QRIS INSTANT', sub: 'BCA/Mandiri/GoPay/OVO' },
-                  { id: 'BANK_TRANSFER', label: 'MANUAL TRANSFER', sub: 'BCA Official Account' },
-                  { id: 'EWALLET', label: 'E-WALLET', sub: 'Direct Settlement' }
+                  { id: 'BANK_TRANSFER', label: 'MANUAL TRANSFER', sub: 'Pembayaran diverifikasi admin' }
                 ].map(pm => (
                   <button
                     key={pm.id}
                     type="button"
-                    onClick={() => setPaymentMethod(pm.id as any)}
+                    aria-pressed={paymentMethod === pm.id}
                     className={`p-4 border text-left transition-all ${
                       paymentMethod === pm.id
                         ? 'bg-[#F5F5F0] border-[#141414] ring-1 ring-[#141414]'

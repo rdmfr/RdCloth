@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useStore } from '../context/StoreContext';
 import { formatIDR, formatDate, generateWhatsAppUrl } from '../utils/formatters';
-import { Order, OrderStatus } from '../types';
+import { OrderStatus } from '../types';
 import { 
   Search, 
   Package, 
@@ -24,27 +24,59 @@ const TIMELINE_STEPS: { status: OrderStatus; label: string; desc: string }[] = [
   { status: 'DELIVERED', label: 'DELIVERED', desc: 'Package arrived at destination' }
 ];
 
+interface TrackingOrder {
+  id: string;
+  status: OrderStatus;
+  trackingNumber?: string;
+  createdAt: string;
+  total: number;
+  customer: { fullName: string };
+  shippingMethod: { name: string; estimatedDays: string };
+  items: {
+    productName: string;
+    size: string;
+    colorName: string;
+    quantity: number;
+    subtotal: number;
+    image: string;
+  }[];
+}
+
 export const TrackOrderView: React.FC = () => {
-  const { orders, showToast, settings } = useStore();
+  const { showToast, settings } = useStore();
   const [searchId, setSearchId] = useState('');
-  const [searchedOrder, setSearchedOrder] = useState<Order | null>(orders[0] || null);
+  const [whatsapp, setWhatsapp] = useState('');
+  const [searchedOrder, setSearchedOrder] = useState<TrackingOrder | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const [copiedResi, setCopiedResi] = useState(false);
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!searchId.trim()) return;
+    if (!searchId.trim() || !whatsapp.trim()) return;
 
     const term = searchId.trim().toUpperCase();
-    const found = orders.find(
-      o => o.id.toUpperCase() === term || (o.trackingNumber && o.trackingNumber.toUpperCase() === term)
-    );
-
-    setSearchedOrder(found || null);
     setHasSearched(true);
-
-    if (!found) {
-      showToast('No order found with that ID. Try "RDC-8921" or "RDC-8922".', 'error');
+    setSearchedOrder(null);
+    setIsSearching(true);
+    try {
+      const response = await fetch(
+        `/api/orders/${encodeURIComponent(term)}/track`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ whatsapp: whatsapp.trim() })
+        }
+      );
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Order not found');
+      }
+      setSearchedOrder(result.data as TrackingOrder);
+    } catch {
+      showToast('Order tidak ditemukan. Periksa ID order dan nomor WhatsApp.', 'error');
+    } finally {
+      setIsSearching(false);
     }
   };
 
@@ -84,57 +116,43 @@ export const TrackOrderView: React.FC = () => {
             TRACK YOUR ORDER
           </h1>
           <p className="text-xs font-mono-code text-[#706E6B]">
-            Enter your RdCloth Order ID (e.g. RDC-8921) to check live workshop status.
+            Masukkan ID order dan nomor WhatsApp yang digunakan saat checkout.
           </p>
         </div>
 
         {/* Search Input Box */}
         <div className="bg-[#FFFFFF] border border-[#E0DFD8] p-6 mb-10 shadow-xs">
-          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3">
+          <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] gap-3">
             <div className="relative flex-1">
               <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#706E6B]" />
               <input
                 type="text"
-                placeholder="ENTER ORDER ID (e.g. RDC-8921 or RDC-8922)"
+                required
+                placeholder="ID ORDER / NOMOR RESI"
                 value={searchId}
                 onChange={e => setSearchId(e.target.value)}
                 className="w-full bg-[#F5F5F0] border border-[#E0DFD8] pl-10 pr-4 py-3 text-xs font-mono-code uppercase text-[#141414] placeholder-[#706E6B] focus:outline-none focus:border-[#141414]"
               />
             </div>
+            <input
+              type="tel"
+              required
+              autoComplete="tel"
+              placeholder="NOMOR WHATSAPP CHECKOUT"
+              value={whatsapp}
+              onChange={e => setWhatsapp(e.target.value)}
+              className="w-full bg-[#F5F5F0] border border-[#E0DFD8] px-4 py-3 text-xs font-mono-code text-[#141414] placeholder-[#706E6B] focus:outline-none focus:border-[#141414]"
+            />
             <button
               type="submit"
+              disabled={isSearching}
               className="px-8 py-3 bg-[#141414] text-[#F5F5F0] font-heading font-black text-xs uppercase tracking-widest hover:bg-[#C5A059] transition-all flex items-center justify-center space-x-2 shadow-xs"
             >
-              <span>TRACK STATUS</span>
+              <span>{isSearching ? 'SEARCHING...' : 'TRACK STATUS'}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>
 
-          {/* Quick suggestions */}
-          <div className="mt-3 flex items-center space-x-2 text-[11px] font-mono-code text-[#706E6B]">
-            <span>Try sample order:</span>
-            <button
-              type="button"
-              onClick={() => {
-                setSearchId('RDC-8921');
-                setSearchedOrder(orders.find(o => o.id === 'RDC-8921') || null);
-              }}
-              className="text-[#C5A059] font-bold underline underline-offset-2"
-            >
-              RDC-8921 (Shipped)
-            </button>
-            <span>•</span>
-            <button
-              type="button"
-              onClick={() => {
-                setSearchId('RDC-8922');
-                setSearchedOrder(orders.find(o => o.id === 'RDC-8922') || null);
-              }}
-              className="text-[#C5A059] font-bold underline underline-offset-2"
-            >
-              RDC-8922 (Production)
-            </button>
-          </div>
         </div>
 
         {/* Order Details & Visual Timeline */}
@@ -253,7 +271,7 @@ export const TrackOrderView: React.FC = () => {
               </div>
 
               <div className="flex justify-between text-xs font-mono-code pt-2 text-[#706E6B]">
-                <span>TOTAL AMOUNT PAID</span>
+                <span>ORDER TOTAL</span>
                 <span className="font-bold text-[#141414] text-sm">{formatIDR(searchedOrder.total)}</span>
               </div>
             </div>
@@ -277,7 +295,7 @@ export const TrackOrderView: React.FC = () => {
               </a>
             </div>
           </div>
-        ) : hasSearched ? (
+        ) : hasSearched && !isSearching ? (
           <div className="p-12 text-center bg-[#FFFFFF] border border-[#E0DFD8] space-y-3 shadow-xs">
             <AlertCircle className="w-8 h-8 text-[#C5A059] mx-auto" />
             <p className="font-heading text-lg font-bold uppercase text-[#141414]">

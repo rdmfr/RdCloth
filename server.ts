@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import path from 'path';
 import crypto from 'crypto';
@@ -23,8 +24,9 @@ let orders: Order[] = [...INITIAL_ORDERS];
 let customOrders: CustomOrder[] = [...INITIAL_CUSTOM_ORDERS];
 let subscribers: { email: string; date: string }[] = [];
 const adminSessions = new Map<string, { email: string; expiresAt: number }>();
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@rdcloth.id';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'rdcloth-admin-2026';
+const trackingAttempts = new Map<string, { count: number; resetAt: number }>();
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || '';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
 const SESSION_TTL_MS = 8 * 60 * 60 * 1000;
 
 const getSession = (req: express.Request) => {
@@ -73,6 +75,9 @@ async function startServer() {
 
   app.post('/api/auth/login', (req, res) => {
     const { email, password } = req.body;
+    if (!ADMIN_EMAIL || !ADMIN_PASSWORD) {
+      return res.status(503).json({ success: false, error: 'Admin login is not configured' });
+    }
     if (typeof email !== 'string' || typeof password !== 'string' || email !== ADMIN_EMAIL || password !== ADMIN_PASSWORD) {
       return res.status(401).json({ success: false, error: 'Email atau password admin salah' });
     }
@@ -144,7 +149,7 @@ async function startServer() {
   app.get('/api/products/:idOrSlug', (req, res) => {
     const { idOrSlug } = req.params;
     const product = products.find(p => p.id === idOrSlug || p.slug === idOrSlug);
-    if (!product) {
+    if (!product || (!product.isPublished && !getSession(req))) {
       return res.status(404).json({ success: false, error: 'Product not found' });
     }
     res.json({ success: true, data: product });
@@ -217,23 +222,159 @@ async function startServer() {
     res.json({ success: true, count: orders.length, data: orders });
   });
 
-  app.get('/api/orders/:id', (req, res) => {
+  app.get('/api/orders/:id', (_req, res) => {
+    res.status(405).json({ success: false, error: 'Use POST tracking verification' });
+  });
+
+  app.post('/api/orders/:id/track', (req, res) => {
     const { id } = req.params;
-    const order = orders.find(o => o.id.toLowerCase() === id.toLowerCase());
+    const whatsapp = typeof req.body?.whatsapp === 'string'
+      ? req.body.whatsapp.replace(/\D/g, '')
+      : '';
+    if (!whatsapp) {
+      return res.status(400).json({ success: false, error: 'WhatsApp number is required' });
+    }
+
+    const now = Date.now();
+    const clientKey = req.ip || 'unknown';
+    const attempts = trackingAttempts.get(clientKey);
+    const currentAttempts = !attempts || attempts.resetAt <= now
+      ? { count: 0, resetAt: now + 15 * 60 * 1000 }
+      : attempts;
+    if (currentAttempts.count >= 10) {
+      return res.status(429).json({ success: false, error: 'Too many tracking attempts. Try again later.' });
+    }
+    currentAttempts.count += 1;
+    trackingAttempts.set(clientKey, currentAttempts);
+    if (trackingAttempts.size > 5000) {
+      for (const [key, value] of trackingAttempts) {
+        if (value.resetAt <= now) trackingAttempts.delete(key);
+      }
+    }
+
+    const order = orders.find(o => {
+      const matchesId = o.id.toLowerCase() === id.toLowerCase();
+      const matchesTracking = o.trackingNumber?.toLowerCase() === id.toLowerCase();
+      const orderWhatsapp = o.customer.whatsapp.replace(/\D/g, '');
+      return (matchesId || matchesTracking) && orderWhatsapp === whatsapp;
+    });
     if (!order) {
       return res.status(404).json({ success: false, error: 'Order not found' });
     }
-    res.json({ success: true, data: order });
+    res.json({
+      success: true,
+      data: {
+        id: order.id,
+        status: order.orderStatus || order.status || 'PENDING',
+        trackingNumber: order.trackingNumber,
+        createdAt: order.createdAt,
+        total: order.total,
+        customer: { fullName: order.customer.fullName },
+        shippingMethod: {
+          name: order.shippingMethod.name,
+          estimatedDays: order.shippingMethod.estimatedDays
+        },
+        items: order.items.map(item => ({
+          productName: item.productName,
+          size: item.size,
+          colorName: item.colorName,
+          quantity: item.quantity,
+          subtotal: item.subtotal,
+          image: item.image
+        }))
+      }
+    });
   });
 
   app.post('/api/orders', (req, res) => {
     try {
+      const { customer, items, paymentMethod, shippingMethod, promoCode, notes } = req.body || {};
+      if (
+        paymentMethod !== 'BANK_TRANSFER' ||
+        !customer || typeof customer.fullName !== 'string' ||
+        typeof customer.whatsapp !== 'string' || !customer.whatsapp.trim() ||
+        typeof customer.address !== 'string' || !customer.address.trim() ||
+        typeof customer.city !== 'string' || typeof customer.province !== 'string' ||
+        typeof customer.postalCode !== 'string' ||
+        !Array.isArray(items) || items.length === 0
+      ) {
+        return res.status(400).json({ success: false, error: 'Invalid order details or unavailable payment method' });
+      }
+
+      const shippingOptions = {
+        'sicepat-best': { name: 'SiCepat BEST (Next Day)', description: 'Estimasi 1-2 hari kerja sampai', cost: 18000, estimatedDays: '1-2 Days' },
+        'jne-reg': { name: 'JNE Reguler', description: 'Estimasi 2-3 hari kerja sampai', cost: 15000, estimatedDays: '2-3 Days' },
+        'jnt-express': { name: 'J&T Express Standard', description: 'Estimasi 2-3 hari kerja sampai', cost: 16000, estimatedDays: '2-3 Days' },
+        'gosend-instant': { name: 'GoSend Instant (Bandung & Sekitarnya)', description: 'Pengiriman instan sampai hari yang sama', cost: 30000, estimatedDays: 'Same Day' }
+      };
+      const selectedShipping = shippingOptions[shippingMethod?.id as keyof typeof shippingOptions];
+      if (!selectedShipping) {
+        return res.status(400).json({ success: false, error: 'Invalid shipping method' });
+      }
+
+      const orderItems: Order['items'] = [];
+      const requestedQuantities = new Map<string, number>();
+      for (const item of items) {
+        const quantity = Number(item.quantity);
+        const product = products.find(p => p.id === item.productId && p.isPublished);
+        const variant = product?.variants.find(v => v.size === item.size && v.colorName === item.colorName);
+        const requestedTotal = variant
+          ? (requestedQuantities.get(variant.sku) || 0) + quantity
+          : 0;
+        if (!product || !variant || !Number.isInteger(quantity) || quantity < 1 || requestedTotal > variant.stock) {
+          return res.status(400).json({ success: false, error: 'An item is unavailable or has insufficient stock' });
+        }
+        requestedQuantities.set(variant.sku, requestedTotal);
+
+        orderItems.push({
+          productId: product.id,
+          productName: product.name,
+          productSlug: product.slug,
+          sku: variant.sku,
+          size: variant.size,
+          colorName: variant.colorName,
+          quantity,
+          unitPrice: product.price,
+          subtotal: product.price * quantity,
+          image: product.images.find(image => image.isPrimary)?.url || product.images[0]?.url || ''
+        });
+      }
+
+      const subtotal = orderItems.reduce((sum, item) => sum + item.subtotal, 0);
+      const freeShippingThreshold = settingsData.freeShippingThreshold || 250000;
+      const shippingCost = subtotal >= freeShippingThreshold ? 0 : selectedShipping.cost;
+      const normalizedPromoCode = typeof promoCode === 'string' ? promoCode.trim().toUpperCase() : '';
+      if (normalizedPromoCode && !['RDCLOTH10', 'FIRSTDROP'].includes(normalizedPromoCode)) {
+        return res.status(400).json({ success: false, error: 'Invalid promo code' });
+      }
+      const discount = ['RDCLOTH10', 'FIRSTDROP'].includes(normalizedPromoCode)
+        ? Math.round(subtotal * 0.1)
+        : 0;
+
       const orderNum = Math.floor(10000 + Math.random() * 90000);
       const newOrder: Order = {
-        ...req.body,
         id: `RDC-${orderNum}`,
+        customer: {
+          fullName: customer.fullName.trim().slice(0, 120),
+          whatsapp: customer.whatsapp.trim().slice(0, 40),
+          email: typeof customer.email === 'string' ? customer.email.trim().slice(0, 254) : '',
+          address: customer.address.trim().slice(0, 500),
+          city: customer.city.trim().slice(0, 120),
+          province: customer.province.trim().slice(0, 120),
+          postalCode: customer.postalCode.trim().slice(0, 20),
+          notes: typeof customer.notes === 'string' ? customer.notes.slice(0, 1000) : undefined
+        },
+        items: orderItems,
+        subtotal,
+        shippingMethod: { id: shippingMethod.id, ...selectedShipping },
+        shippingCost,
+        discount,
+        total: subtotal + shippingCost - discount,
+        paymentMethod: 'BANK_TRANSFER',
         orderStatus: 'PENDING',
-        paymentStatus: req.body.paymentMethod === 'QRIS' ? 'PAID' : 'UNPAID',
+        status: 'PENDING',
+        paymentStatus: 'UNPAID',
+        notes: typeof notes === 'string' ? notes.slice(0, 1000) : undefined,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         timeline: [
@@ -245,12 +386,10 @@ async function startServer() {
         ]
       };
 
-      if (newOrder.paymentStatus === 'PAID') {
-        newOrder.timeline.push({
-          status: 'PAID',
-          timestamp: new Date().toLocaleString('id-ID'),
-          description: 'Pembayaran QRIS instan terverifikasi otomatis.'
-        });
+      for (const item of orderItems) {
+        const product = products.find(p => p.id === item.productId)!;
+        const variant = product.variants.find(v => v.sku === item.sku)!;
+        variant.stock -= item.quantity;
       }
 
       orders.unshift(newOrder);
@@ -263,6 +402,13 @@ async function startServer() {
   app.patch('/api/orders/:id/status', requireAdmin, (req, res) => {
     const { id } = req.params;
     const { status, note, trackingNumber, courier } = req.body;
+    const validStatuses: OrderStatus[] = [
+      'PENDING', 'PAID', 'PROCESSING', 'PRODUCTION', 'QC',
+      'READY_TO_SHIP', 'SHIPPED', 'DELIVERED', 'CANCELLED'
+    ];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({ success: false, error: 'Invalid order status' });
+    }
     const order = orders.find(o => o.id.toLowerCase() === id.toLowerCase());
 
     if (!order) {
@@ -273,7 +419,7 @@ async function startServer() {
     order.updatedAt = new Date().toISOString();
     if (trackingNumber) order.trackingNumber = trackingNumber;
     if (courier) order.courier = courier;
-    if (status === 'PAID' || status === 'PROCESSING' || status === 'SHIPPED') {
+    if (status === 'PAID') {
       order.paymentStatus = 'PAID';
     }
 
@@ -325,7 +471,7 @@ async function startServer() {
   app.get('/api/reviews', (req, res) => {
     const { productId, approvedOnly } = req.query;
     let list = [...reviews];
-    if (approvedOnly === 'true') {
+    if (!getSession(req) || approvedOnly === 'true') {
       list = list.filter(r => r.isApproved);
     }
     if (productId) {
@@ -335,22 +481,23 @@ async function startServer() {
   });
 
   app.post('/api/reviews', (req, res) => {
+    const { productId, productName, userName, rating, comment } = req.body || {};
+    if (
+      typeof productId !== 'string' || !products.some(product => product.id === productId) ||
+      typeof productName !== 'string' || typeof userName !== 'string' || !userName.trim() ||
+      !Number.isInteger(rating) || rating < 1 || rating > 5 ||
+      typeof comment !== 'string' || !comment.trim() || comment.length > 2000
+    ) {
+      return res.status(400).json({ success: false, error: 'Invalid review details' });
+    }
+
     const newRev: Review = {
       ...req.body,
       id: `rev-${Date.now()}`,
-      isApproved: true, // Auto-approve demo reviews or switchable in admin
+      isApproved: false,
       createdAt: new Date().toISOString()
     };
     reviews.unshift(newRev);
-
-    // Update product rating average
-    const prod = products.find(p => p.id === newRev.productId);
-    if (prod) {
-      const prodRevs = reviews.filter(r => r.productId === prod.id && r.isApproved);
-      const avg = prodRevs.reduce((acc, curr) => acc + curr.rating, 0) / prodRevs.length;
-      prod.rating = Number(avg.toFixed(1));
-      prod.reviewCount = prodRevs.length;
-    }
 
     res.status(201).json({ success: true, data: newRev });
   });
@@ -358,9 +505,20 @@ async function startServer() {
   app.patch('/api/reviews/:id/approve', requireAdmin, (req, res) => {
     const { id } = req.params;
     const { isApproved } = req.body;
+    if (typeof isApproved !== 'boolean') {
+      return res.status(400).json({ success: false, error: 'Approval status must be a boolean' });
+    }
     const rev = reviews.find(r => r.id === id);
     if (!rev) return res.status(404).json({ success: false, error: 'Review not found' });
     rev.isApproved = isApproved;
+    const product = products.find(item => item.id === rev.productId);
+    if (product) {
+      const approvedReviews = reviews.filter(review => review.productId === product.id && review.isApproved);
+      product.rating = approvedReviews.length
+        ? Number((approvedReviews.reduce((total, review) => total + review.rating, 0) / approvedReviews.length).toFixed(1))
+        : 0;
+      product.reviewCount = approvedReviews.length;
+    }
     res.json({ success: true, data: rev });
   });
 
